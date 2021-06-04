@@ -11,7 +11,7 @@ import State from "context/State";
 
 const App = () => {
     return (
-        <State.Provider>
+        <State>
             <Router>
                 <Switch>
                     <Route path="/home">
@@ -27,7 +27,7 @@ const App = () => {
                     </Route>
                 </Switch>
             </Router>
-        </State.Provider>
+        </State>
     );
 };
 
