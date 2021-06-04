@@ -8,19 +8,18 @@ let state = {};
  * using const state = React.useContext(Context); where Context variable is imported
  * From /context/State
  */
-const State = ({children}) => {
+const State = ({ children }) => {
+    const [value, setValue] = React.useState(0);
 
     //TODO: Setup all that state variable needs
     state = {
-        test: "test"
-    }
+        test: "test",
+        value: value,
+        setValue,
+    };
 
-    return (
-        <Context.Provider value={state}>
-            {children}
-        </Context.Provider>
-    )
-}
+    return <Context.Provider value={state}>{children}</Context.Provider>;
+};
 
 //Import and de-structure with React.userContext(-- context variable --)
 export const Context = React.createContext(state);

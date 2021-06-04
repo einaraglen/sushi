@@ -10,13 +10,9 @@ const Home = () => {
     const match = useRouteMatch();
     const state = React.useContext(Context);
 
-    console.log(state);
-
-    let page = 1;
-
     return (
         <div>
-            <Link to={`${match.path}/?page=${page}`}>test</Link>
+            <Link to={`${match.path}?page=2`}>test</Link>
             <p>{query.get("page")}</p>
         </div>
     );
