@@ -1,0 +1,40 @@
+.home {
+    height: auto;
+    display: grid;
+    grid-template-columns: 14rem auto;
+    grid-template-areas: ". content";
+}
+
+.home-top-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+    height: 4rem;
+    background-color: var(--dark2);
+}
+
+.home-side-nav {
+    position: fixed;
+    top: 0;
+    width: 14rem;
+    z-index: 5;
+    height: 100vh;
+    padding-top: 4rem;   
+    background-color: var(--dark2);
+}
+
+.home-content {
+    height: 101vh;
+    grid-area: content;
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF;
+}
+
+.home-footer {
+    margin-top: auto;
+    height: 2rem;
+    opacity: .4;
+}

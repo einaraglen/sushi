@@ -23,14 +23,13 @@ const App = () => {
 		let isMounted = true;
 		//import service component
 		let { validateToken } = UserService();
+        //let { refreshToken } = UserService();
 		//create async function for getting data
 		const validate = async () => {
 			let res = await validateToken();
-			if (res === undefined) return;
-			//before we do anything with the async data, we check if our component is still mounted
+
 			if (!isMounted) return;
-            let valid = res.status;
-			state.setValidUser(valid);
+            state.setValidUser(res.status);
             //cancel loading, so site can render
             setIsLoading(false);
 		};
