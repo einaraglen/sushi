@@ -1,3 +1,14 @@
 * {
   text-align: center;
 }
+
+body {
+  background-color: var(--platinum);
+}
+
+:root {
+  --light: hsl(234, 33%, 94%);
+  --platinum: hsl(0, 0%, 90%);
+  --dark: hsl(204, 86%, 6%);
+  --dark2: hsl(240, 1%, 23%);
+}

@@ -11,13 +11,15 @@ const UserService = () => {
         );
     };
 
-    const loginUser = (username, password) => {
+    const login = (username, password) => {
         return api
             .post(`${PATH}/login`, {
                 username: username,
                 password: password,
-            })
-            .error((error) => console.warn(error));
+            }).then(
+                ({ data }) => data,
+                (error) => console.warn(error)
+            );
     };
 
     const refreshToken = () => {
@@ -27,7 +29,7 @@ const UserService = () => {
         );
     };
 
-    return { validateToken, loginUser, refreshToken };
+    return { validateToken, login, refreshToken };
 };
 
 export default UserService;

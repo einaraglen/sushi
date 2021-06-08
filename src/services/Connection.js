@@ -11,6 +11,7 @@ const Connection = () => {
      * Method that is used by services to call on the api 'api.post()' / 'api.get()'
      */
     const api = axios.create({
+        withCredentials: true,
         baseURL: "http://localhost:8080/",
     });
 

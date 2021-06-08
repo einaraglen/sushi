@@ -12,7 +12,7 @@ const Home = () => {
 
     return (
         <div>
-            <p>{query.get("page")}</p>
+            <p>{query.get("secret")}</p>
         </div>
     );
 };
