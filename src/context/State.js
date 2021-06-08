@@ -9,13 +9,13 @@ let state = {};
  * From /context/State
  */
 const State = ({ children }) => {
-    const [value, setValue] = React.useState(0);
+    //Check for if the user is logged in
+    const [validUser, setValidUser] = React.useState(false);
 
     //TODO: Setup all that state variable needs
     state = {
-        test: "test",
-        value: value,
-        setValue,
+        validUser: validUser,
+        setValidUser,
     };
 
     return <Context.Provider value={state}>{children}</Context.Provider>;

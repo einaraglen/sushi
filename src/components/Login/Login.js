@@ -5,16 +5,16 @@ import { useLocation } from "react-router";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
-const Home = () => {
+const Login = () => {
     const query = useQuery();
     //const match = useRouteMatch();
     //const state = React.useContext(Context);
 
     return (
         <div>
-            <p>{query.get("page")}</p>
+            <p>{query.get("secret")}</p>
         </div>
-    );
-};
+    )
+}
 
-export default Home;
+export default Login;
