@@ -2,7 +2,10 @@
     height: auto;
     display: grid;
     grid-template-columns: 14rem auto;
-    grid-template-areas: ". content";
+    grid-template-rows: 4rem auto;
+    grid-template-areas:
+        ". ." 
+        ". content";
 }
 
 .home-top-nav {
@@ -18,10 +21,11 @@
 .home-side-nav {
     position: fixed;
     top: 0;
-    width: 14rem;
+    width: 13rem;
     z-index: 4;
     height: 100vh;
     padding-top: 4rem;   
+    padding-left: 1rem;
     background-color: var(--platinum);
 }
 
@@ -31,16 +35,16 @@
 }
 
 .home-content {
-    height: clamp(10rem, auto, auto);
     grid-area: content;
-    padding-top: 4rem;
     display: flex;
     flex-direction: column;
     background-color: var(--light);
 }
 
 .home-footer {
+    text-align: center;
     margin-top: auto;
     height: 2rem;
     opacity: .6;
+    padding-top: 2rem;
 }

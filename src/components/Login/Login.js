@@ -7,6 +7,8 @@ import "./Login.css";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
+document.title = "Login | Sushi"
+
 const Login = () => {
 	const query = useQuery();
 	const history = useHistory();

@@ -16,6 +16,7 @@ const App = () => {
 	const query = useQuery();
     const history = useHistory();
 	const [isLoading, setIsLoading] = React.useState(true);
+    const location = useLocation();
 
 	//check cookie from browser on Render
 	React.useEffect(() => {
@@ -39,7 +40,7 @@ const App = () => {
 		return () => {
 			isMounted = false;
 		};
-	}, [state]);
+	}, [state, query]);
 
     //check secret link
     React.useEffect(() => {
@@ -52,9 +53,28 @@ const App = () => {
 			if (res === undefined) return;
 			if (!res.status) return history.push("/acces_denied");
 		};
+
+        //updates title based on path
+        const updateTitle = () => {
+            let path = location.pathname.split("/");
+            let title = path[path.length - 1].split("-");
+            if (title.length === 1) {
+                let string = title[0].charAt(0).toUpperCase() + title[0].slice(1)
+                return document.title = `${string} | SushiManager`;
+            } 
+    
+            let completeTitle = "";
+    
+            for (let i = 0; i < title.length; i++) {
+                completeTitle += title[i].charAt(0).toUpperCase() + title[i].slice(1);
+                completeTitle += (i === title.length - 1) ? "" : " "
+                if (i === title.length - 1) return document.title = `${completeTitle} | SushiManager`
+            }
+        }
 		//call function crated in useEffect
 		validate();
-	}, [query, history]);
+        updateTitle();
+	}, [query, history, location]);
 
 	return (
 		<ThemeProvider theme={state.theme}>

@@ -12,6 +12,7 @@ let state = {};
 const State = ({ children }) => {
     //Check for if the user is logged in
     const [validUser, setValidUser] = React.useState(false);
+    const [isEditing, setIsEditing] = React.useState(false);
 
     const theme = createMuiTheme({
         shadows: ["none"],
@@ -31,6 +32,8 @@ const State = ({ children }) => {
         theme: theme,
         validUser: validUser,
         setValidUser,
+        isEditing: isEditing,
+        setIsEditing,
     };
 
     return <Context.Provider value={state}>{children}</Context.Provider>;

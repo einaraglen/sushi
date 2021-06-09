@@ -11,7 +11,14 @@ const FoodService = () => {
         );
     };
 
-    return { findByName };
+    const findAll = () => {
+        return api.get(`${PATH}/all`).then(
+            ({ data }) => data,
+            (error) => console.warn(error)
+        );
+    }
+
+    return { findByName, findAll };
 };
 
 export default FoodService;

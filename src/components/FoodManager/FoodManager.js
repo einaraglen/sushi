@@ -1,24 +1,23 @@
 import React from "react";
 import FoodService from "services/FoodService";
 import { Context } from "context/State";
-import "./MakiTable.css";
+import FoodRow from "./FoodRow";
+import "./FoodManager.css";
 
 const MakiTable = () => {
     const state = React.useContext(Context);
-    const [makidata, setMakiData] = React.useState([]);
+    const [food, setFood] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
 
     React.useEffect(() => {
         //init guard
         let isMounted = true;
         //import service component
-        let { findByName } = FoodService();
-        //let { refreshToken } = UserService();
-        //create async function for getting data
+        let { findAll } = FoodService();
         const find = async () => {
-            let res = await findByName("maki");
+            let res = await findAll();
             if (!isMounted) return;
-            setMakiData(res.results);
+            setFood(res.foods);
             //cancel loading, so site can render
             setIsLoading(false);
         };
@@ -33,21 +32,20 @@ const MakiTable = () => {
     return (
         <div>
             {isLoading ? null : (
-                <div className="maki-table">
+                <div className="food-table">
                     <table>
                         <thead>
                             <tr>
+                                <td>Number</td>
                                 <td>Name</td>
-                                <td>Description</td>
                                 <td>Price</td>
+                                <td>Pieces</td>
+                                <td>Image</td>
+                                <td>Type</td>
                             </tr>
                         </thead>
                         <tbody>
-                            {makidata.map((maki) => <tr key={maki.name + maki.price}>
-                                <td>{maki.name}</td>
-                                <td>{maki.description}</td>
-                                <td>{maki.price}</td>
-                            </tr>)}
+                            {food.map((current) => <FoodRow key={current.number} food={current} />)}
                         </tbody>
                     </table>
                 </div>

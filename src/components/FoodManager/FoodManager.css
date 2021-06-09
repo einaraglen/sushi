@@ -1,0 +1,21 @@
+.food-table {
+    overflow-x: auto; 
+}
+
+.food-table table {
+    border-collapse: collapse;
+    margin: auto;
+    width: 100%;
+}
+
+.food-table td {
+    padding: 1.5rem;
+}
+
+.food-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table, tbody, tr, td {
+    text-align: left;
+}
