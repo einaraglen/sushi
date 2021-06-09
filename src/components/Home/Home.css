@@ -11,30 +11,36 @@
     width: 100%;
     z-index: 5;
     height: 4rem;
-    background-color: var(--dark2);
+    background-color: var(--flashy);
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 }
 
 .home-side-nav {
     position: fixed;
     top: 0;
     width: 14rem;
-    z-index: 5;
+    z-index: 4;
     height: 100vh;
     padding-top: 4rem;   
-    background-color: var(--dark2);
+    background-color: var(--platinum);
+}
+
+.home-links {
+    height: auto;
+    display: grid;
 }
 
 .home-content {
-    height: 101vh;
+    height: clamp(10rem, auto, auto);
     grid-area: content;
     padding-top: 4rem;
     display: flex;
     flex-direction: column;
-    background-color: #FFF;
+    background-color: var(--light);
 }
 
 .home-footer {
     margin-top: auto;
     height: 2rem;
-    opacity: .4;
+    opacity: .6;
 }

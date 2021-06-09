@@ -1,0 +1,12 @@
+.maki-table table {
+    margin: auto;
+    width: 100%;
+}
+
+.maki-table td {
+    padding: 1.5rem;
+}
+
+table, tbody, tr, td {
+    text-align: left;
+}

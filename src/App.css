@@ -7,8 +7,9 @@ body {
 }
 
 :root {
-  --light: hsl(234, 33%, 94%);
-  --platinum: hsl(0, 0%, 90%);
-  --dark: hsl(204, 86%, 6%);
-  --dark2: hsl(240, 1%, 23%);
+  --light: hsl(100, 100%, 99%);
+  --platinum: hsl(120, 4%, 91%);
+  --dark: hsl(199, 100%, 29%);
+  --dark2: hsl(0, 0%, 10%);
+  --flashy: hsl(128, 26%, 40%);
 }
