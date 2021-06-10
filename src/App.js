@@ -51,7 +51,7 @@ const App = () => {
             if (!query.get("secret")) return;
 			let res = await validateSecret(query.get("secret"));
 			if (res === undefined) return;
-			if (!res.status) return history.push("/acces_denied");
+			if (!res.status) return history.push("/acces-denied");
 		};
 
         //updates title based on path

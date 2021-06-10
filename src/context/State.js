@@ -1,5 +1,5 @@
 import React from "react";
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from "@material-ui/core/styles";
 
 //Inits state variable that we pass to the app
 let state = {};
@@ -10,33 +10,33 @@ let state = {};
  * From /context/State
  */
 const State = ({ children }) => {
-    //Check for if the user is logged in
-    const [validUser, setValidUser] = React.useState(false);
-    const [isEditing, setIsEditing] = React.useState(false);
+	//Check for if the user is logged in
+	const [validUser, setValidUser] = React.useState(false);
+	const [isEditing, setIsEditing] = React.useState(false);
 
-    const theme = createMuiTheme({
-        shadows: ["none"],
-        palette: {
-          primary: {
-            light: "hsl(234, 33%, 94%)",
-            main: "hsl(240, 1%, 23%)",
-            dark: "hsl(204, 86%, 6%)",
-            contrastText: "hsl(240, 1%, 23%)",
-          },
-        },
-      });
+	const theme = createMuiTheme({
+		shadows: ["none"],
+		palette: {
+			primary: {
+				light: "hsl(128, 26%, 60%)",
+        main: "hsl(128, 26%, 40%)",
+				dark: "hsl(128, 26%, 30%)",
+				contrastText: "hsl(120, 4%, 91%)",
+			},
+		},
+	});
 
-    //TODO: Setup all that state variable needs
-    state = {
-        version: "0.0.1",
-        theme: theme,
-        validUser: validUser,
-        setValidUser,
-        isEditing: isEditing,
-        setIsEditing,
-    };
+	//TODO: Setup all that state variable needs
+	state = {
+		version: "0.0.2",
+		theme: theme,
+		validUser: validUser,
+		setValidUser,
+		isEditing: isEditing,
+		setIsEditing,
+	};
 
-    return <Context.Provider value={state}>{children}</Context.Provider>;
+	return <Context.Provider value={state}>{children}</Context.Provider>;
 };
 
 //Import and de-structure with React.userContext(-- context variable --)

@@ -1,9 +1,10 @@
 import React from "react";
+import "./NoAccess.css";
 
 const NoAccess = () => {
 
     return (
-        <div>
+        <div className="no-access">
             You have no access here
         </div>
     )

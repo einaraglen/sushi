@@ -8,8 +8,8 @@
     width: 100%;
 }
 
-.food-table td {
-    padding: 1.5rem;
+.food-table tr {
+    height: 5rem;
 }
 
 .food-table tr:nth-child(even) {
@@ -17,5 +17,5 @@
 }
 
 table, tbody, tr, td {
-    text-align: left;
+    text-align: center;
 }

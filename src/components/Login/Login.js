@@ -45,7 +45,7 @@ const Login = () => {
 					}
 					color="primary"
 					label="Username"
-					variant="outlined"
+					variant="filled"
 					type="text"
 				/>
 				<TextField
@@ -57,10 +57,10 @@ const Login = () => {
 					}
 					color="primary"
 					label="Password"
-					variant="outlined"
+					variant="filled"
 					type="password"
 				/>
-				<Button onClick={tryLogin} color="primary" variant="outlined">
+				<Button onClick={tryLogin} color="primary" variant="text">
 					Login
 				</Button>
 			</div>

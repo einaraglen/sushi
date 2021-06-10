@@ -11,6 +11,17 @@ const FoodService = () => {
         );
     };
 
+    const updateById = (id, update) => {
+        return api
+            .put(`${PATH}/update`, {
+                id: id,
+                update: update,
+            }).then(
+                ({ data }) => data,
+                (error) => console.warn(error)
+            );
+    } 
+
     const findAll = () => {
         return api.get(`${PATH}/all`).then(
             ({ data }) => data,
@@ -18,7 +29,7 @@ const FoodService = () => {
         );
     }
 
-    return { findByName, findAll };
+    return { findByName, updateById, findAll };
 };
 
 export default FoodService;
