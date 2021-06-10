@@ -145,7 +145,7 @@ const FoodRow = ({ food }) => {
 			</td>
 			<td width={`${100 / x}%`}>
 				{!inEditMode ? (
-					<a href={food.image} target="_blank">Image</a>
+					<a href={food.image} target="_blank" rel="noreferrer">Image</a>
 				) : (
 					<TextField
 						disabled={isLoading}
@@ -183,7 +183,7 @@ const FoodRow = ({ food }) => {
 				</Button>
 			</td>
 			<td>
-				<Button disabled={isEdited || !inEditMode || isLoading} onClick={handleUpdate} color="primary" variant="contained">
+				<Button disabled={isEdited || !inEditMode || isLoading} onClick={handleUpdate} color="primary" variant="contained" style={{marginRight: "1rem"}}>
 					Update
 				</Button>
 			</td>
