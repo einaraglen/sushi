@@ -22,7 +22,6 @@ table, tbody, tr, td {
 
 .food-table-nav {
     height: 4rem;
-    background-color: var(--platinum);
 }
 
 .food-loading {

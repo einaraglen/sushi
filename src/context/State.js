@@ -28,7 +28,7 @@ const State = ({ children }) => {
 
 	//TODO: Setup all that state variable needs
 	state = {
-		version: "0.0.3",
+		version: "0.0.4",
 		theme: theme,
 		validUser: validUser,
 		setValidUser,

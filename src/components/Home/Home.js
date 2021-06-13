@@ -46,7 +46,7 @@ const Home = () => {
 			<div className="home-content">
 				<Switch>
 					<Route exact path="/home">
-						<div>HOME</div>
+						<div className="home-main">HOME</div>
 					</Route>
 					<Route path={`/home/manage-food`}>
 						<FoodManager />
@@ -58,8 +58,9 @@ const Home = () => {
 						<div>CONTENT!!</div>
 					</Route>
 				</Switch>
-				<div className="home-footer">Created by Einar Aglen - Version {state.version}</div>
+				
 			</div>
+			<div className="home-footer">Created by Einar Aglen - Version {state.version}</div>
 		</div>
 	);
 };
