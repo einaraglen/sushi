@@ -30,6 +30,16 @@ const Home = () => {
 							<ListItemText primary="Manage Food" />
 						</ListItem>
 					</Link>
+					<Link to={`/home/manage-types?secret=${query.get("secret")}`}>
+						<ListItem button>
+							<ListItemText primary="Manage Types" />
+						</ListItem>
+					</Link>
+					<Link to={`/home/manage-content?secret=${query.get("secret")}`}>
+						<ListItem button>
+							<ListItemText primary="Manage Content" />
+						</ListItem>
+					</Link>
 				</List>
 			</div>
 			<div className="home-content">
@@ -39,6 +49,12 @@ const Home = () => {
 					</Route>
 					<Route path={`/home/manage-food`}>
 						<FoodManager />
+					</Route>
+					<Route path={`/home/manage-types`}>
+						<div>TYPES!!</div>
+					</Route>
+					<Route path={`/home/manage-content`}>
+						<div>CONTENT!!</div>
 					</Route>
 				</Switch>
 				<div className="home-footer">Created by Einar Aglen - Version {state.version}</div>

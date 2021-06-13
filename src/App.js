@@ -28,7 +28,6 @@ const App = () => {
 		//create async function for getting data
 		const validate = async () => {
 			let res = await validateToken();
-
 			if (!isMounted) return;
             state.setValidUser(res.status);
             //cancel loading, so site can render

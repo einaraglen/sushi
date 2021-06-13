@@ -1,4 +1,5 @@
 import React from "react";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import FoodService from "services/FoodService";
 import { Context } from "context/State";
 import FoodRow from "./FoodRow";
@@ -31,7 +32,10 @@ const MakiTable = () => {
 
     return (
         <div>
-            {isLoading ? null : (
+            {isLoading ? <div className="food-loading">
+                <CircularProgress size="4rem" style={{padding: 0, marginTop: "15rem"}} />
+                </div>
+                 : (
                 <div className="food-table">
                     <table>
                         <thead>
