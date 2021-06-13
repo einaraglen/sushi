@@ -1,5 +1,5 @@
 import React from "react";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { CircularProgress, InputLabel, MenuItem, FormControl, Select }from "@material-ui/core/";
 import FoodService from "services/FoodService";
 import { Context } from "context/State";
 import FoodRow from "./FoodRow";
@@ -37,6 +37,21 @@ const MakiTable = () => {
                 </div>
                  : (
                 <div className="food-table">
+                    <div className="food-table-nav">
+                    <FormControl
+                    variant="filled"
+                    >
+                    <InputLabel>Sort By</InputLabel>
+                        <Select
+                            label="Generation"
+                            value={0}
+                        >
+                        <MenuItem value={0}>
+                            <em>Number</em>
+                        </MenuItem>
+                    </Select>
+                </FormControl>
+                    </div>
                     <table>
                         <thead>
                             <tr>

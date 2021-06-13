@@ -6,6 +6,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import "./Home.css";
+import TypeManager from "components/TypeManager/TypeManager";
 
 document.title = "Home | Sushi";
 
@@ -51,7 +52,7 @@ const Home = () => {
 						<FoodManager />
 					</Route>
 					<Route path={`/home/manage-types`}>
-						<div>TYPES!!</div>
+						<TypeManager />
 					</Route>
 					<Route path={`/home/manage-content`}>
 						<div>CONTENT!!</div>

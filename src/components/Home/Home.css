@@ -42,6 +42,7 @@
     grid-area: content;
     display: flex;
     flex-direction: column;
+    min-height: 95vh;
     background-color: var(--light);
 }
 
@@ -51,4 +52,5 @@
     height: 2rem;
     opacity: .6;
     padding-top: 2rem;
+    padding-bottom: 1rem;
 }
