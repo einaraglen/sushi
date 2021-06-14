@@ -26,7 +26,7 @@ const Login = () => {
 				//TODO: let them know login failed
 				return;
 			}
-			state.setValidUser(res.status);
+			state.method.setValidUser(res.status);
 			history.push(`/home?secret=${query.get("secret")}`);
 		} catch (error) {
 			console.warn(error);

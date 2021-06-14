@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
 import { Context } from "context/State";
 import FoodManager from "components/FoodManager/FoodManager";
+import ContentManager from "components/ContentManager/ContentManager";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -55,7 +56,7 @@ const Home = () => {
 						<TypeManager />
 					</Route>
 					<Route path={`/home/manage-content`}>
-						<div>CONTENT!!</div>
+						<ContentManager />
 					</Route>
 				</Switch>
 				

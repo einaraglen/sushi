@@ -29,7 +29,7 @@ const App = () => {
 		const validate = async () => {
 			let res = await validateToken();
 			if (!isMounted) return;
-            state.setValidUser(res.status);
+            state.method.setValidUser(res.status);
             //cancel loading, so site can render
             setIsLoading(false);
 		};
@@ -82,7 +82,7 @@ const App = () => {
 			) : (
 				<Switch>
 					<Route path="/home">
-						{!state.validUser ? (
+						{!state.value.validUser ? (
 							<Redirect to={`/login?secret=${query.get("secret")}`} />
 						) : (
 							<Home />

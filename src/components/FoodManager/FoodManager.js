@@ -2,6 +2,7 @@ import React from "react";
 import { CircularProgress, InputLabel, MenuItem, FormControl, Select } from "@material-ui/core/";
 import FoodService from "services/FoodService";
 import TypeService from "services/TypeService";
+import ContentService from "services/ContentService";
 import { Context } from "context/State";
 import FoodRow from "./FoodRow";
 import "./FoodManager.css";
@@ -19,12 +20,15 @@ const FoodManager = () => {
 		//import service component
 		let { findAllFoods } = FoodService();
 		let { findAllTypes } = TypeService();
+		let { findAllContents } = ContentService();
 		const find = async () => {
 			let res_foods = await findAllFoods();
-			let res_types = await findAllTypes()
+			let res_types = await findAllTypes();
+			let res_contents = await findAllContents();
 			if (!isMounted) return;
-			effectState.current.setFoods(res_foods.foods);
-			effectState.current.setTypes(res_types.types);
+			effectState.current.method.setFoods(res_foods.foods);
+			effectState.current.method.setTypes(res_types.types);
+			effectState.current.method.setContents(res_contents.contents);
 			//cancel loading, so site can render
 			setIsLoading(false);
 		};
@@ -45,7 +49,7 @@ const FoodManager = () => {
 			) : (
 				<div className="food-table">
 					<div className="food-table-nav">
-						<FormControl variant="filled" size="small">
+						<FormControl style={{width: "100%"}} variant="filled" size="small">
 							<InputLabel>Sort By</InputLabel>
 							<Select label="Generation" value={0}>
 								<MenuItem value={0}>
@@ -59,6 +63,7 @@ const FoodManager = () => {
 							<tr>
 								<td>Number</td>
 								<td>Name</td>
+								<td>Contents</td>
 								<td>Price</td>
 								<td>Image</td>
 								<td>Type</td>
@@ -66,7 +71,7 @@ const FoodManager = () => {
 						</thead>
 						<tbody>
 						{false ? null : <FoodRow  food={{}} add />}
-							{state.foods.map((current) => (
+							{state.value.foods.sort((a, b) => a.number > b.number ? 1 : -1).map((current) => (
 								<FoodRow key={current._id} food={current} />
 							))}
 						</tbody>

@@ -1,7 +1,7 @@
 .home {
     height: auto;
     display: grid;
-    grid-template-columns: 14rem auto;
+    grid-template-columns: 13.3rem auto;
     grid-template-rows: 100%;
     grid-template-areas:
         ". content"
@@ -26,6 +26,8 @@
     height: 100vh;
     padding-top: 4rem;   
     background-color: var(--platinum);
+    border-right: .3rem solid var(--flashy);
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 }
 
 .home-side-nav a {
@@ -41,7 +43,7 @@
 .home-content {
     grid-area: content;
     background-color: var(--light);
-    min-height: 95vh;
+    min-height: calc(100vh - 140px);
     padding-top: 4rem;
 }
 

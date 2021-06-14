@@ -15,13 +15,14 @@ const State = ({ children }) => {
 	const [isEditing, setIsEditing] = React.useState(false);
 	const [foods, setFoods] = React.useState([]);
 	const [types, setTypes] = React.useState([]);
+	const [contents, setContents] = React.useState([]);
 
 	const theme = createMuiTheme({
 		shadows: ["none"],
 		palette: {
 			primary: {
 				light: "hsl(128, 26%, 60%)",
-        		main: "hsl(128, 26%, 40%)",
+				main: "hsl(128, 26%, 40%)",
 				dark: "hsl(128, 26%, 30%)",
 				contrastText: "hsl(120, 4%, 91%)",
 			},
@@ -32,14 +33,20 @@ const State = ({ children }) => {
 	state = {
 		version: "0.0.5",
 		theme: theme,
-		foods: foods,
-		setFoods,
-		types: types,
-		setTypes,
-		validUser: validUser,
-		setValidUser,
-		isEditing: isEditing,
-		setIsEditing,
+		value: {
+			foods: foods,
+			types: types,
+			contents: contents,
+			validUser: validUser,
+			isEditing: isEditing,
+		},
+		method: {
+			setFoods,
+			setTypes,
+			setContents,
+			setValidUser,
+			setIsEditing,
+		},
 	};
 
 	return <Context.Provider value={state}>{children}</Context.Provider>;

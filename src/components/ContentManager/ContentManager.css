@@ -1,18 +1,18 @@
-.type {
+.content {
     overflow-x: auto; 
 }
 
-.type table {
+.content table {
     border-collapse: collapse;
     margin: auto;
     width: 100%;
 }
 
-.type table tr {
+.content table tr {
     height: 5rem;
 }
 
-.type tr:nth-child(even) {
+.content tr:nth-child(even) {
     background-color: var(--platinum);
 }
 
@@ -20,7 +20,7 @@ table, tbody, tr, td {
     text-align: center;
 }
 
-.type-loading {
+.content-loading {
     width: 10rem;
     margin: auto;
 }

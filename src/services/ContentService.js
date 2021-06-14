@@ -1,9 +1,9 @@
 import Connection from "./Connection";
 
 const { api } = Connection();
-const PATH = "/food";
+const PATH = "/content";
 
-const FoodService = () => {
+const ContentService = () => {
 	const findByName = (search) => {
 		return api.get(`${PATH}/find/${search}`).then(
 			({ data }) => data,
@@ -11,10 +11,10 @@ const FoodService = () => {
 		);
 	};
 
-	const addFood = (food) => {
+	const addContent = (content) => {
 		return api
 			.post(`${PATH}/add`, {
-				food: food,
+				content: content,
 			})
 			.then(
 				({ data }) => data,
@@ -34,7 +34,7 @@ const FoodService = () => {
 			);
 	};
 
-	const deleteFood = (id) => {
+	const deleteContent = (id) => {
 		return api
 			.delete(
 				`${PATH}/delete`,
@@ -53,14 +53,14 @@ const FoodService = () => {
 			);
 	};
 
-	const findAllFoods = () => {
+	const findAllContents = () => {
 		return api.get(`${PATH}/all`).then(
 			({ data }) => data,
 			(error) => console.warn(error)
 		);
 	};
 
-	return { findByName, addFood, updateById, deleteFood, findAllFoods };
+	return { findByName, addContent, updateById, deleteContent, findAllContents };
 };
 
-export default FoodService;
+export default ContentService;

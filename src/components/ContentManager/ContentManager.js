@@ -1,11 +1,11 @@
 import React from "react";
-import { CircularProgress } from "@material-ui/core/";
 import { Context } from "context/State";
-import TypeService from "services/TypeService";
-import TypeRow from "./TypeRow";
-import "./TypeManager.css";
+import ContentService from "services/ContentService";
+import { CircularProgress } from "@material-ui/core/";
+import ContentRow from "./ContentRow";
+import "./ContentManager.css";
 
-const TypeManager = () => {
+const ContentManager = () => {
 	const state = React.useContext(Context);
 	const [isLoading, setIsLoading] = React.useState(true);
 
@@ -16,11 +16,11 @@ const TypeManager = () => {
 		//init guard
 		let isMounted = true;
 		//import service component
-		let { findAllTypes } = TypeService();
+		let { findAllContents } = ContentService();
 		const find = async () => {
-			let res = await findAllTypes();
+			let res = await findAllContents();
 			if (!isMounted) return;
-			effectState.current.method.setTypes(res.types);
+			effectState.current.method.setContents(res.contents);
 			//cancel loading, so site can render
 			setIsLoading(false);
 		};
@@ -35,24 +35,23 @@ const TypeManager = () => {
 	return (
 		<div>
 			{isLoading ? (
-				<div className="type-loading">
+				<div className="content-loading">
 					<CircularProgress size="4rem" style={{ padding: 0, marginTop: "15rem" }} />
 				</div>
 			) : (
-				<div className="type">
+				<div className="content">
 					{isLoading ? null : (
 						<table>
 							<thead>
 								<tr>
 									<td>ID</td>
 									<td>Name</td>
-									<td>Pieces</td>
 								</tr>
 							</thead>
 							<tbody>
-								{false ? null : <TypeRow type={{}} add />}
-								{state.value.types.map((type) => (
-									<TypeRow key={type._id} type={type} />
+								{false ? null : <ContentRow content={{}} add />}
+								{state.value.contents.map((content) => (
+									<ContentRow key={content._id} content={content} />
 								))}
 							</tbody>
 						</table>
@@ -63,4 +62,4 @@ const TypeManager = () => {
 	);
 };
 
-export default TypeManager;
+export default ContentManager;
