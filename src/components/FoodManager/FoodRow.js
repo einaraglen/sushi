@@ -81,7 +81,6 @@ const FoodRow = ({ food }) => {
 
 	//number of important columns
 	let x = Object.keys(formData).length;
-
 	return (
 		<tr>
 			<td width={`${100 / x}%`}>
