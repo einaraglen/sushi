@@ -19,3 +19,13 @@
 table, tbody, tr, td {
     text-align: center;
 }
+
+.food-table-nav {
+    height: 4rem;
+}
+
+.food-loading {
+    width: 10rem;
+    height: 80vh;
+    margin: auto;
+}

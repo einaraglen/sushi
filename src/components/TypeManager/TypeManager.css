@@ -1,0 +1,21 @@
+.type {
+    overflow-x: auto; 
+}
+
+.type table {
+    border-collapse: collapse;
+    margin: auto;
+    width: clamp(30rem, 100%, 70rem);
+}
+
+.type tr {
+    height: 5rem;
+}
+
+.type tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table, tbody, tr, td {
+    text-align: center;
+}

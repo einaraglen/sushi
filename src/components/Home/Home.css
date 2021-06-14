@@ -2,10 +2,10 @@
     height: auto;
     display: grid;
     grid-template-columns: 14rem auto;
-    grid-template-rows: 4rem auto;
+    grid-template-rows: 100%;
     grid-template-areas:
-        ". ." 
-        ". content";
+        ". content"
+        ". footer";
 }
 
 .home-top-nav {
@@ -40,15 +40,19 @@
 
 .home-content {
     grid-area: content;
-    display: flex;
-    flex-direction: column;
     background-color: var(--light);
+    min-height: 95vh;
+    padding-top: 4rem;
+}
+
+.home-main {
+    height: 100%;
 }
 
 .home-footer {
+    grid-area: footer;
     text-align: center;
-    margin-top: auto;
-    height: 2rem;
     opacity: .6;
-    padding-top: 2rem;
+    margin-top: auto;
+    padding: .5rem;
 }
