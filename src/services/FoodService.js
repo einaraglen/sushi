@@ -11,25 +11,37 @@ const FoodService = () => {
         );
     };
 
+    const addFood = (food) => {
+        return api
+            .post(`${PATH}/add`, {
+                food: food,
+            })
+            .then(
+                ({ data }) => data,
+                (error) => console.warn(error)
+            );
+    };
+
     const updateById = (id, update) => {
         return api
             .put(`${PATH}/update`, {
                 id: id,
                 update: update,
-            }).then(
+            })
+            .then(
                 ({ data }) => data,
                 (error) => console.warn(error)
             );
-    } 
+    };
 
-    const findAll = () => {
+    const findAllFoods = () => {
         return api.get(`${PATH}/all`).then(
             ({ data }) => data,
             (error) => console.warn(error)
         );
-    }
+    };
 
-    return { findByName, updateById, findAll };
+    return { findByName, addFood, updateById, findAllFoods };
 };
 
 export default FoodService;

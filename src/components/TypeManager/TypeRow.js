@@ -1,10 +1,11 @@
 import React from "react";
 import { TextField, Button } from "@material-ui/core";
 import { Context } from "context/State";
+import TypeService from "services/TypeService";
 
-const TypeRow = ({ type, action }) => {
+const TypeRow = ({ type, add }) => {
 	const state = React.useContext(Context);
-	const [inEditMode, setInEditMode] = React.useState(action === "add");
+	const [inEditMode, setInEditMode] = React.useState(add);
 	const [isEdited, setIsEdited] = React.useState(false);
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [formData, setFormData] = React.useState({
@@ -22,7 +23,7 @@ const TypeRow = ({ type, action }) => {
 	};
 
 	const handleEdit = () => {
-		if (!inEditMode) {
+		if (!inEditMode) {	
 			//if cancel, reset formData
 			setFormData({
 				name: type.name,
@@ -40,15 +41,35 @@ const TypeRow = ({ type, action }) => {
 		});
 	};
 
+	const handleUpdate = async () => {
+		setIsLoading(true);
+        try {
+            let { updateById } = TypeService();
+            let res = await updateById(type._id, {
+                name: formData.name,
+                pieces: formData.pieces,
+            });
+            if (!res.status) return;
+			state.setTypes(res.types);
+            //switch out of edit mode
+            handleEdit();
+        } catch (error) {
+            console.warn(error);
+        }
+        setIsLoading(false);
+	}
+
 	const handleAdd = () => {
 
 	}
 
+	//number of important columns
+	let x = Object.keys(formData).length;
 	return (
 		<tr>
-			<td>{action === "add" ? "To be generated" : type._id}</td>
-			<td>
-				{!inEditMode && action !== "add" ? (
+			<td>{add ? "To be generated" : type._id}</td>
+			<td width={`${100 / x}%`}>
+				{!inEditMode && !add ? (
 					type.name
 				) : (
 					<TextField
@@ -61,8 +82,8 @@ const TypeRow = ({ type, action }) => {
 					/>
 				)}
 			</td>
-			<td>
-				{!inEditMode && action !== "add" ? (
+			<td width={`${100 / x}%`}>
+				{!inEditMode && !add ? (
 					type.pieces
 				) : (
 					<TextField
@@ -78,18 +99,19 @@ const TypeRow = ({ type, action }) => {
 			<td>
 				<Button
 					disabled={!canEdit() || isLoading}
-					onClick={action === "add" ? handleAdd : handleEdit}
-					color={inEditMode && action !== "add" ? "secondary" : "primary"}
+					onClick={add ? handleAdd : handleEdit}
+					color={inEditMode && !add ? "secondary" : "primary"}
 					style={{ width: "5rem" }}
 				>
-					{action === "add" ? "Add" : inEditMode ? "Cancel" : "Edit"}
+					{add ? "Add" : inEditMode ? "Cancel" : "Edit"}
 				</Button>
 			</td>
 			<td>
-				{action === "add" ? null : (
+				{add ? null : (
 					<Button
 						disabled={isEdited || !inEditMode || isLoading}
 						color="primary"
+						onClick={handleUpdate}
 						variant="contained"
 						style={{ marginRight: "1rem" }}
 					>

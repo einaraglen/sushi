@@ -22,14 +22,14 @@ const TypeService = () => {
             );
     } 
 
-    const findAll = () => {
+    const findAllTypes = () => {
         return api.get(`${PATH}/all`).then(
             ({ data }) => data,
             (error) => console.warn(error)
         );
     }
 
-    return { findByName, updateById, findAll };
+    return { findByName, updateById, findAllTypes };
 };
 
 export default TypeService;

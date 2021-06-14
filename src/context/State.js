@@ -13,13 +13,15 @@ const State = ({ children }) => {
 	//Check for if the user is logged in
 	const [validUser, setValidUser] = React.useState(false);
 	const [isEditing, setIsEditing] = React.useState(false);
+	const [foods, setFoods] = React.useState([]);
+	const [types, setTypes] = React.useState([]);
 
 	const theme = createMuiTheme({
 		shadows: ["none"],
 		palette: {
 			primary: {
 				light: "hsl(128, 26%, 60%)",
-        main: "hsl(128, 26%, 40%)",
+        		main: "hsl(128, 26%, 40%)",
 				dark: "hsl(128, 26%, 30%)",
 				contrastText: "hsl(120, 4%, 91%)",
 			},
@@ -28,8 +30,12 @@ const State = ({ children }) => {
 
 	//TODO: Setup all that state variable needs
 	state = {
-		version: "0.0.4",
+		version: "0.0.5",
 		theme: theme,
+		foods: foods,
+		setFoods,
+		types: types,
+		setTypes,
 		validUser: validUser,
 		setValidUser,
 		isEditing: isEditing,

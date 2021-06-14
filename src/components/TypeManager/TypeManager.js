@@ -6,20 +6,19 @@ import "./TypeManager.css";
 
 const TypeManager = () => {
 	const state = React.useContext(Context);
-	const [type, setType] = React.useState({});
 	const [isLoading, setIsLoading] = React.useState(true);
 
+	const effectState = React.useRef(state);
+
 	React.useEffect(() => {
-		//fixes locked edit mode when changing page mid-edit
-		state.setIsEditing(false);
 		//init guard
 		let isMounted = true;
 		//import service component
-		let { findAll } = TypeService();
+		let { findAllTypes } = TypeService();
 		const find = async () => {
-			let res = await findAll();
+			let res = await findAllTypes();
 			if (!isMounted) return;
-			setType(res.types);
+			effectState.current.setTypes(res.types);
 			//cancel loading, so site can render
 			setIsLoading(false);
 		};
@@ -29,7 +28,8 @@ const TypeManager = () => {
 		return () => {
 			isMounted = false;
 		};
-	}, [state]);
+	}, []);
+
 	return (
 		<div>
 			<div className="type">
@@ -43,9 +43,9 @@ const TypeManager = () => {
 							</tr>
 						</thead>
 						<tbody>
-						{true ? null : <TypeRow  type={{}} action="add" />}
-							{type.map((current) => (
-								<TypeRow key={current._id} type={current} action="row" />
+						{false ? null : <TypeRow  type={{}} add />}
+							{state.types.map((type) => (
+								<TypeRow key={type._id} type={type} action="row" />
 							))}
 						</tbody>
 					</table>
