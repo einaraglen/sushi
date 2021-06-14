@@ -31,7 +31,7 @@ const State = ({ children }) => {
 
 	//TODO: Setup all that state variable needs
 	state = {
-		version: "0.0.5",
+		version: "0.0.6",
 		theme: theme,
 		value: {
 			foods: foods,
