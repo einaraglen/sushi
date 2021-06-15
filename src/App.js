@@ -18,18 +18,30 @@ const App = () => {
 	const [isLoading, setIsLoading] = React.useState(true);
     const location = useLocation();
 
+	//workaround to using context inside useEffect without infinity loop
+	const effectState = React.useRef(state);
+	const effectQuery = React.useRef(query);
+	const effectHistory = React.useRef(history);
+	const effectLocation = React.useRef(location);
+
 	//check cookie from browser on Render
 	React.useEffect(() => {
 		//init guard
 		let isMounted = true;
 		//import service component
-		let { validateToken } = UserService();
+		let { validateToken, refreshToken } = UserService();
         //let { refreshToken } = UserService();
 		//create async function for getting data
 		const validate = async () => {
 			let res = await validateToken();
 			if (!isMounted) return;
-            state.method.setValidUser(res.status);
+
+			let isValid = res.status; 
+			if (!res.status) {
+				let refresh_res = await refreshToken();
+				isValid = refresh_res.status;
+			}
+            effectState.current.method.setValidUser(isValid);
             //cancel loading, so site can render
             setIsLoading(false);
 		};
@@ -39,7 +51,7 @@ const App = () => {
 		return () => {
 			isMounted = false;
 		};
-	}, [state, query]);
+	}, []);
 
     //check secret link
     React.useEffect(() => {
@@ -47,15 +59,15 @@ const App = () => {
 		let { validateSecret } = SecretService();
 		//create async function for getting data
 		const validate = async () => {
-            if (!query.get("secret")) return;
-			let res = await validateSecret(query.get("secret"));
+            if (!effectQuery.current.get("secret")) return;
+			let res = await validateSecret(effectQuery.current.get("secret"));
 			if (res === undefined) return;
-			if (!res.status) return history.push("/acces-denied");
+			if (!res.status) return effectHistory.current.push("/acces-denied");
 		};
 
         //updates title based on path
         const updateTitle = () => {
-            let path = location.pathname.split("/");
+            let path = effectLocation.current.pathname.split("/");
             let title = path[path.length - 1].split("-");
             if (title.length === 1) {
                 let string = title[0].charAt(0).toUpperCase() + title[0].slice(1)
@@ -73,7 +85,7 @@ const App = () => {
 		//call function crated in useEffect
 		validate();
         updateTitle();
-	}, [query, history, location]);
+	}, []);
 
 	return (
 		<ThemeProvider theme={state.theme}>

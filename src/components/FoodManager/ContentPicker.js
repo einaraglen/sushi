@@ -25,16 +25,17 @@ const ContentPicker = ({ content, handleContentChange }) => {
         return checked;
     });
 
-    //dependancies can be a pain in the ass
+    //dependancies can be a pain in the ass ref to variable will be yourRef.current
     const updateContent = React.useRef(handleContentChange);
+    const contentRef = React.useRef(content);
 
     React.useEffect(() => {
         let contentToList = [];
         for (const content in checked) {
             if (checked[content]) contentToList.push(content);
         }
-        if (!content || !contentToList) return;
-        if (contentToList.toString() === content.toString()) return updateContent.current(content);;
+        if (!contentRef.current || !contentToList) return;
+        if (contentToList.toString() === contentRef.current.toString()) return updateContent.current(contentRef.current);;
         updateContent.current(contentToList);
     }, [checked]);
 
