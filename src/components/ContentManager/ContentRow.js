@@ -82,7 +82,6 @@ const TypeRow = ({ content, add }) => {
 			let res = await deleteContent(content._id);
 			if (!res.status) return;
 			state.method.setContents(res.contents);
-            handleEdit();
 		} catch (error) {
 			console.warn(error);
 		}

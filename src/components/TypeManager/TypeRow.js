@@ -85,7 +85,6 @@ const TypeRow = ({ type, add }) => {
 			let res = await deleteType(type._id);
 			if (!res.status) return;
 			state.method.setTypes(res.types);
-            handleEdit();
 		} catch (error) {
 			console.warn(error);
 		}

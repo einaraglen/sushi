@@ -48,7 +48,7 @@ const FoodManager = () => {
 				</div>
 			) : (
 				<div className="food-table">
-					<div className="food-table-nav">
+					{true ? null : <div className="food-table-nav">
 						<FormControl style={{width: "100%"}} variant="filled" size="small">
 							<InputLabel>Sort By</InputLabel>
 							<Select label="Generation" value={0}>
@@ -57,7 +57,7 @@ const FoodManager = () => {
 								</MenuItem>
 							</Select>
 						</FormControl>
-					</div>
+					</div>}
 					<table>
 						<thead>
 							<tr>

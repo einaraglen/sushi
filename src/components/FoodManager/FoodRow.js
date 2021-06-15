@@ -2,27 +2,24 @@ import React from "react";
 import { TextField } from "@material-ui/core";
 import { Context } from "context/State";
 import FoodService from "services/FoodService";
-import { MenuItem, FormControl, Menu, Select } from "@material-ui/core/";
+import { MenuItem, FormControl, Select } from "@material-ui/core/";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CancelIcon from "@material-ui/icons/Cancel";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import ContentPicker from "./ContentPicker";
 
 const FoodRow = ({ food, add }) => {
 	const state = React.useContext(Context);
 	const [inEditMode, setInEditMode] = React.useState(add);
 	const [isEdited, setIsEdited] = React.useState(false);
 	const [isLoading, setIsLoading] = React.useState(false);
-	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [formData, setFormData] = React.useState({
 		number: "",
 		name: "",
-		content: "",
+		content: !food.content ? [] : food.content,
 		price: "",
 		image: "",
 		type: "",
@@ -109,7 +106,6 @@ const FoodRow = ({ food, add }) => {
 			let res = await deleteFood(food._id);
 			if (!res.status) return;
 			state.method.setFoods(res.foods);
-			handleEdit();
 		} catch (error) {
 			console.warn(error);
 		}
@@ -122,13 +118,23 @@ const FoodRow = ({ food, add }) => {
 		return `${type.name} (${type.pieces} each)`;
 	};
 
-	const handleClickListItem = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
+	const formatContent = () => {
+		let contentString = "";
+		if (!food.content || food.content.length === 0) return "No Content Found"
+		for (let i = 0; i < food.content.length; i++) {
+			let current = state.value.contents.find((content) => content._id === food.content[i]);
+			if (i === food.content.length - 1) return contentString += current.name;
+			contentString += `${current.name}, `;
+		}
+		return contentString;
+	}
 
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
+	const handleContentChange = (newContent) => {
+		setFormData({
+			...formData,
+			content: newContent,
+		});
+	}
 
 	//number of important columns
 	let x = Object.keys(formData).length + 1;
@@ -165,33 +171,9 @@ const FoodRow = ({ food, add }) => {
 			</td>
 			<td width={`${100 / x}%`}>
 				{!inEditMode && !add ? (
-					food.content.toString()
+					formatContent()
 				) : (
-					<div>
-						<p onClick={handleClickListItem}>Content</p>
-						<Menu
-							onClose={handleClose}
-							anchorEl={anchorEl}
-							keepMounted
-							open={Boolean(anchorEl)}
-							getContentAnchorEl={null}
-							anchorOrigin={{ vertical: "top", horizontal: "center" }}
-							transformOrigin={{ vertical: "top", horizontal: "center" }}
-						>
-							<FormControl>
-								<RadioGroup name="content" value={0} onChange={(event) => console.log(event.target)}>
-									{state.value.contents.map((content) => (
-										<FormControlLabel
-										style={{padding: ".3rem"}}
-											value={content._id}
-											control={<Radio style={{marginLeft: "1rem"}} color="primary"/>}
-											label={content.name}
-										/>
-									))}
-								</RadioGroup>
-							</FormControl>
-						</Menu>
-					</div>
+					<ContentPicker content={food.content} handleContentChange={handleContentChange} />
 				)}
 			</td>
 			<td width={`${100 / x}%`}>
