@@ -10,9 +10,11 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import ContentPicker from "./ContentPicker";
+import ResponseHandler from "utils/ResponseHandler";
 
 const FoodRow = ({ food, add }) => {
     const state = React.useContext(Context);
+    const { handleResponse } = ResponseHandler();
     const [inEditMode, setInEditMode] = React.useState(add);
     const [isEdited, setIsEdited] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(false);
@@ -76,14 +78,13 @@ const FoodRow = ({ food, add }) => {
                 image: formData.image,
                 type: formData.type,
             });
-            if (!res.status) return;
-            state.method.setFoods(res.foods);
+            setIsLoading(false);
+            handleResponse(res, "foods", state.method.setFoods);
             //switch out of edit mode
             handleEdit();
         } catch (error) {
             console.warn(error);
         }
-        setIsLoading(false);
     };
 
     const handleAdd = async () => {
@@ -91,12 +92,11 @@ const FoodRow = ({ food, add }) => {
         try {
             let { addFood } = FoodService();
             let res = await addFood(formData);
-            if (!res.status) return;
-            state.method.setFoods(res.foods);
+            setIsLoading(false);
+            handleResponse(res, "foods", state.method.setFoods);
         } catch (error) {
             console.warn(error);
         }
-        setIsLoading(false);
     };
 
     const handleDelete = async () => {
@@ -104,12 +104,11 @@ const FoodRow = ({ food, add }) => {
         try {
             let { deleteFood } = FoodService();
             let res = await deleteFood(food._id);
-            if (!res.status) return;
-            state.method.setFoods(res.foods);
+            setIsLoading(false);
+            handleResponse(res, "foods", state.method.setFoods);
         } catch (error) {
             console.warn(error);
         }
-        setIsLoading(false);
     };
 
     const formatType = () => {
@@ -126,6 +125,7 @@ const FoodRow = ({ food, add }) => {
             let current = state.value.contents.find(
                 (content) => content._id === food.content[i]
             );
+            if (!current) return;
             if (i === food.content.length - 1)
                 return (contentString += current.name);
             contentString += `${current.name}, `;
@@ -178,7 +178,7 @@ const FoodRow = ({ food, add }) => {
                     formatContent()
                 ) : (
                     <ContentPicker
-                        content={food.content}
+                        content={formData.content}
                         handleContentChange={handleContentChange}
                     />
                 )}

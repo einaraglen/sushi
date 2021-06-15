@@ -17,6 +17,11 @@ const State = ({ children }) => {
 	const [types, setTypes] = React.useState([]);
 	const [contents, setContents] = React.useState([]);
 
+	const [snackControlls, setSnackControlls] = React.useState({
+		open: false,
+		message: undefined,
+	});
+
 	const theme = createMuiTheme({
 		shadows: ["none"],
 		palette: {
@@ -24,6 +29,12 @@ const State = ({ children }) => {
 				light: "hsl(128, 26%, 60%)",
 				main: "hsl(128, 26%, 40%)",
 				dark: "hsl(128, 26%, 30%)",
+				contrastText: "hsl(120, 4%, 91%)",
+			},
+			secondary: {
+				light: "hsl(355, 52%, 62%)",
+				main: "hsl(355, 52%, 42%)",
+				dark: "hsl(355, 52%, 32%)",
 				contrastText: "hsl(120, 4%, 91%)",
 			},
 		},
@@ -39,6 +50,7 @@ const State = ({ children }) => {
 			contents: contents,
 			validUser: validUser,
 			isEditing: isEditing,
+			snackControlls: snackControlls,
 		},
 		method: {
 			setFoods,
@@ -46,6 +58,7 @@ const State = ({ children }) => {
 			setContents,
 			setValidUser,
 			setIsEditing,
+			setSnackControlls,
 		},
 	};
 

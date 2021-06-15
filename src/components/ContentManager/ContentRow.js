@@ -8,9 +8,11 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import ResponseHandler from "utils/ResponseHandler";
 
 const TypeRow = ({ content, add }) => {
 	const state = React.useContext(Context);
+	const { handleResponse } = ResponseHandler();
 	const [inEditMode, setInEditMode] = React.useState(add);
 	const [isEdited, setIsEdited] = React.useState(false);
 	const [isLoading, setIsLoading] = React.useState(false);
@@ -52,14 +54,13 @@ const TypeRow = ({ content, add }) => {
 			let res = await updateById(content._id, {
 				name: formData.name,
 			});
-			if (!res.status) return;
-			state.method.setContents(res.contents);
+			setIsLoading(false);
+			handleResponse(res, "contents", state.method.setContents);
 			//switch out of edit mode
 			handleEdit();
 		} catch (error) {
 			console.warn(error);
 		}
-		setIsLoading(false);
 	};
 
 	const handleAdd = async () => {
@@ -67,12 +68,11 @@ const TypeRow = ({ content, add }) => {
 		try {
 			let { addContent } = ContentService();
 			let res = await addContent(formData);
-			if (!res.status) return;
-			state.method.setContents(res.contents);
+			setIsLoading(false);
+			handleResponse(res, "contents", state.method.setContents);
 		} catch (error) {
 			console.warn(error);
 		}
-		setIsLoading(false);
 	};
 
 	const handleDelete = async () => {
@@ -80,12 +80,11 @@ const TypeRow = ({ content, add }) => {
 		try {
 			let { deleteContent } = ContentService();
 			let res = await deleteContent(content._id);
-			if (!res.status) return;
-			state.method.setContents(res.contents);
+			setIsLoading(false);
+			handleResponse(res, "contents", state.method.setContents);
 		} catch (error) {
 			console.warn(error);
 		}
-		setIsLoading(false);
 	}
     
 	//number of important columns

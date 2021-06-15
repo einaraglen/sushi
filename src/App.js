@@ -85,7 +85,7 @@ const App = () => {
 		//call function crated in useEffect
 		validate();
         updateTitle();
-	}, []);
+	}, [query]);
 
 	return (
 		<ThemeProvider theme={state.theme}>

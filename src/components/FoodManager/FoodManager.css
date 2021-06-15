@@ -22,8 +22,11 @@ table, tbody, tr, td {
 
 .food-table-nav {
     display: grid;
-    grid-template-columns: 9rem auto;
-    height: 4rem;
+    grid-template-areas: ". search sort .";
+    grid-template-columns: auto 20rem 7rem auto;
+    grid-column-gap: .5rem;
+    height: 3rem;
+    padding-top: 1rem;
 }
 
 .food-loading {
