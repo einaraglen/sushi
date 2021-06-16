@@ -10,3 +10,8 @@ body {
   --dark2: hsl(0, 0%, 10%);
   --flashy: hsl(128, 26%, 40%);
 }
+
+.app-loading {
+  width: 4rem;
+  margin: auto;
+}

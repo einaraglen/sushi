@@ -16,7 +16,17 @@ const UserService = () => {
             .post(`${PATH}/login`, {
                 username: username,
                 password: password,
-            }).then(
+            })
+            .then(
+                ({ data }) => data,
+                (error) => console.warn(error)
+            );
+    };
+
+    const logout = () => {
+        return api
+            .delete(`${PATH}/logout`, { "Content-Type": "application/json" })
+            .then(
                 ({ data }) => data,
                 (error) => console.warn(error)
             );
@@ -29,7 +39,7 @@ const UserService = () => {
         );
     };
 
-    return { validateToken, login, refreshToken };
+    return { validateToken, login, logout, refreshToken };
 };
 
 export default UserService;

@@ -11,7 +11,7 @@ import TypeManager from "components/TypeManager/TypeManager";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-
+import InfoModal from "./InfoModal";
 document.title = "Home | Sushi";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
@@ -97,6 +97,7 @@ const Home = () => {
 					</React.Fragment>
 				}
 			/>
+			<InfoModal />
 		</div>
 	);
 };

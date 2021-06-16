@@ -58,3 +58,16 @@
     margin-top: auto;
     padding: .5rem;
 }
+
+.modal-message {
+    min-height: 2rem;
+    width: 100%;
+}
+
+.modal-buttons {
+    width: 100%;
+    align-self: flex-end;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-top: auto;
+}

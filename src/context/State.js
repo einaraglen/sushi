@@ -22,6 +22,11 @@ const State = ({ children }) => {
 		message: undefined,
 	});
 
+	const [modalControlls, setModalControlls] = React.useState({
+		open: false,
+		message: undefined,
+	});
+
 	const theme = createMuiTheme({
 		shadows: ["none"],
 		palette: {
@@ -40,9 +45,9 @@ const State = ({ children }) => {
 		},
 	});
 
-	//TODO: Setup all that state variable needs
+	//this will be accessable from all the components that import Context variable
 	state = {
-		version: "0.0.6",
+		version: "0.0.7",
 		theme: theme,
 		value: {
 			foods: foods,
@@ -51,6 +56,7 @@ const State = ({ children }) => {
 			validUser: validUser,
 			isEditing: isEditing,
 			snackControlls: snackControlls,
+			modalControlls: modalControlls,
 		},
 		method: {
 			setFoods,
@@ -59,6 +65,7 @@ const State = ({ children }) => {
 			setValidUser,
 			setIsEditing,
 			setSnackControlls,
+			setModalControlls,
 		},
 	};
 
