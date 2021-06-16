@@ -11,7 +11,7 @@ const ContentService = () => {
 		);
 	};
 
-	const addContent = (content) => {
+	const add = (content) => {
 		return api
 			.post(`${PATH}/add`, {
 				content: content,
@@ -34,7 +34,7 @@ const ContentService = () => {
 			);
 	};
 
-	const deleteContent = (id) => {
+	const deleteById = (id) => {
 		return api
 			.delete(
 				`${PATH}/delete`,
@@ -60,7 +60,7 @@ const ContentService = () => {
 		);
 	};
 
-	return { findByName, addContent, updateById, deleteContent, findAllContents };
+	return { findByName, add, updateById, deleteById, findAllContents };
 };
 
 export default ContentService;

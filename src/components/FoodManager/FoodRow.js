@@ -1,20 +1,12 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
 import { Context } from "context/State";
-import FoodService from "services/FoodService";
 import { MenuItem, FormControl, Select } from "@material-ui/core/";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import CancelIcon from "@material-ui/icons/Cancel";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import IconButton from "@material-ui/core/IconButton";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import ContentPicker from "./ContentPicker";
-import ResponseHandler from "utils/ResponseHandler";
+import RowControlls from "components/RowControlls/RowControlls";
 
 const FoodRow = ({ food, add }) => {
     const state = React.useContext(Context);
-    const { handleResponse } = ResponseHandler();
     const [inEditMode, setInEditMode] = React.useState(add);
     const [isEdited, setIsEdited] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(false);
@@ -64,51 +56,6 @@ const FoodRow = ({ food, add }) => {
 
     const canEdit = () => {
         return !state.isEditing || inEditMode;
-    };
-
-    const handleUpdate = async () => {
-        setIsLoading(true);
-        try {
-            let { updateById } = FoodService();
-            let res = await updateById(food._id, {
-                number: formData.number,
-                name: formData.name,
-                content: formData.content,
-                price: formData.price,
-                image: formData.image,
-                type: formData.type,
-            });
-            setIsLoading(false);
-            handleResponse(res, "foods", state.method.setFoods);
-            //switch out of edit mode
-            handleEdit();
-        } catch (error) {
-            console.warn(error);
-        }
-    };
-
-    const handleAdd = async () => {
-        setIsLoading(true);
-        try {
-            let { addFood } = FoodService();
-            let res = await addFood(formData);
-            setIsLoading(false);
-            handleResponse(res, "foods", state.method.setFoods);
-        } catch (error) {
-            console.warn(error);
-        }
-    };
-
-    const handleDelete = async () => {
-        setIsLoading(true);
-        try {
-            let { deleteFood } = FoodService();
-            let res = await deleteFood(food._id);
-            setIsLoading(false);
-            handleResponse(res, "foods", state.method.setFoods);
-        } catch (error) {
-            console.warn(error);
-        }
     };
 
     const formatType = () => {
@@ -239,46 +186,18 @@ const FoodRow = ({ food, add }) => {
                     </FormControl>
                 )}
             </td>
-            <td>
-                <IconButton
-                    disabled={!canEdit() || isLoading}
-                    onClick={add ? handleAdd : handleEdit}
-                    color={inEditMode && !add ? "secondary" : "primary"}
-                    variant="text"
-                >
-                    {add ? (
-                        <AddCircleIcon />
-                    ) : inEditMode ? (
-                        <CancelIcon />
-                    ) : (
-                        <EditIcon />
-                    )}
-                </IconButton>
-            </td>
-            <td>
-                {add ? null : (
-                    <IconButton
-                        disabled={isEdited || !inEditMode || isLoading}
-                        onClick={handleUpdate}
-                        color="primary"
-                        variant="contained"
-                    >
-                        <CheckCircleIcon />
-                    </IconButton>
-                )}
-            </td>
-            <td>
-                {add ? null : (
-                    <IconButton
-                        disabled={!inEditMode || isLoading}
-                        onClick={handleDelete}
-                        color="secondary"
-                        variant="contained"
-                    >
-                        <DeleteIcon />
-                    </IconButton>
-                )}
-            </td>
+            <RowControlls
+                currentObject={food}
+                type="foods"
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+                formData={formData}
+                inEditMode={inEditMode}
+                handleEdit={handleEdit}
+                canEdit={canEdit}
+				isEdited={isEdited}
+                add={add}
+            />
         </tr>
     );
 };

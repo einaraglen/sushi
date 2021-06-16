@@ -11,7 +11,7 @@ const FoodService = () => {
 		);
 	};
 
-	const addFood = (food) => {
+	const add = (food) => {
 		return api
 			.post(`${PATH}/add`, {
 				food: food,
@@ -34,7 +34,7 @@ const FoodService = () => {
 			);
 	};
 
-	const deleteFood = (id) => {
+	const deleteById = (id) => {
 		return api
 			.delete(
 				`${PATH}/delete`,
@@ -60,7 +60,7 @@ const FoodService = () => {
 		);
 	};
 
-	return { findByName, addFood, updateById, deleteFood, findAllFoods };
+	return { findByName, add, updateById, deleteById, findAllFoods };
 };
 
 export default FoodService;

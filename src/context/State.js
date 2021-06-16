@@ -47,7 +47,7 @@ const State = ({ children }) => {
 
 	//this will be accessable from all the components that import Context variable
 	state = {
-		version: "0.0.7",
+		version: "0.0.8",
 		theme: theme,
 		value: {
 			foods: foods,

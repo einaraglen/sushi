@@ -11,7 +11,7 @@ const TypeService = () => {
 		);
 	};
 
-	const addType = (type) => {
+	const add = (type) => {
 		return api
 			.post(`${PATH}/add`, {
 				type: type,
@@ -34,7 +34,7 @@ const TypeService = () => {
 			);
 	};
 
-	const deleteType = (id) => {
+	const deleteById = (id) => {
 		return api
 			.delete(
 				`${PATH}/delete`,
@@ -60,7 +60,7 @@ const TypeService = () => {
 		);
 	};
 
-	return { findByName, addType, updateById, deleteType, findAllTypes };
+	return { findByName, add, updateById, deleteById, findAllTypes };
 };
 
 export default TypeService;

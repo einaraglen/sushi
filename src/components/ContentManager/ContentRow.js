@@ -1,18 +1,10 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
 import { Context } from "context/State";
-import ContentService from "services/ContentService";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import CancelIcon from "@material-ui/icons/Cancel";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import IconButton from "@material-ui/core/IconButton";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import ResponseHandler from "utils/ResponseHandler";
+import RowControlls from "components/RowControlls/RowControlls";
 
 const TypeRow = ({ content, add }) => {
 	const state = React.useContext(Context);
-	const { handleResponse } = ResponseHandler();
 	const [inEditMode, setInEditMode] = React.useState(add);
 	const [isEdited, setIsEdited] = React.useState(false);
 	const [isLoading, setIsLoading] = React.useState(false);
@@ -47,46 +39,6 @@ const TypeRow = ({ content, add }) => {
 		});
 	};
 
-	const handleUpdate = async () => {
-		setIsLoading(true);
-		try {
-			let { updateById } = ContentService();
-			let res = await updateById(content._id, {
-				name: formData.name,
-			});
-			setIsLoading(false);
-			handleResponse(res, "contents", state.method.setContents);
-			//switch out of edit mode
-			handleEdit();
-		} catch (error) {
-			console.warn(error);
-		}
-	};
-
-	const handleAdd = async () => {
-		setIsLoading(true);
-		try {
-			let { addContent } = ContentService();
-			let res = await addContent(formData);
-			setIsLoading(false);
-			handleResponse(res, "contents", state.method.setContents);
-		} catch (error) {
-			console.warn(error);
-		}
-	};
-
-	const handleDelete = async () => {
-		setIsLoading(true);
-		try {
-			let { deleteContent } = ContentService();
-			let res = await deleteContent(content._id);
-			setIsLoading(false);
-			handleResponse(res, "contents", state.method.setContents);
-		} catch (error) {
-			console.warn(error);
-		}
-	}
-    
 	//number of important columns
 	let x = Object.keys(formData).length + 2;
 	return (
@@ -106,40 +58,18 @@ const TypeRow = ({ content, add }) => {
 					/>
 				)}
 			</td>
-			<td>
-				<IconButton
-					disabled={!canEdit() || isLoading}
-					onClick={add ? handleAdd : handleEdit}
-					color={inEditMode && !add ? "secondary" : "primary"}
-					variant="text"
-				>
-					{add ? <AddCircleIcon /> : inEditMode ? <CancelIcon /> : <EditIcon />}
-				</IconButton>
-			</td>
-			<td>
-				{add ? null : (
-					<IconButton
-						disabled={isEdited || !inEditMode || isLoading}
-						onClick={handleUpdate}
-						color="primary"
-						variant="contained"
-					>
-						<CheckCircleIcon />
-					</IconButton>
-				)}
-			</td>
-			<td>
-				{add ? null : (
-					<IconButton
-						disabled={!inEditMode || isLoading}
-						onClick={handleDelete}
-						color="secondary"
-						variant="contained"
-					>
-						<DeleteIcon />
-					</IconButton>
-				)}
-			</td>
+			<RowControlls
+                currentObject={content}
+                type="contents"
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+                formData={formData}
+                inEditMode={inEditMode}
+                handleEdit={handleEdit}
+				canEdit={canEdit}
+				isEdited={isEdited}
+                add={add}
+            />
 		</tr>
 	);
 };

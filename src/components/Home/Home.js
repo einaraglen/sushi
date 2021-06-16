@@ -81,7 +81,7 @@ const Home = () => {
 					horizontal: "center",
 				}}
 				open={state.value.snackControlls.open}
-				autoHideDuration={3000}
+				autoHideDuration={6000}
 				onClose={handleClose}
 				onExited={handleExited}
 				message={state.value.snackControlls.message ? state.value.snackControlls.message : undefined}
