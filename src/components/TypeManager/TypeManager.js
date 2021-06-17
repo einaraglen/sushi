@@ -13,6 +13,8 @@ const TypeManager = () => {
 	const effectState = React.useRef(state);
 
 	React.useEffect(() => {
+		//resets global edit for when manager is init
+		effectState.current.method.setIsEditing(false);
 		//init guard
 		let isMounted = true;
 		//import service component

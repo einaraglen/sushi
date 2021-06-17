@@ -48,29 +48,23 @@ const ContentPicker = ({ content, handleContentChange }) => {
 		setChecked({ ...checked, [event.target.id]: event.target.checked });
 	};
 
-    const formatContent = () => {
-        let contentString = "";
-        if (!content || content.length === 0)
-            return "Pick Content";
-        for (let i = 0; i < content.length; i++) {
-            let current = state.value.contents.find(
-                (currentContent) => currentContent._id === content[i]
-            );
-            if (!current) return;
-            if (i === content.length - 1)
-                return (contentString += current.name);
-            contentString += `${current.name}, `;
-        }
-        return contentString;
-    };
+	const formatContent = () => {
+		let contentString = "";
+		if (!content || content.length === 0) return "Pick Content";
+		for (let i = 0; i < content.length; i++) {
+			let current = state.value.contents.find(
+				(currentContent) => currentContent._id === content[i]
+			);
+			if (!current) return;
+			if (i === content.length - 1) return (contentString += current.name);
+			contentString += `${current.name}, `;
+		}
+		return contentString;
+	};
 
 	return (
 		<div>
-			<ListItem 
-                style={{textAlign: "center"}}
-                button 
-                onClick={handleClickListItem}
-            >
+			<ListItem style={{ textAlign: "center" }} button onClick={handleClickListItem}>
 				<ListItemText primary={formatContent()} />
 			</ListItem>
 			<Menu

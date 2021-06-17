@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import { CircularProgress } from "@material-ui/core/";
-import { TextField } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import FoodService from "services/FoodService";
 import TypeService from "services/TypeService";
 import ContentService from "services/ContentService";
@@ -9,7 +9,7 @@ import { Context } from "context/State";
 import FoodRow from "./FoodRow";
 import "./FoodManager.css";
 import { MenuItem, FormControl, Select } from "@material-ui/core/";
-import InputLabel from '@material-ui/core/InputLabel';
+import InputLabel from "@material-ui/core/InputLabel";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -21,12 +21,16 @@ const FoodManager = () => {
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [currentSort, setCurrentSort] = React.useState(query.get("sort"));
 	const [currentSearch, setCurrentSearch] = React.useState(query.get("search"));
+	const [addOpen, setAddOpen] = React.useState(false);
 
 	//workaround to using context inside useEffect without infinity loop
 	const effectState = React.useRef(state);
 	const effectHistory = React.useRef(history);
 
 	React.useEffect(() => {
+		console.log("re render food");
+		//resets global edit for when manager is init
+		effectState.current.method.setIsEditing(false);
 		//init guard
 		let isMounted = true;
 		//import service component
@@ -52,7 +56,7 @@ const FoodManager = () => {
 		};
 	}, []);
 
-	//listen to any change in variables and change path 
+	//listen to any change in variables and change path
 	React.useEffect(() => {
 		effectHistory.current.push(
 			`/home/manage-food?search=${currentSearch}&sort=${currentSort}&secret=${secret}`
@@ -121,6 +125,14 @@ const FoodManager = () => {
 								<MenuItem value={"price"}>Price</MenuItem>
 							</Select>
 						</FormControl>
+						<Button
+							onClick={() => setAddOpen(!addOpen)}
+							style={{ gridArea: "button", width: "7rem", margin: "auto" }}
+							color="primary"
+							variant="contained"
+						>
+							Add
+						</Button>
 					</div>
 					<table>
 						<thead>
@@ -134,7 +146,7 @@ const FoodManager = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{false ? null : <FoodRow food={{}} add />}
+							{!addOpen ? null : <FoodRow food={{}} add />}
 							{handleData().map((current) => (
 								<FoodRow key={current._id} food={current} />
 							))}

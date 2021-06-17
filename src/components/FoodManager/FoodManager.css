@@ -2,28 +2,10 @@
     overflow-x: auto; 
 }
 
-.food-table table {
-    border-collapse: collapse;
-    margin: auto;
-    width: 100%;
-}
-
-.food-table tr {
-    height: 5rem;
-}
-
-.food-table tr:nth-child(even) {
-    background-color: var(--platinum);
-}
-
-table, tbody, tr, td {
-    text-align: center;
-}
-
 .food-table-nav {
     display: grid;
-    grid-template-areas: ". search sort .";
-    grid-template-columns: auto 20rem 7rem auto;
+    grid-template-areas: ". search sort . button .";
+    grid-template-columns: auto 20rem 7rem 5rem 5rem auto;
     grid-column-gap: .5rem;
     height: 3rem;
     padding-top: 1rem;

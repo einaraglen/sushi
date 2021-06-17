@@ -1,8 +1,10 @@
 import React from "react";
 import { Context } from "context/State";
+import UserService from "services/UserService";
 
 const ResponseHandler = () => {
 	const state = React.useContext(Context);
+	const { refreshToken, logout } = UserService();
 
 	//good example of good behavior design
 	const handleResponse = (res, value, setFunction) => {
@@ -54,9 +56,26 @@ const ResponseHandler = () => {
 			open: true,
 			message: "Session has expired, resolve to renew Token",
 			actionText: "Resolve",
-			delete: false,
+			function: tryRefresh,
 		});
 	};
+
+	const tryRefresh = async () => {
+        try {
+            let res = await refreshToken();
+			state.method.setValidUser(res.status);
+			//if refresh fails
+			if (!res.status) await logout();
+			state.method.closeModal();
+            //give feedback with status from atempt
+            state.method.setSnackControlls({
+				open: true,
+				message: res.message,
+			});
+        } catch (error) {
+            console.warn(error);
+        }
+    };
 
 	return { handleResponse };
 };

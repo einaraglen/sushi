@@ -25,7 +25,7 @@
     z-index: 4;
     height: 100vh;
     padding-top: 4rem;   
-    background-color: var(--platinum);
+    background-color: var(--lightdark);
     border-right: .3rem solid var(--flashy);
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 }
@@ -42,9 +42,27 @@
 
 .home-content {
     grid-area: content;
-    background-color: var(--light);
+    background-color: var(--lightdark);
     min-height: calc(100vh - 140px);
     padding-top: 4rem;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+    width: 100%;
+}
+
+tr {
+    height: 5rem;
+}
+
+tr:nth-child(even) {
+    background-color: var(--middark);
+}
+
+table, tbody, tr, td {
+    text-align: center;
 }
 
 .home-main {

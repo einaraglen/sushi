@@ -31,7 +31,35 @@ const State = ({ children }) => {
 	});
 
 	const theme = createMuiTheme({
-		shadows: ["none"],
+		overrides: {
+			MuiListItemText: {
+				root: {
+					color: "hsl(0, 0%, 86%)",
+				},
+			},
+			MuiFormLabel: {
+				root: {
+					color: "hsl(0, 0%, 86%)",
+				},
+			},
+			MuiInputBase: {
+				root: {
+					color: "hsl(0, 0%, 86%)",
+				},
+			},
+			MuiMenu: {
+				paper: {
+					backgroundColor: "hsl(0, 0%, 32%)",
+					boxShadow: "0px 3px 15px rgba(0,0,0,0.2)",
+					color: "hsl(0, 0%, 86%)",
+				},
+			},
+			MuiMenuItem: {
+				root: {
+					//fontSize: 12,
+				},
+			},
+		},
 		palette: {
 			primary: {
 				light: "hsl(128, 26%, 60%)",
@@ -47,6 +75,15 @@ const State = ({ children }) => {
 			},
 		},
 	});
+
+	const closeModal = () => {
+		setModalControlls({
+			open: false,
+			message: undefined,
+			actionText: undefined,
+			function: undefined,
+		});
+	};
 
 	//this will be accessable from all the components that import Context variable
 	state = {
@@ -71,13 +108,14 @@ const State = ({ children }) => {
 			setSnackControlls,
 			setModalControlls,
 			setConfirmDelete,
+			closeModal,
 		},
 	};
 
 	return <Context.Provider value={state}>{children}</Context.Provider>;
 };
 
-//Import and de-structure with React.userContext(-- context variable --)
+//import and de-structure with React.useContext(-- context variable --)
 export const Context = React.createContext(state);
-//Wrap Around App
+//wrap Around App
 export default State;

@@ -2,24 +2,6 @@
     overflow-x: auto; 
 }
 
-.content table {
-    border-collapse: collapse;
-    margin: auto;
-    width: 100%;
-}
-
-.content table tr {
-    height: 5rem;
-}
-
-.content tr:nth-child(even) {
-    background-color: var(--platinum);
-}
-
-table, tbody, tr, td {
-    text-align: center;
-}
-
 .content-loading {
     width: 10rem;
     margin: auto;

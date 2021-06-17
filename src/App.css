@@ -1,6 +1,7 @@
 
 body {
-  background-color: var(--platinum);
+  background-color: var(--lightdark);
+  color:hsl(0, 0%, 86%)
 }
 
 :root {
@@ -9,6 +10,9 @@ body {
   --dark: hsl(199, 100%, 29%);
   --dark2: hsl(0, 0%, 10%);
   --flashy: hsl(128, 26%, 40%);
+  --lightdark: 	hsl(0, 0%, 32%);
+  --middark: hsl(0, 0%, 25%);
+  --fulldark: 	hsl(0, 0%, 19%);
 }
 
 .app-loading {
