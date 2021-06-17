@@ -28,7 +28,6 @@ const FoodManager = () => {
 	const effectHistory = React.useRef(history);
 
 	React.useEffect(() => {
-		console.log("re render food");
 		//resets global edit for when manager is init
 		effectState.current.method.setIsEditing(false);
 		//init guard

@@ -2,6 +2,15 @@
     overflow-x: auto; 
 }
 
+.type-nav {
+    display: grid;
+    grid-template-areas: ". search sort . button .";
+    grid-template-columns: auto 20rem 7rem 5rem 5rem auto;
+    grid-column-gap: .5rem;
+    height: 3rem;
+    padding-top: 1rem;
+}
+
 .type-loading {
     width: 10rem;
     margin: auto;

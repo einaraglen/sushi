@@ -49,7 +49,7 @@ const State = ({ children }) => {
 			},
 			MuiMenu: {
 				paper: {
-					backgroundColor: "hsl(0, 0%, 32%)",
+					backgroundColor: "hsl(0, 0%, 22%)",
 					boxShadow: "0px 3px 15px rgba(0,0,0,0.2)",
 					color: "hsl(0, 0%, 86%)",
 				},
@@ -68,8 +68,8 @@ const State = ({ children }) => {
 				contrastText: "hsl(120, 4%, 91%)",
 			},
 			secondary: {
-				light: "hsl(355, 52%, 62%)",
-				main: "hsl(355, 52%, 42%)",
+				light: "hsl(355, 52%, 82%)",
+				main: "hsl(355, 92%, 62%)",
 				dark: "hsl(355, 52%, 32%)",
 				contrastText: "hsl(120, 4%, 91%)",
 			},

@@ -144,7 +144,11 @@ const FoodRow = ({ food, add }) => {
 			<td width={`${100 / x}%`}>
 				{!inEditMode && !add ? (
 					<a href={food.image} target="_blank" rel="noreferrer">
-						<img alt={"Sushi piece"} src={food.image} style={{ borderRadius: "50%", height: "4rem" }} />
+						<img
+							alt={"Sushi piece"}
+							src={food.image}
+							style={{ borderRadius: "50%", height: "4rem" }}
+						/>
 					</a>
 				) : (
 					<TextField

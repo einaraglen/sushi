@@ -3,14 +3,27 @@ import { CircularProgress } from "@material-ui/core/";
 import { Context } from "context/State";
 import TypeService from "services/TypeService";
 import TypeRow from "./TypeRow";
+import { TextField, Button } from "@material-ui/core";
 import "./TypeManager.css";
+import { MenuItem, FormControl, Select } from "@material-ui/core/";
+import InputLabel from "@material-ui/core/InputLabel";
+import { useLocation, useHistory } from "react-router-dom";
+
+const useQuery = () => new URLSearchParams(useLocation().search);
 
 const TypeManager = () => {
+	const query = useQuery();
 	const state = React.useContext(Context);
+	const history = useHistory();
+	const secret = query.get("secret");
 	const [isLoading, setIsLoading] = React.useState(true);
+	const [currentSort, setCurrentSort] = React.useState(query.get("sort"));
+	const [currentSearch, setCurrentSearch] = React.useState(query.get("search"));
+	const [addOpen, setAddOpen] = React.useState(false);
 
 	//workaround to using context inside useEffect without infinity loop
 	const effectState = React.useRef(state);
+	const effectHistory = React.useRef(history);
 
 	React.useEffect(() => {
 		//resets global edit for when manager is init
@@ -34,6 +47,34 @@ const TypeManager = () => {
 		};
 	}, []);
 
+	//listen to any change in variables and change path
+	React.useEffect(() => {
+		effectHistory.current.push(
+			`/home/manage-types?search=${currentSearch}&sort=${currentSort}&secret=${secret}`
+		);
+	}, [currentSort, currentSearch, secret]);
+
+	const handleData = () => {
+		//init temp data
+		let handled = [...state.value.types];
+		//filter if search has been choosen
+		if (query.get("search") !== "null")
+			handled = handled.filter(
+				(type) => type.name.toLowerCase().indexOf(query.get("search")) > -1
+			);
+		//sort if sort has been choosen
+		if (query.get("sort") !== "null")
+			handled = handled.sort((a, b) =>
+				a[query.get("sort")] > b[query.get("sort")] ? 1 : -1
+			);
+
+		return handled;
+	};
+
+	const handleFormChange = (event) => {
+		setCurrentSort(event.target.value !== "null" ? event.target.value : "_id");
+	};
+
 	return (
 		<div>
 			{isLoading ? (
@@ -42,23 +83,63 @@ const TypeManager = () => {
 				</div>
 			) : (
 				<div className="type">
-					{isLoading ? null : (
-						<table>
-							<thead>
-								<tr>
-									<td>ID</td>
-									<td>Name</td>
-									<td>Pieces</td>
-								</tr>
-							</thead>
-							<tbody>
-								{false ? null : <TypeRow type={{}} add />}
-								{state.value.types.map((type) => (
-									<TypeRow key={type._id} type={type} />
-								))}
-							</tbody>
-						</table>
-					)}
+					<div className="type-nav">
+						<TextField
+							onChange={(event) =>
+								setCurrentSearch(
+									event.target.value.length > 0
+										? event.target.value.toLowerCase()
+										: "null"
+								)
+							}
+							style={{ gridArea: "search" }}
+							label="Search"
+							variant="filled"
+							size="small"
+							type="text"
+						/>
+						<FormControl
+							style={{ gridArea: "sort" }}
+							size="small"
+							variant="filled"
+							elevation={1}
+							label="Search"
+						>
+							<InputLabel>Sort by</InputLabel>
+							<Select
+								onChange={(event) => handleFormChange(event)}
+								value={currentSort}
+								label="Search"
+							>
+								<MenuItem value={"_id"}>ID</MenuItem>
+								<MenuItem value={"name"}>Name</MenuItem>
+								<MenuItem value={"pieces"}>Pieces</MenuItem>
+							</Select>
+						</FormControl>
+						<Button
+							onClick={() => setAddOpen(!addOpen)}
+							style={{ gridArea: "button", width: "7rem", margin: "auto" }}
+							color="primary"
+							variant="contained"
+						>
+							Add
+						</Button>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<td>ID</td>
+								<td>Name</td>
+								<td>Pieces</td>
+							</tr>
+						</thead>
+						<tbody>
+							{!addOpen ? null : <TypeRow type={{}} add />}
+							{handleData().map((type) => (
+								<TypeRow key={type._id} type={type} />
+							))}
+						</tbody>
+					</table>
 				</div>
 			)}
 		</div>

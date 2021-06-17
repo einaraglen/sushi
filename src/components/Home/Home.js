@@ -12,13 +12,32 @@ import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import InfoModal from "./InfoModal";
-document.title = "Home | Sushi";
+import logo from "images/logo-bigger.svg";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { Button } from "@material-ui/core";
+import UserService from "services/UserService";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
 const Home = () => {
 	const query = useQuery();
 	const state = React.useContext(Context);
+	const { logout } = UserService();
+
+	const handleLogout = async () => {
+		try {
+			await logout();
+			//wipe tokens
+			document.cookie =
+            "ACCESS_TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			document.cookie =
+            "REFRESH_TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			//set valid variable to false
+			state.method.setValidUser(false);
+		} catch (error) {
+			console.warn(error);
+		}
+	};
 
 	const handleClose = (event, reason) => {
 		if (reason === "clickaway") {
@@ -33,7 +52,18 @@ const Home = () => {
 
 	return (
 		<div className="home">
-			<div className="home-top-nav"></div>
+			<div className="home-top-nav">
+				<img alt="logo" src={logo} />
+				<p style={{ gridArea: "text", color: "#000", margin: "auto" }}>SushiManager</p>
+				<Button
+					onClick={handleLogout}
+					style={{ gridArea: "logout" }}
+					color="default"
+					variant="text"
+				>
+					<ExitToAppIcon />
+				</Button>
+			</div>
 			<div className="home-side-nav">
 				<List component="nav">
 					<Link to={`/home?secret=${query.get("secret")}`}>
@@ -41,17 +71,29 @@ const Home = () => {
 							<ListItemText primary="Home" />
 						</ListItem>
 					</Link>
-					<Link to={`/home/manage-food?search=${null}&sort=${"number"}&secret=${query.get("secret")}`}>
+					<Link
+						to={`/home/manage-food?search=${null}&sort=${"number"}&secret=${query.get(
+							"secret"
+						)}`}
+					>
 						<ListItem button>
 							<ListItemText primary="Manage Food" />
 						</ListItem>
 					</Link>
-					<Link to={`/home/manage-types?secret=${query.get("secret")}`}>
+					<Link
+						to={`/home/manage-types?search=${null}&sort=${"_id"}&secret=${query.get(
+							"secret"
+						)}`}
+					>
 						<ListItem button>
 							<ListItemText primary="Manage Types" />
 						</ListItem>
 					</Link>
-					<Link to={`/home/manage-content?secret=${query.get("secret")}`}>
+					<Link
+						to={`/home/manage-content?search=${null}&sort=${"_id"}&secret=${query.get(
+							"secret"
+						)}`}
+					>
 						<ListItem button>
 							<ListItemText primary="Manage Content" />
 						</ListItem>
@@ -84,14 +126,14 @@ const Home = () => {
 				autoHideDuration={6000}
 				onClose={handleClose}
 				onExited={handleExited}
-				message={state.value.snackControlls.message ? state.value.snackControlls.message : undefined}
+				message={
+					state.value.snackControlls.message
+						? state.value.snackControlls.message
+						: undefined
+				}
 				action={
 					<React.Fragment>
-						<IconButton
-							aria-label="close"
-							color="secondary"
-							onClick={handleClose}
-						>
+						<IconButton aria-label="close" color="primary" onClick={handleClose}>
 							<CloseIcon />
 						</IconButton>
 					</React.Fragment>

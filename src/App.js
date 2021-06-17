@@ -29,7 +29,6 @@ const App = () => {
     const effectState = React.useRef(state);
     const effectQuery = React.useRef(query);
     const effectHistory = React.useRef(history);
-    const effectLocation = React.useRef(location);
 
     //check cookie from browser on Render
     React.useEffect(() => {
@@ -74,16 +73,15 @@ const App = () => {
 
         //updates title based on path
         const updateTitle = () => {
-            let path = effectLocation.current.pathname.split("/");
+            let path = location.pathname.split("/");
             let title = path[path.length - 1].split("-");
             if (title.length === 1) {
                 let string =
                     title[0].charAt(0).toUpperCase() + title[0].slice(1);
                 return (document.title = `${string} | SushiManager`);
             }
-
+            
             let completeTitle = "";
-
             for (let i = 0; i < title.length; i++) {
                 completeTitle +=
                     title[i].charAt(0).toUpperCase() + title[i].slice(1);
@@ -95,7 +93,7 @@ const App = () => {
         //call function crated in useEffect
         validate();
         updateTitle();
-    }, [query]);
+    }, [query, location]);
 
     return (
         <ThemeProvider theme={state.theme}>
