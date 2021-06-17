@@ -53,6 +53,8 @@ const ResponseHandler = () => {
 		state.method.setModalControlls({
 			open: true,
 			message: "Session has expired, resolve to renew Token",
+			actionText: "Resolve",
+			delete: false,
 		});
 	};
 

@@ -16,11 +16,24 @@ const InfoModal = () => {
             state.method.setModalControlls({
                 open: false,
                 message: undefined,
+                actionText: undefined,
+			    delete: false,
             });
         } catch (error) {
-
+            state.method.setValidUser(false);
+            alert(error);
         }
     };
+
+    const handleDeleteClose = () => {
+        state.method.setConfirmDelete(false);
+        state.method.setModalControlls({
+            open: false,
+            message: undefined,
+            actionText: undefined,
+            delete: false,
+        });
+    }
 
     const handleTryResolve = async () => {
         setIsLoading(true);
@@ -29,11 +42,26 @@ const InfoModal = () => {
             setIsLoading(false);
             handleClose(res.status);
             //give feedback with status from atempt
-            state.method.setSnackControlls({ open: true, message: res.message });
+            state.method.setSnackControlls({
+                open: true,
+                message: res.message,
+                actionText: undefined,
+                delete: false,
+            });
         } catch (error) {
             console.warn(error);
         }
     };
+
+    const handleDeleteConfirmed = () => {
+        state.method.setConfirmDelete(true);
+        state.method.setModalControlls({
+            open: false,
+            message: undefined,
+            actionText: undefined,
+            delete: false,
+        });        
+    }
 
     return (
         <Modal
@@ -65,21 +93,21 @@ const InfoModal = () => {
             <div className="modal-buttons">
                 <Button
                     disabled={isLoading}
-                    onClick={handleTryResolve}
-                    style={{ width: "7rem", margin: "auto" }}
-                    color="primary"
-                    variant="contained"
-                >
-                    Resolve
-                </Button>
-                <Button
-                    disabled={isLoading}
-                    onClick={() => handleClose(false)}
+                    onClick={() => state.value.modalControlls.delete ? handleDeleteClose() : handleClose(false)}
                     style={{ width: "7rem", margin: "auto" }}
                     color="default"
                     variant="contained"
                 >
                     Cancel
+                </Button>
+                <Button
+                    disabled={isLoading}
+                    onClick={ state.value.modalControlls.delete ? handleDeleteConfirmed : handleTryResolve}
+                    style={{ width: "7rem", margin: "auto" }}
+                    color="primary"
+                    variant="contained"
+                >
+                    {state.value.modalControlls.actionText}
                 </Button>
             </div>
         </Modal>

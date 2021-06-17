@@ -16,6 +16,7 @@ const State = ({ children }) => {
 	const [foods, setFoods] = React.useState([]);
 	const [types, setTypes] = React.useState([]);
 	const [contents, setContents] = React.useState([]);
+	const [confirmDelete, setConfirmDelete] = React.useState(false);
 
 	const [snackControlls, setSnackControlls] = React.useState({
 		open: false,
@@ -25,6 +26,8 @@ const State = ({ children }) => {
 	const [modalControlls, setModalControlls] = React.useState({
 		open: false,
 		message: undefined,
+		actionText: undefined,
+		action: undefined,
 	});
 
 	const theme = createMuiTheme({
@@ -57,6 +60,7 @@ const State = ({ children }) => {
 			isEditing: isEditing,
 			snackControlls: snackControlls,
 			modalControlls: modalControlls,
+			confirmDelete: confirmDelete,
 		},
 		method: {
 			setFoods,
@@ -66,6 +70,7 @@ const State = ({ children }) => {
 			setIsEditing,
 			setSnackControlls,
 			setModalControlls,
+			setConfirmDelete,
 		},
 	};
 

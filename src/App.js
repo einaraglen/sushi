@@ -37,7 +37,6 @@ const App = () => {
         let isMounted = true;
         //import service component
         let { validateToken, refreshToken } = UserService();
-        //let { refreshToken } = UserService();
         //create async function for getting data
         const validate = async () => {
             let res = await validateToken();
