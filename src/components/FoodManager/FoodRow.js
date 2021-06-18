@@ -10,6 +10,7 @@ const FoodRow = ({ food, add }) => {
 	const [inEditMode, setInEditMode] = React.useState(add);
 	const [isEdited, setIsEdited] = React.useState(false);
 	const [isLoading, setIsLoading] = React.useState(false);
+	//fix for issue #1
 	const [pickedContent, setPickedContent] = React.useState(food.content ? food.content : []);
 	const [formData, setFormData] = React.useState({
 		number: "",
@@ -19,8 +20,6 @@ const FoodRow = ({ food, add }) => {
 		image: "",
 		type: "",
 	});
-
-	
 
 	const foodRef = React.useRef(food);
 
