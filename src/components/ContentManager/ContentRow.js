@@ -62,13 +62,14 @@ const TypeRow = ({ content, add }) => {
                 currentObject={content}
                 type="contents"
                 isLoading={isLoading}
-                setIsLoading={setIsLoading}
-                formData={formData}
-                inEditMode={inEditMode}
-                handleEdit={handleEdit}
+				setIsLoading={setIsLoading}
+				formData={formData}
+				setFormData={setFormData}
+				inEditMode={inEditMode}
+				handleEdit={handleEdit}
 				canEdit={canEdit}
 				isEdited={isEdited}
-                add={add}
+				add={add}
             />
 		</tr>
 	);

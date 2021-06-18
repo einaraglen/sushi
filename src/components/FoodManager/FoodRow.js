@@ -10,14 +10,17 @@ const FoodRow = ({ food, add }) => {
 	const [inEditMode, setInEditMode] = React.useState(add);
 	const [isEdited, setIsEdited] = React.useState(false);
 	const [isLoading, setIsLoading] = React.useState(false);
+	const [pickedContent, setPickedContent] = React.useState(food.content ? food.content : []);
 	const [formData, setFormData] = React.useState({
 		number: "",
 		name: "",
-		content: [],
+		content: pickedContent,
 		price: "",
 		image: "",
 		type: "",
 	});
+
+	
 
 	const foodRef = React.useRef(food);
 
@@ -62,11 +65,11 @@ const FoodRow = ({ food, add }) => {
 
 	const formatContent = () => {
 		let contentString = "";
-		if (!food.content || food.content.length === 0) return "No Content Found";
-		for (let i = 0; i < food.content.length; i++) {
-			let current = state.value.contents.find((content) => content._id === food.content[i]);
+		if (!pickedContent || setPickedContent.length === 0) return "No Content Found";
+		for (let i = 0; i < pickedContent.length; i++) {
+			let current = state.value.contents.find((content) => content._id === pickedContent[i]);
 			if (!current) return;
-			if (i === food.content.length - 1) return (contentString += current.name);
+			if (i === pickedContent.length - 1) return (contentString += current.name);
 			contentString += `${current.name}, `;
 		}
 		return contentString;
@@ -77,8 +80,11 @@ const FoodRow = ({ food, add }) => {
 			...formData,
 			[event.target.name]: event.target.value,
 		});
-		console.log("FORM CHANGED")
 	};
+
+	const handleContentPick = (event) => {
+		setPickedContent(event.target.value);
+	}
 
 	//number of important columns
 	let x = Object.keys(formData).length + 1;
@@ -118,8 +124,8 @@ const FoodRow = ({ food, add }) => {
 					formatContent()
 				) : (
 					<ContentPicker
-						content={formData.content}
-						onChange={(event) => handleFormEvent(event)}
+						content={pickedContent}
+						onChange={(event) => handleContentPick(event)}
 					/>
 				)}
 			</td>
@@ -188,7 +194,10 @@ const FoodRow = ({ food, add }) => {
 				type="foods"
 				isLoading={isLoading}
 				setIsLoading={setIsLoading}
-				formData={formData}
+				formData={{
+					...formData,
+					content: pickedContent, 
+				}}
 				setFormData={setFormData}
 				inEditMode={inEditMode}
 				handleEdit={handleEdit}

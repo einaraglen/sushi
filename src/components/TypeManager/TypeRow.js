@@ -80,13 +80,14 @@ const TypeRow = ({ type, add }) => {
                 currentObject={type}
                 type="types"
                 isLoading={isLoading}
-                setIsLoading={setIsLoading}
-                formData={formData}
-                inEditMode={inEditMode}
-                handleEdit={handleEdit}
+				setIsLoading={setIsLoading}
+				formData={formData}
+				setFormData={setFormData}
+				inEditMode={inEditMode}
+				handleEdit={handleEdit}
 				canEdit={canEdit}
 				isEdited={isEdited}
-                add={add}
+				add={add}
             />
 		</tr>
 	);
