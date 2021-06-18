@@ -4,7 +4,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Context } from "context/State";
 
-const ContentPicker = ({ content, formData, setFormData }) => {
+const ContentPicker = ({ content, onChange }) => {
 	const state = React.useContext(Context);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [checked, setChecked] = React.useState(() => {
@@ -22,25 +22,23 @@ const ContentPicker = ({ content, formData, setFormData }) => {
 	});
 
 	//dependencies can be a pain in the ass; ref to variable will be yourRef.current
-	const updateContent = React.useRef(setFormData);
-	const formDataRef = React.useRef(formData);
 	const contentRef = React.useRef(content);
+	const onChangeRef = React.useRef(onChange);
 
+	//listens for change, converts checked variable to a list of _id's
+	//then sendts an onChange event to parent Component!
 	React.useEffect(() => {
 		let contentToList = [];
-		for (const content in checked) {
-			if (checked[content]) contentToList.push(content);
+		for (const check in checked) {
+			if (checked[check]) contentToList.push(check);
 		}
 		if (!contentRef.current || !contentToList) return;
-		if (contentToList.toString() === contentRef.current.toString())
-			return updateContent.current({
-				...formDataRef.current,
-				content: contentRef.current,
-			});
-			updateContent.current({
-				...formDataRef.current,
-				content: contentToList,
-			});
+		onChangeRef.current({
+			target: {
+				name: "content",
+				value: contentToList,
+			},
+		});
 	}, [checked]);
 
 	const handleClickListItem = (event) => {

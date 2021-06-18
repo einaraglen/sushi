@@ -144,7 +144,7 @@ const FoodManager = () => {
                             color="primary"
                             variant="contained"
                         >
-                            {!addOpen ? "Add" : "Close Add"}
+                            {!addOpen ? "Add" : "Close"}
                         </Button>
                     </div>
                     <table>
@@ -160,8 +160,8 @@ const FoodManager = () => {
                         </thead>
                         <tbody>
                             {!addOpen ? null : <FoodRow food={{}} add />}
-                            {handleData().map((current) => (
-                                <FoodRow key={current._id} food={current} />
+                            {handleData().map((food) => (
+                                <FoodRow key={food._id} food={food} />
                             ))}
                         </tbody>
                     </table>

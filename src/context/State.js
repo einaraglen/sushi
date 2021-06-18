@@ -30,14 +30,20 @@ const State = ({ children }) => {
         action: undefined,
     });
 
+    //style overriding Material UI components
     const theme = createMuiTheme({
         overrides: {
+            MuiTouchRipple: {
+                child: {
+                    backgroundColor: "hsl(128, 26%, 40%)"
+                }
+            },
             MuiListItem: {
-                root: {
-                    "&$selected, &$selected:hover, &$selected:focus": {
-                        backgroundColor: "#FFF",
+                button: {
+                    "&:hover": {
+                        backgroundColor: "hsl(0, 0%, 23%)",
                     },
-                },
+                }
             },
             MuiListItemText: {
                 root: {
@@ -63,7 +69,9 @@ const State = ({ children }) => {
             },
             MuiMenuItem: {
                 root: {
-                    //fontSize: 12,
+                    "&$selected, &$selected:hover, &$selected:focus": {
+                        backgroundColor: "hsl(0, 0%, 16%)",
+                    },
                 },
             },
         },

@@ -19,18 +19,20 @@ const FoodRow = ({ food, add }) => {
 		type: "",
 	});
 
+	const foodRef = React.useRef(food);
+
 	//check to see if formData !== food object, to schedule available update
 	React.useEffect(() => {
 		setIsEdited(
-			formData.number === food.number &&
-				formData.name === food.name &&
-				formData.content === food.content &&
-				formData.price === food.price &&
-				formData.image === food.image &&
-				formData.type === food.type
+			formData.number === foodRef.current.number &&
+				formData.name === foodRef.current.name &&
+				//compare arrays!
+				JSON.stringify(formData.content) === JSON.stringify(foodRef.current.content) &&
+				formData.price === foodRef.current.price &&
+				formData.image === foodRef.current.image &&
+				formData.type === foodRef.current.type
 		);
-	}, [formData, food]);
-
+	}, [formData]);
 
 	const handleEdit = () => {
 		if (!inEditMode) {
@@ -69,7 +71,15 @@ const FoodRow = ({ food, add }) => {
 		}
 		return contentString;
 	};
-	
+
+	const handleFormEvent = (event) => {
+		setFormData({
+			...formData,
+			[event.target.name]: event.target.value,
+		});
+		console.log("FORM CHANGED")
+	};
+
 	//number of important columns
 	let x = Object.keys(formData).length + 1;
 	return (
@@ -80,10 +90,7 @@ const FoodRow = ({ food, add }) => {
 				) : (
 					<TextField
 						disabled={isLoading}
-						onChange={(event) => setFormData({
-							...formData,
-							[event.target.name]: event.target.value,
-						})}
+						onChange={(event) => handleFormEvent(event)}
 						name="number"
 						variant="filled"
 						value={formData.number}
@@ -98,10 +105,7 @@ const FoodRow = ({ food, add }) => {
 				) : (
 					<TextField
 						disabled={isLoading}
-						onChange={(event) => setFormData({
-							...formData,
-							[event.target.name]: event.target.value,
-						})}
+						onChange={(event) => handleFormEvent(event)}
 						name="name"
 						variant="filled"
 						value={formData.name}
@@ -115,8 +119,7 @@ const FoodRow = ({ food, add }) => {
 				) : (
 					<ContentPicker
 						content={formData.content}
-						formData={formData}
-						setFormData={setFormData}
+						onChange={(event) => handleFormEvent(event)}
 					/>
 				)}
 			</td>
@@ -126,10 +129,7 @@ const FoodRow = ({ food, add }) => {
 				) : (
 					<TextField
 						disabled={isLoading}
-						onChange={(event) => setFormData({
-							...formData,
-							[event.target.name]: event.target.value,
-						})}
+						onChange={(event) => handleFormEvent(event)}
 						name="price"
 						variant="filled"
 						value={formData.price}
@@ -150,10 +150,7 @@ const FoodRow = ({ food, add }) => {
 				) : (
 					<TextField
 						disabled={isLoading}
-						onChange={(event) => setFormData({
-							...formData,
-							[event.target.name]: event.target.value,
-						})}
+						onChange={(event) => handleFormEvent(event)}
 						name="image"
 						variant="filled"
 						value={formData.image}
@@ -172,10 +169,7 @@ const FoodRow = ({ food, add }) => {
 						elevation={1}
 					>
 						<Select
-							onChange={(event) => setFormData({
-								...formData,
-								[event.target.name]: event.target.value,
-							})}
+							onChange={(event) => handleFormEvent(event)}
 							name="type"
 							value={formData.type}
 						>

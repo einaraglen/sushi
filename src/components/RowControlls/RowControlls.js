@@ -51,7 +51,15 @@ const RowControlls = ({
 		try {
 			let { add } = getCurrentService();
 			let res = await add(formData);
-			if (res.status) setFormData({})
+			if (res.status)
+				setFormData({
+					number: "",
+					name: "",
+					content: [],
+					price: "",
+					image: "",
+					type: "",
+				});
 			setIsLoading(false);
 			handleResponse(
 				res,
@@ -73,13 +81,13 @@ const RowControlls = ({
 	};
 
 	const tryDelete = async () => {
-        setIsLoading(true);
+		setIsLoading(true);
 		try {
 			let { deleteById } = getCurrentService();
 			let res = await deleteById(currentObject._id);
-            setIsLoading(false);
-            state.method.setIsEditing(false);
-            state.method.closeModal();
+			setIsLoading(false);
+			state.method.setIsEditing(false);
+			state.method.closeModal();
 			handleResponse(
 				res,
 				`${type}`,
@@ -99,7 +107,7 @@ const RowControlls = ({
 
 	return (
 		<>
-			<td>
+			<td style={{width: "3rem"}}>
 				<IconButton
 					disabled={!canEdit() || isLoading}
 					onClick={add ? handleAdd : handleEdit}
@@ -109,7 +117,7 @@ const RowControlls = ({
 					{add ? <AddCircleIcon /> : inEditMode ? <CancelIcon /> : <EditIcon />}
 				</IconButton>
 			</td>
-			<td>
+			<td style={{width: "3rem"}}>
 				{add ? null : (
 					<IconButton
 						disabled={isEdited || !inEditMode || isLoading}
@@ -121,7 +129,7 @@ const RowControlls = ({
 					</IconButton>
 				)}
 			</td>
-			<td>
+			<td style={{width: "3rem"}}>
 				{add ? null : (
 					<IconButton
 						disabled={!inEditMode || isLoading}

@@ -13,10 +13,12 @@ const TypeRow = ({ type, add }) => {
 		pieces: 0,
 	});
 
+	const typeRef = React.useRef(type);
+
 	//check to see if formData !== food object, to schedule available update
 	React.useEffect(() => {
-		setIsEdited(formData.name === type.name && formData.pieces === type.pieces);
-	}, [formData, type]);
+		setIsEdited(formData.name === typeRef.current.name && formData.pieces === typeRef.current.pieces);
+	}, [formData]);
 
 	const canEdit = () => {
 		return !state.value.isEditing || inEditMode;
