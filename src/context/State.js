@@ -10,109 +10,116 @@ let state = {};
  * From /context/State
  */
 const State = ({ children }) => {
-	//Check for if the user is logged in
-	const [validUser, setValidUser] = React.useState(false);
-	const [isEditing, setIsEditing] = React.useState(false);
-	const [foods, setFoods] = React.useState([]);
-	const [types, setTypes] = React.useState([]);
-	const [contents, setContents] = React.useState([]);
-	const [confirmDelete, setConfirmDelete] = React.useState(false);
+    //Check for if the user is logged in
+    const [validUser, setValidUser] = React.useState(false);
+    const [isEditing, setIsEditing] = React.useState(false);
+    const [foods, setFoods] = React.useState([]);
+    const [types, setTypes] = React.useState([]);
+    const [contents, setContents] = React.useState([]);
+    const [confirmDelete, setConfirmDelete] = React.useState(false);
 
-	const [snackControlls, setSnackControlls] = React.useState({
-		open: false,
-		message: undefined,
-	});
+    const [snackControlls, setSnackControlls] = React.useState({
+        open: false,
+        message: undefined,
+    });
 
-	const [modalControlls, setModalControlls] = React.useState({
-		open: false,
-		message: undefined,
-		actionText: undefined,
-		action: undefined,
-	});
+    const [modalControlls, setModalControlls] = React.useState({
+        open: false,
+        message: undefined,
+        actionText: undefined,
+        action: undefined,
+    });
 
-	const theme = createMuiTheme({
-		overrides: {
-			MuiListItemText: {
-				root: {
-					color: "hsl(0, 0%, 86%)",
-				},
-			},
-			MuiFormLabel: {
-				root: {
-					color: "hsl(0, 0%, 86%)",
-				},
-			},
-			MuiInputBase: {
-				root: {
-					color: "hsl(0, 0%, 86%)",
-				},
-			},
-			MuiMenu: {
-				paper: {
-					backgroundColor: "hsl(0, 0%, 22%)",
-					boxShadow: "0px 3px 15px rgba(0,0,0,0.2)",
-					color: "hsl(0, 0%, 86%)",
-				},
-			},
-			MuiMenuItem: {
-				root: {
-					//fontSize: 12,
-				},
-			},
-		},
-		palette: {
-			primary: {
-				light: "hsl(128, 26%, 60%)",
-				main: "hsl(128, 26%, 40%)",
-				dark: "hsl(128, 26%, 30%)",
-				contrastText: "hsl(120, 4%, 91%)",
-			},
-			secondary: {
-				light: "hsl(355, 52%, 82%)",
-				main: "hsl(355, 92%, 62%)",
-				dark: "hsl(355, 52%, 32%)",
-				contrastText: "hsl(120, 4%, 91%)",
-			},
-		},
-	});
+    const theme = createMuiTheme({
+        overrides: {
+            MuiListItem: {
+                root: {
+                    "&$selected, &$selected:hover, &$selected:focus": {
+                        backgroundColor: "#FFF",
+                    },
+                },
+            },
+            MuiListItemText: {
+                root: {
+                    color: "hsl(0, 0%, 86%)",
+                },
+            },
+            MuiFormLabel: {
+                root: {
+                    color: "hsl(0, 0%, 86%)",
+                },
+            },
+            MuiInputBase: {
+                root: {
+                    color: "hsl(0, 0%, 86%)",
+                },
+            },
+            MuiMenu: {
+                paper: {
+                    backgroundColor: "hsl(0, 0%, 22%)",
+                    boxShadow: "0px 3px 15px rgba(0,0,0,0.2)",
+                    color: "hsl(0, 0%, 86%)",
+                },
+            },
+            MuiMenuItem: {
+                root: {
+                    //fontSize: 12,
+                },
+            },
+        },
+        palette: {
+            primary: {
+                light: "hsl(128, 26%, 60%)",
+                main: "hsl(128, 26%, 40%)",
+                dark: "hsl(128, 26%, 30%)",
+                contrastText: "hsl(120, 4%, 91%)",
+            },
+            secondary: {
+                light: "hsl(355, 52%, 82%)",
+                main: "hsl(355, 92%, 62%)",
+                dark: "hsl(355, 52%, 32%)",
+                contrastText: "hsl(120, 4%, 91%)",
+            },
+        },
+    });
 
-	const closeModal = () => {
-		setModalControlls({
-			open: false,
-			message: undefined,
-			actionText: undefined,
-			function: undefined,
-		});
-	};
+    const closeModal = () => {
+        setModalControlls({
+            open: false,
+            message: undefined,
+            actionText: undefined,
+            function: undefined,
+        });
+    };
 
-	//this will be accessable from all the components that import Context variable
-	state = {
-		version: "0.0.9",
-		theme: theme,
-		value: {
-			foods: foods,
-			types: types,
-			contents: contents,
-			validUser: validUser,
-			isEditing: isEditing,
-			snackControlls: snackControlls,
-			modalControlls: modalControlls,
-			confirmDelete: confirmDelete,
-		},
-		method: {
-			setFoods,
-			setTypes,
-			setContents,
-			setValidUser,
-			setIsEditing,
-			setSnackControlls,
-			setModalControlls,
-			setConfirmDelete,
-			closeModal,
-		},
-	};
+    //this will be accessable from all the components that import Context variable
+    state = {
+        version: "0.0.9",
+        theme: theme,
+        value: {
+            foods: foods,
+            types: types,
+            contents: contents,
+            validUser: validUser,
+            isEditing: isEditing,
+            snackControlls: snackControlls,
+            modalControlls: modalControlls,
+            confirmDelete: confirmDelete,
+        },
+        method: {
+            setFoods,
+            setTypes,
+            setContents,
+            setValidUser,
+            setIsEditing,
+            setSnackControlls,
+            setModalControlls,
+            setConfirmDelete,
+            closeModal,
+        },
+    };
 
-	return <Context.Provider value={state}>{children}</Context.Provider>;
+    return <Context.Provider value={state}>{children}</Context.Provider>;
 };
 
 //import and de-structure with React.useContext(-- context variable --)

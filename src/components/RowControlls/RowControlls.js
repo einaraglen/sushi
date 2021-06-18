@@ -17,6 +17,7 @@ const RowControlls = ({
 	isLoading,
 	setIsLoading,
 	formData,
+	setFormData,
 	inEditMode,
 	handleEdit,
 	canEdit,
@@ -50,6 +51,7 @@ const RowControlls = ({
 		try {
 			let { add } = getCurrentService();
 			let res = await add(formData);
+			if (res.status) setFormData({})
 			setIsLoading(false);
 			handleResponse(
 				res,

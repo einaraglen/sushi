@@ -14,6 +14,8 @@ const ResponseHandler = () => {
 		//if message contains "<Table> validation failed" if trying to add without all parameters
 		if (res.message.indexOf("validation failed") > -1) return missingParamResponse(res);
 
+		if (res.message.indexOf("duplicate key") > -1) return duplicateKeyError(res);
+
 		//if message contains "TokenExpiredError" ACCESS_TOKEN needs to be refreshed
 		if (res.message.indexOf("TokenExpiredError") > -1) return openRefreshModal();
 
@@ -33,6 +35,16 @@ const ResponseHandler = () => {
 			message: "Network Error!",
 		});
 	};
+
+	const duplicateKeyError = (res) => {
+		state.method.setSnackControlls({
+			open: true,
+			//first word of message string is Table-variant
+			message: `Error Adding: ${
+				res.message.split("{")[1].replace(" ", "").replace("}", "").replace(":", "")
+			} already exists`,
+		});
+	}
 
 	const missingParamResponse = (res) => {
 		state.method.setSnackControlls({

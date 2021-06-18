@@ -13,7 +13,7 @@ const FoodRow = ({ food, add }) => {
 	const [formData, setFormData] = React.useState({
 		number: "",
 		name: "",
-		content: !food.content ? [] : food.content,
+		content: [],
 		price: "",
 		image: "",
 		type: "",
@@ -31,12 +31,6 @@ const FoodRow = ({ food, add }) => {
 		);
 	}, [formData, food]);
 
-	const handleFormChange = (event) => {
-		setFormData({
-			...formData,
-			[event.target.name]: event.target.value,
-		});
-	};
 
 	const handleEdit = () => {
 		if (!inEditMode) {
@@ -75,14 +69,7 @@ const FoodRow = ({ food, add }) => {
 		}
 		return contentString;
 	};
-
-	const handleContentChange = (newContent) => {
-		setFormData({
-			...formData,
-			content: newContent,
-		});
-	};
-
+	
 	//number of important columns
 	let x = Object.keys(formData).length + 1;
 	return (
@@ -93,7 +80,10 @@ const FoodRow = ({ food, add }) => {
 				) : (
 					<TextField
 						disabled={isLoading}
-						onChange={(event) => handleFormChange(event)}
+						onChange={(event) => setFormData({
+							...formData,
+							[event.target.name]: event.target.value,
+						})}
 						name="number"
 						variant="filled"
 						value={formData.number}
@@ -108,7 +98,10 @@ const FoodRow = ({ food, add }) => {
 				) : (
 					<TextField
 						disabled={isLoading}
-						onChange={(event) => handleFormChange(event)}
+						onChange={(event) => setFormData({
+							...formData,
+							[event.target.name]: event.target.value,
+						})}
 						name="name"
 						variant="filled"
 						value={formData.name}
@@ -122,7 +115,8 @@ const FoodRow = ({ food, add }) => {
 				) : (
 					<ContentPicker
 						content={formData.content}
-						handleContentChange={handleContentChange}
+						formData={formData}
+						setFormData={setFormData}
 					/>
 				)}
 			</td>
@@ -132,7 +126,10 @@ const FoodRow = ({ food, add }) => {
 				) : (
 					<TextField
 						disabled={isLoading}
-						onChange={(event) => handleFormChange(event)}
+						onChange={(event) => setFormData({
+							...formData,
+							[event.target.name]: event.target.value,
+						})}
 						name="price"
 						variant="filled"
 						value={formData.price}
@@ -153,7 +150,10 @@ const FoodRow = ({ food, add }) => {
 				) : (
 					<TextField
 						disabled={isLoading}
-						onChange={(event) => handleFormChange(event)}
+						onChange={(event) => setFormData({
+							...formData,
+							[event.target.name]: event.target.value,
+						})}
 						name="image"
 						variant="filled"
 						value={formData.image}
@@ -172,7 +172,10 @@ const FoodRow = ({ food, add }) => {
 						elevation={1}
 					>
 						<Select
-							onChange={(event) => handleFormChange(event)}
+							onChange={(event) => setFormData({
+								...formData,
+								[event.target.name]: event.target.value,
+							})}
 							name="type"
 							value={formData.type}
 						>
@@ -192,6 +195,7 @@ const FoodRow = ({ food, add }) => {
 				isLoading={isLoading}
 				setIsLoading={setIsLoading}
 				formData={formData}
+				setFormData={setFormData}
 				inEditMode={inEditMode}
 				handleEdit={handleEdit}
 				canEdit={canEdit}

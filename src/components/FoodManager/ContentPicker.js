@@ -4,7 +4,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Context } from "context/State";
 
-const ContentPicker = ({ content, handleContentChange }) => {
+const ContentPicker = ({ content, formData, setFormData }) => {
 	const state = React.useContext(Context);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [checked, setChecked] = React.useState(() => {
@@ -21,8 +21,9 @@ const ContentPicker = ({ content, handleContentChange }) => {
 		return checked;
 	});
 
-	//dependancies can be a pain in the ass ref to variable will be yourRef.current
-	const updateContent = React.useRef(handleContentChange);
+	//dependencies can be a pain in the ass; ref to variable will be yourRef.current
+	const updateContent = React.useRef(setFormData);
+	const formDataRef = React.useRef(formData);
 	const contentRef = React.useRef(content);
 
 	React.useEffect(() => {
@@ -32,8 +33,14 @@ const ContentPicker = ({ content, handleContentChange }) => {
 		}
 		if (!contentRef.current || !contentToList) return;
 		if (contentToList.toString() === contentRef.current.toString())
-			return updateContent.current(contentRef.current);
-		updateContent.current(contentToList);
+			return updateContent.current({
+				...formDataRef.current,
+				content: contentRef.current,
+			});
+			updateContent.current({
+				...formDataRef.current,
+				content: contentToList,
+			});
 	}, [checked]);
 
 	const handleClickListItem = (event) => {
