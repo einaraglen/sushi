@@ -17,6 +17,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Button } from "@material-ui/core";
 import UserService from "services/UserService";
 import Slide from '@material-ui/core/Slide';
+import HomeContent from "components/HomeContent/HomeContent";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -67,7 +68,7 @@ const Home = () => {
 			</div>
 			<div className="home-side-nav">
 				<List component="nav">
-					<Link to={`/home?secret=${query.get("secret")}`}>
+					<Link to={`/home?tab=orders&secret=${query.get("secret")}`}>
 						<ListItem button>
 							<ListItemText primary="Home" />
 						</ListItem>
@@ -104,7 +105,7 @@ const Home = () => {
 			<div className="home-content">
 				<Switch>
 					<Route exact path="/home">
-						<div className="home-main">HOME</div>
+						<HomeContent />
 					</Route>
 					<Route path={`/home/manage-food`}>
 						<FoodManager />

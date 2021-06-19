@@ -13,11 +13,11 @@
     top: 0;
     width: 100%;
     z-index: 5;
-    height: 4rem;
+    height: 3rem;
     background-color: var(--flashy);
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
     filter: invert(10%);
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 600;
     display: grid;
     grid-template-areas: ". logo text . logout";
@@ -26,7 +26,7 @@
 
 .home-top-nav img {
     grid-area: logo;
-    width: 4rem;
+    width: 3rem;
     margin: auto;
 }
 
@@ -36,7 +36,7 @@
     width: 13rem;
     z-index: 4;
     height: 100vh;
-    padding-top: 4rem;   
+    padding-top: 3rem;   
     background-color: var(--lightdark);
     border-right: .3rem solid var(--flashy);
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);

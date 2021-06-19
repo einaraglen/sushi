@@ -13,6 +13,10 @@ const Login = () => {
 	const query = useQuery();
 	const history = useHistory();
 	const state = React.useContext(Context);
+	const [error, setError] = React.useState({
+		status: false,
+		message: "",
+	});
 	const [formData, setFormData] = React.useState({
 		username: "",
 		password: "",
@@ -23,7 +27,10 @@ const Login = () => {
 			const { login } = UserService();
 			let res = await login(formData.username, formData.password);
 			if (!res.status) {
-				//TODO: let them know login failed
+				setError({
+					status: true,
+					message: res.message,
+				});
 				return;
 			}
 			state.method.setValidUser(res.status);
@@ -37,6 +44,7 @@ const Login = () => {
 		<div className="login-main">
 			<div className="login-container">
 				<TextField
+					error={error.status}
 					onChange={(event) =>
 						setFormData({
 							...formData,
@@ -49,12 +57,14 @@ const Login = () => {
 					type="text"
 				/>
 				<TextField
+					error={error.status}
 					onChange={(event) =>
 						setFormData({
 							...formData,
 							password: event.target.value,
 						})
 					}
+					helperText={error.message}
 					color="primary"
 					label="Password"
 					variant="filled"
