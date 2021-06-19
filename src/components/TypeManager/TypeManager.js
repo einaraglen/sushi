@@ -131,6 +131,9 @@ const TypeManager = () => {
 								<td>ID</td>
 								<td>Name</td>
 								<td>Pieces</td>
+								<td></td>
+                                <td></td>
+                                <td></td>
 							</tr>
 						</thead>
 						<tbody>

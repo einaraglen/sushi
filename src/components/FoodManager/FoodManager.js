@@ -156,6 +156,9 @@ const FoodManager = () => {
                                 <td>Price</td>
                                 <td>Image</td>
                                 <td>Type</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </thead>
                         <tbody>

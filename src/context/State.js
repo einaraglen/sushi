@@ -31,10 +31,6 @@ const State = ({ children }) => {
         action: undefined,
     });
 
-    React.useEffect(() => {
-        console.log(foods ? foods[0] : "Loading..")
-    },[foods]);
-
     //style overriding Material UI components
     const theme = createMuiTheme({
         overrides: {

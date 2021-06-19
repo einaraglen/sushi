@@ -129,6 +129,9 @@ const ContentManager = () => {
 							<tr>
 								<td>ID</td>
 								<td>Name</td>
+								<td></td>
+                                <td></td>
+                                <td></td>
 							</tr>
 						</thead>
 						<tbody>

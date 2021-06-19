@@ -21,20 +21,18 @@ const FoodRow = ({ food, add }) => {
 		type: "",
 	});
 
-	const foodRef = React.useRef(food);
-
 	//check to see if formData !== food object, to schedule available update
 	React.useEffect(() => {
 		setIsEdited(
-			formData.number === foodRef.current.number &&
-				formData.name === foodRef.current.name &&
+			formData.number === food.number &&
+				formData.name === food.name &&
 				//compare arrays!
-				JSON.stringify(formData.content) === JSON.stringify(foodRef.current.content) &&
-				formData.price === foodRef.current.price &&
-				formData.image === foodRef.current.image &&
-				formData.type === foodRef.current.type
+				JSON.stringify(formData.content) === JSON.stringify(food.content) &&
+				formData.price === food.price &&
+				formData.image === food.image &&
+				formData.type === food.type
 		);
-	}, [formData]);
+	}, [formData, food]);
 
 	const handleEdit = () => {
 		if (!inEditMode) {
