@@ -31,7 +31,6 @@ const RowControlls = ({
 		setIsLoading(true);
 		try {
 			let { updateById } = getCurrentService();
-
 			let res = await updateById(currentObject._id, formData);
 			setIsLoading(false);
 			handleResponse(

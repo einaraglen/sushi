@@ -18,11 +18,14 @@ const TypeRow = ({ content, add }) => {
 	}, [formData, content]);
 
 	const canEdit = () => {
+		console.log(!state.isEditing || inEditMode)
 		return !state.value.isEditing || inEditMode;
 	};
 
 	const handleEdit = () => {
+		console.log("open edit")
 		if (!inEditMode) {
+			console.log("cancel edit")
 			//if cancel, reset formData
 			setFormData({
 				name: content.name,

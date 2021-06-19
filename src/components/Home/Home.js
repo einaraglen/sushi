@@ -16,6 +16,7 @@ import logo from "images/logo-bigger.svg";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Button } from "@material-ui/core";
 import UserService from "services/UserService";
+import Slide from '@material-ui/core/Slide';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -27,11 +28,11 @@ const Home = () => {
 	const handleLogout = async () => {
 		try {
 			await logout();
-			//wipe tokens
-			document.cookie =
+			//wipe tokens || old method, does not work with secure cookies
+			/*document.cookie =
             "ACCESS_TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 			document.cookie =
-            "REFRESH_TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            "REFRESH_TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";*/
 			//set valid variable to false
 			state.method.setValidUser(false);
 		} catch (error) {
@@ -120,8 +121,9 @@ const Home = () => {
 			<Snackbar
 				anchorOrigin={{
 					vertical: "bottom",
-					horizontal: "center",
+					horizontal: "right",
 				}}
+				TransitionComponent={Slide}
 				open={state.value.snackControlls.open}
 				autoHideDuration={6000}
 				onClose={handleClose}

@@ -23,7 +23,7 @@ const ResponseHandler = () => {
 		if (!res.status) return errorResponse(res);
 
 		//all good so we let the client know
-		state.method.setSnackControlls({ open: true, message: res.message });
+		state.method.setSnackControlls({ open: true, message: res.message, success: true, });
 
 		//takes the given setFunction and extract the res.<key> to use in the setter
 		setFunction(res[value]);
@@ -33,6 +33,7 @@ const ResponseHandler = () => {
 		state.method.setSnackControlls({
 			open: true,
 			message: "Network Error!",
+			success: false,
 		});
 	};
 
@@ -43,6 +44,7 @@ const ResponseHandler = () => {
 			message: `Error Adding: ${
 				res.message.split("{")[1].replace(" ", "").replace("}", "").replace(":", "")
 			} already exists`,
+			success: false,
 		});
 	}
 
@@ -53,6 +55,7 @@ const ResponseHandler = () => {
 			message: `Could not add ${
 				res.message.split(" ")[0]
 			}, Please check that all fields are filled`,
+			success: false,
 		});
 	};
 
@@ -60,6 +63,7 @@ const ResponseHandler = () => {
 		state.method.setSnackControlls({
 			open: true,
 			message: res.message,
+			success: false,
 		});
 	};
 
@@ -83,6 +87,7 @@ const ResponseHandler = () => {
             state.method.setSnackControlls({
 				open: true,
 				message: res.message,
+				success: res.status,
 			});
         } catch (error) {
             console.warn(error);

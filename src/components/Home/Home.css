@@ -65,6 +65,10 @@ table {
     width: 100%;
 }
 
+thead {
+    box-shadow: 0 10px 15px -7px rgba(0,0,0,0.2);
+}
+
 tr {
     height: 5rem;
     width: 100%;

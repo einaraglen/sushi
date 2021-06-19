@@ -21,6 +21,7 @@ const State = ({ children }) => {
     const [snackControlls, setSnackControlls] = React.useState({
         open: false,
         message: undefined,
+        success: false,
     });
 
     const [modalControlls, setModalControlls] = React.useState({
@@ -29,6 +30,10 @@ const State = ({ children }) => {
         actionText: undefined,
         action: undefined,
     });
+
+    React.useEffect(() => {
+        console.log(foods ? foods[0] : "Loading..")
+    },[foods]);
 
     //style overriding Material UI components
     const theme = createMuiTheme({

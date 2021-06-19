@@ -48,7 +48,7 @@ const FoodRow = ({ food, add }) => {
 				type: food.type,
 			});
 		}
-		state.method.setIsEditing(!inEditMode);
+		state.method.setIsEditing(inEditMode);
 		setInEditMode(!inEditMode);
 	};
 
