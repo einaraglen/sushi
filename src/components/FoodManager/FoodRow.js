@@ -27,12 +27,12 @@ const FoodRow = ({ food, add }) => {
 			formData.number === food.number &&
 				formData.name === food.name &&
 				//compare arrays!
-				JSON.stringify(formData.content) === JSON.stringify(food.content) &&
+				JSON.stringify(pickedContent) === JSON.stringify(food.content) &&
 				formData.price === food.price &&
 				formData.image === food.image &&
 				formData.type === food.type
 		);
-	}, [formData, food]);
+	}, [formData, pickedContent, food]);
 
 	const handleEdit = () => {
 		if (!inEditMode) {

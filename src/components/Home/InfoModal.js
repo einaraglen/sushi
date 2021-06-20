@@ -29,7 +29,7 @@ const InfoModal = () => {
 					overscrollBehavior: "contain",
 					//workaround: modal was not covering header
 					zIndex: 10,
-					backgroundColor: "rgba(0, 0, 0, 0.45)",
+					backgroundColor: "rgba(0, 0, 0, 0.2)",
 				},
 			}}
 		>

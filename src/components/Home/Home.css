@@ -56,7 +56,7 @@
     grid-area: content;
     background-color: var(--lightdark);
     min-height: calc(100vh - 140px);
-    padding-top: 4rem;
+    padding-top: 3rem;
 }
 
 table {

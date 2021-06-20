@@ -1,0 +1,48 @@
+.order-content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.orders-holder {
+    margin: 1rem;
+    width: calc(50% - 2rem);
+    max-width: 60rem;
+    background-color: var(--middark);
+    text-align: center;
+}
+
+.add-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.add-content table {
+    margin-top: 1rem;
+}
+
+.add-content tr {
+    height: 2.4rem;
+}
+
+.food-picker {
+    height: 12rem;
+    overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.food-item {
+    background-color: var(--middark);
+    box-shadow: 0px 3px 7px rgba(0,0,0,0.2);
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    margin: .4rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    cursor: pointer;
+    border-radius: .4rem;
+}
