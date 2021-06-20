@@ -15,7 +15,7 @@ const HomeContent = () => {
 	//const state = React.useContext(Context);
 	const history = useHistory();
 	const secret = query.get("secret");
-	const [currentTab, setCurrentTab] = React.useState(query.get("tab"));
+	const [currentTab, setCurrentTab] = React.useState(query.get("tab") === "null" ? query.get("tab") : "orders");
 
 	//workaround to using context inside useEffect without infinity loop
 	//const effectState = React.useRef(state);

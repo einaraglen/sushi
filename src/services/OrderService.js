@@ -4,11 +4,9 @@ const { api } = Connection();
 const PATH = "/order";
 
 const OrderService = () => {
-	const add = (type) => {
+	const add = (order) => {
 		return api
-			.post(`${PATH}/add`, {
-				type: type,
-			})
+			.post(`${PATH}/add`, order)
 			.then(
 				({ data }) => data,
 				(error) => console.warn(error)

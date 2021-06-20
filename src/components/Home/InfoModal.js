@@ -2,11 +2,20 @@ import React from "react";
 import Modal from "react-modal";
 import { Context } from "context/State";
 import { Button } from "@material-ui/core";
+import UserService from "services/UserService";
 
 const InfoModal = () => {
 	const state = React.useContext(Context);
+	const { validateToken, logout } = UserService();
 
-	const close = () => {
+	const close = async () => {
+		try {
+			let res = await validateToken();
+			if (!res.status) await logout();
+			state.method.setValidUser(res.status);
+		} catch (error) {
+			console.warn(error);
+		}
 		state.method.closeModal();
 	};
 
