@@ -80,13 +80,13 @@ const Orders = () => {
 			) : (
 				<div className="order-content">
 					<div className="orders-holder">
-						<p>In-Progress</p>
+						<p>{`In-Progress : ${handleData("in-progress").length}`}</p>
 						{handleData("in-progress").map((order) => (
 							<OrderCard key={order.shortid} order={order} />
 						))}
 					</div>
 					<div className="orders-holder">
-						<p>Done</p>
+					<p>{`Done : ${handleData("done").length}`}</p>
 						{handleData("done").map((order) => (
 							<OrderCard key={order.shortid} order={order} />
 						))}

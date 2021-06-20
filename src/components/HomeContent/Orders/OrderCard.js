@@ -34,7 +34,7 @@ const OrderCard = ({ order }) => {
                     {formatFoods()}
                 </tbody>
             </table>
-            <p>{`Total : ${order.price}`}</p>
+            <p>{`Total : ${order.price} kr`}</p>
         </div>
     )
 }

@@ -113,6 +113,7 @@ const AddModal = ({ openModal, setOpenModal }) => {
 	};
 
 	const close = () => {
+		setPickedFoods({})
 		setOpenModal(false);
 	};
 
