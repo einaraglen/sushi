@@ -13,6 +13,18 @@ const OrderService = () => {
 			);
 	};
 
+	const updateById = (id, update) => {
+		return api
+			.put(`${PATH}/update`, {
+				id: id,
+				update: update,
+			})
+			.then(
+				({ data }) => data,
+				(error) => console.warn(error)
+			);
+	};
+
 	const findAllOrders = () => {
 		return api.get(`${PATH}/all`).then(
 			({ data }) => data,
@@ -20,7 +32,7 @@ const OrderService = () => {
 		);
 	};
 
-	return { add, findAllOrders };
+	return { add, updateById, findAllOrders };
 };
 
 export default OrderService;

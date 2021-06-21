@@ -29,7 +29,6 @@ const Orders = () => {
 		const find = async () => {
 			//these we will display on screen, will not work unless token i active so refresh is needed
 			let res_orders = await findAllOrders();
-			console.log(res_orders)
 			if (!res_orders.status) {
                 let refresh_res = await refreshToken();
                 effectState.current.method.setValidUser(refresh_res.status);
@@ -59,14 +58,21 @@ const Orders = () => {
 	const handleData = (type) => {
 		let temp = [];
 		if (!state.value.orders) return;
+		//gives all orders in-progress in FIFO order
 		if (type === "in-progress") {
 			temp = state.value.orders.filter((order) => !order.done);
 			return temp.sort((a, b) => (a.created > b.created ? 1 : -1));
 		}
+		//gives all orders waiting for pickup in FIFO order
 		if (type === "done") {
-			temp = state.value.orders.filter((order) => order.done);
-			temp = temp.sort((a, b) => (a === b ? 0 : a ? -1 : 1));
+			temp = state.value.orders.filter((order) => order.done && order.active);
+			//temp = temp.sort((a, b) => (a === b ? 0 : a ? -1 : 1));
 			return temp.sort((a, b) => (a.created > b.created ? 1 : -1));
+		}
+		//gives all in-active orders ranged from the last completed
+		if (type === "complete") {
+			temp = state.value.orders.filter((order) => !order.active);
+			return temp.sort((a, b) => (a.created < b.created ? 1 : -1));
 		}
 		return [];
 	};
@@ -90,6 +96,26 @@ const Orders = () => {
 						{handleData("done").map((order) => (
 							<OrderCard key={order.shortid} order={order} />
 						))}
+					</div>
+					<div className="order-archive">
+							<table>
+								<thead>
+									<tr>
+										<td>Date</td>
+										<td>ID</td>
+										<td>Price</td>
+									</tr>
+								</thead>
+								<tbody>
+									{handleData("complete").map((order) =>
+									<tr key={order.shortid}>
+										<td>{order.created}</td>
+										<td>{order.shortid}</td>
+										<td>{order.price} kr</td>
+									</tr>
+								)}
+								</tbody>
+							</table>
 					</div>
 				</div>
 			)}

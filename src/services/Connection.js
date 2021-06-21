@@ -12,8 +12,8 @@ const Connection = () => {
      */
     const api = axios.create({
         withCredentials: true,
-        baseURL: "https://sush-backend.herokuapp.com/",
-        //baseURL: "http://localhost:8080/",
+        //baseURL: "https://sush-backend.herokuapp.com/",
+        baseURL: "http://localhost:8080/",
     });
 
     return { api };

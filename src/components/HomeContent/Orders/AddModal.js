@@ -41,6 +41,11 @@ const AddModal = ({ openModal, setOpenModal }) => {
 	const [currentSearch, setCurrentSearch] = React.useState("");
 	const { handleResponse } = ResponseHandler();
 
+	React.useEffect(() => {
+		document.body.style.overflow = openModal ? 'hidden' : 'unset';
+		document.body.style.paddingRight = openModal ? '17px' : '0px';
+	}, [openModal])
+
 	const pickFood = (action, id) => {
 		if (action === "remove") return removePicked(id);
 		let instances = pickedFoods[id] ? pickedFoods[id] : 0;
@@ -135,7 +140,7 @@ const AddModal = ({ openModal, setOpenModal }) => {
 				overlay: {
 					overscrollBehavior: "contain",
 					//workaround: modal was not covering header
-					zIndex: 10,
+					zIndex: 8,
 					backgroundColor: "rgba(0, 0, 0, 0.2)",
 				},
 			}}

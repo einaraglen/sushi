@@ -1,6 +1,7 @@
 .order-content {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    align-items: flex-start;
     flex-wrap: wrap;
 }
 
@@ -30,6 +31,10 @@
 
 .picked tr {
     height: 2.4rem;
+}
+
+.order-archive {
+    width: 100%;
 }
 
 .order-card {

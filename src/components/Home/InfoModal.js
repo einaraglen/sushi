@@ -8,7 +8,16 @@ const InfoModal = () => {
 	const state = React.useContext(Context);
 	const { validateToken, logout } = UserService();
 
+	//document.body.style.overflow = 'hidden';
+
+	React.useEffect(() => {
+		document.body.style.overflow = state.value.modalControlls.open ? 'hidden' : 'unset';
+		document.body.style.paddingRight = state.value.modalControlls.open ? '17px' : '0px';
+	}, [state.value.modalControlls])
+
+
 	const close = async () => {
+		if (state.value.modalControlls.actionText === "Yes") return state.method.closeModal();
 		try {
 			let res = await validateToken();
 			if (!res.status) await logout();
