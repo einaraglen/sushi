@@ -1,19 +1,20 @@
 
 body {
   background-color: var(--lightdark);
-  color:hsl(0, 0%, 86%)
+  color:hsl(0, 0%, 86%);
+  font-size: .9rem;
 }
 
 :root {
-  --light: hsl(100, 100%, 99%);
-  --platinum: hsl(120, 4%, 91%);
-  --dark: hsl(199, 100%, 29%);
   --dark2: hsl(0, 0%, 10%);
-  /*--flashy: hsl(128, 26%, 40%);*/
   --flashy: hsl(128, 26%, 30%);
   --lightdark: 	hsl(0, 0%, 17%);
   --middark: hsl(0, 0%, 22%);
   --fulldark: 	hsl(0, 0%, 19%);
+  --error: hsl(355, 92%, 62%);
+  --mid: hsl(42, 79%, 54%);
+  --end: hsl(12, 75%, 45%);
+  --start: hsl(210, 77%, 57%);
 }
 
 .app-loading {

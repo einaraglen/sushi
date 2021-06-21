@@ -72,7 +72,7 @@ const Orders = () => {
 		//gives all in-active orders ranged from the last completed
 		if (type === "complete") {
 			temp = state.value.orders.filter((order) => !order.active);
-			return temp.sort((a, b) => (a.created < b.created ? 1 : -1));
+			return temp.sort((a, b) => (a.created > b.created ? -1 : 1));
 		}
 		return [];
 	};

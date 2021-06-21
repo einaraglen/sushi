@@ -70,17 +70,37 @@ const OrderCard = ({ order }) => {
         }
     };
 
-    const getTimeRemaining = () => {
-        if (startTime.getHours() + 1 < currentTime.getHours()) return "Times Up!"
-        let remainingMinute = (startTime.getMinutes() + 25 > 60 ? startTime.getMinutes() + 25 - 60 : startTime.getMinutes() + 25 ) - currentTime.getMinutes()
-        let remainingSeconds = 59 - currentTime.getSeconds()
-        return `${remainingMinute}:${remainingSeconds}`
+    const buildHeader = (wait) => {
+        startTime.setMinutes(startTime.getMinutes() + wait)
+        let timeleft = startTime.getTime() - currentTime.getTime();
+        let minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+
+        let stringMinutes = minutes.toString().length === 1 ? `0${minutes}` : minutes;
+        let stringSeconds = seconds.toString().length === 1 ? `0${seconds}` : seconds;
+
+        //if (minutes <= 0) return <p className={"time " + getUrgency(wait, minutes)}>No More Time</p>;
+        return (
+            <div className={`card-header ${getUrgency(wait, minutes)}`}>
+                <p>{order.shortid}</p>
+                <p className="time">{minutes <= 0 ? "Time is Out" : `${stringMinutes}:${stringSeconds}`}</p>
+            </div>
+        )
+    }
+
+    const getUrgency = (wait, minutes) => {
+        if (minutes <= 0) return "done";
+
+        let grade = wait / minutes;
+
+        if (grade < wait / 10) return "start";
+        if (grade < wait / 6) return "mid";
+        if (grade <= wait) return "end"
     }
 
     return (
         <div className="order-card">
-            <p>{order.shortid}</p>
-            <p>{getTimeRemaining()}</p>
+            {buildHeader(15)}
             <table>
                 <tbody>{formatFoods()}</tbody>
             </table>
@@ -89,7 +109,7 @@ const OrderCard = ({ order }) => {
                 onClick={handleUpdateStatus}
                 color="primary"
                 variant="contained"
-                style={{ width: "6rem", margin: "auto" }}
+                style={{ maxWidth: "6rem", margin: "auto" }}
             >
                 {!order.done ? "Done" : "Complete"}
             </Button>

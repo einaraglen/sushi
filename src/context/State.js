@@ -77,6 +77,9 @@ const State = ({ children }) => {
                 },
             },
         },
+        typography: {
+            htmlFontSize: 20,
+        },
         palette: {
             primary: {
                 light: "hsl(128, 26%, 60%)",

@@ -147,7 +147,7 @@ const FoodRow = ({ food, add }) => {
 						<img
 							alt={"Sushi piece"}
 							src={food.image}
-							style={{ borderRadius: "50%", height: "4rem" }}
+							style={{ borderRadius: "50%", height: "3rem" }}
 						/>
 					</a>
 				) : (
