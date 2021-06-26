@@ -203,14 +203,14 @@ const AddModal = ({ openModal, setOpenModal }) => {
 											</IconButton>
 										</div>
 									</td>
-									<td>{getFoodItemOf(item[0]).price * item[1]}</td>
+									<td>{getFoodItemOf(item[0]).price * item[1]} kr</td>
 								</tr>
 							))}
 							<tr>
 								<td></td>
 								<td></td>
 								<td></td>
-								<th id="bottom">{getTotalPrice()}</th>
+								<th id="bottom">{getTotalPrice()} kr</th>
 							</tr>
 						</tbody>
 					</table>

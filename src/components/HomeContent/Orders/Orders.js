@@ -80,18 +80,6 @@ const Orders = () => {
 		return [];
 	};
 
-	const formatFood = (foods) => {
-		let foodString = "";
-		if (foods.length === 0) return "No Food Found";
-		for (let i = 0; i < foods.length; i++) {
-			let current = state.value.foods.find((food) => food._id === foods[i]);
-			if (!current) return;
-			if (i === foods.length - 1) return (foodString += current.number);
-			foodString += `${current.number}, `;
-		}
-		return foodString;
-	};
-
 	return (
 		<div className="orders">
 			{isLoading ? (
@@ -111,30 +99,6 @@ const Orders = () => {
 						{handleData("done").map((order) => (
 							<OrderCard key={order.shortid} order={order} />
 						))}
-					</div>
-					<div className="order-archive">
-							<table>
-								<thead>
-									<tr>
-										<td>Created</td>
-										<td>Closed</td>
-										<td>ID</td>
-										<td>Food</td>
-										<td>Price</td>
-									</tr>
-								</thead>
-								<tbody>
-									{handleData("complete").map((archive) =>
-									<tr key={archive.shortid}>
-										<td>{new Date(archive.created).toLocaleString()}</td>
-										<td>{new Date(archive.closed).toLocaleString()}</td>
-										<td>{archive.shortid}</td>
-										<td>{formatFood(archive.food)}</td>
-										<td>{archive.price} kr</td>
-									</tr>
-								)}
-								</tbody>
-							</table>
 					</div>
 				</div>
 			)}

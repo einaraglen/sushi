@@ -128,7 +128,7 @@ const FoodRow = ({ food, add }) => {
 			</td>
 			<td width={`${100 / x}%`}>
 				{!inEditMode && !add ? (
-					food.price
+					food.price + " kr"
 				) : (
 					<TextField
 						disabled={isLoading}

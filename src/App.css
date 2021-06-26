@@ -6,7 +6,7 @@ body {
 }
 
 :root {
-  --dark2: hsl(0, 0%, 10%);
+  --dark2: hsl(0, 0%, 13%);
   --flashy: hsl(128, 26%, 30%);
   --lightdark: 	hsl(0, 0%, 17%);
   --middark: hsl(0, 0%, 22%);
@@ -16,6 +16,19 @@ body {
   --end: hsl(12, 75%, 45%);
   --start: hsl(210, 77%, 57%);
 }
+
+/* Chrome, Safari */
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+  }
+  ::-webkit-scrollbar-track-piece  {
+  background-color: var(--lightdark);
+  }
+  ::-webkit-scrollbar-thumb:vertical {
+  height: 30px;
+  background-color: var(--dark2);
+  }
 
 .app-loading {
   width: 4rem;
