@@ -40,7 +40,7 @@ const TypeRow = ({ content, add }) => {
 	};
 
 	//number of important columns
-	let x = Object.keys(formData).length + 2;
+	let x = Object.keys(formData).length + 1.5;
 	return (
 		<tr>
 			<td width={`${100 / x}%`}>{add ? "To be generated" : content._id}</td>

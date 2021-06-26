@@ -17,6 +17,7 @@ const State = ({ children }) => {
 	const [types, setTypes] = React.useState([]);
 	const [contents, setContents] = React.useState([]);
 	const [orders, setOrders] = React.useState([]);
+	const [archives, setArchives] = React.useState([]);
 	const [confirmDelete, setConfirmDelete] = React.useState(false);
 
 	const [snackControlls, setSnackControlls] = React.useState({
@@ -112,13 +113,14 @@ const State = ({ children }) => {
 
 	//this will be accessable from all the components that import Context variable
 	state = {
-		version: "0.1.2",
+		version: "0.1.3",
 		theme: theme,
 		value: {
 			foods: foods,
 			types: types,
 			contents: contents,
 			orders: orders,
+			archives: archives,
 			validUser: validUser,
 			isEditing: isEditing,
 			snackControlls: snackControlls,
@@ -130,6 +132,7 @@ const State = ({ children }) => {
 			setTypes,
 			setContents,
 			setOrders,
+			setArchives,
 			setValidUser,
 			setIsEditing,
 			setSnackControlls,

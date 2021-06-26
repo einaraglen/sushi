@@ -121,7 +121,7 @@ const ContentManager = () => {
 							color="primary"
 							variant="contained"
 						>
-							Add
+							{!addOpen ? "Add" : "Close"}
 						</Button>
 					</div>
 					<table>

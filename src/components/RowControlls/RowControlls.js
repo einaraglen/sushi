@@ -106,7 +106,7 @@ const RowControlls = ({
 
 	return (
 		<>
-			<td style={{width: "3rem"}}>
+			<td style={{width: "5%"}}>
 				<IconButton
 					disabled={!canEdit() || isLoading}
 					onClick={add ? handleAdd : handleEdit}
@@ -116,7 +116,7 @@ const RowControlls = ({
 					{add ? <AddCircleIcon /> : inEditMode ? <CancelIcon /> : <EditIcon />}
 				</IconButton>
 			</td>
-			<td style={{width: "3rem"}}>
+			<td style={{width: "5%"}}>
 				{add ? null : (
 					<IconButton
 						disabled={isEdited || !inEditMode || isLoading}
@@ -128,7 +128,7 @@ const RowControlls = ({
 					</IconButton>
 				)}
 			</td>
-			<td style={{width: "3rem"}}>
+			<td style={{width: "5%"}}>
 				{add ? null : (
 					<IconButton
 						disabled={!inEditMode || isLoading}

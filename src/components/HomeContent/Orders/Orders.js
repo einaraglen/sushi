@@ -23,22 +23,25 @@ const Orders = () => {
 		//init guard
 		let isMounted = true;
 		//import service component
-		let { findAllOrders } = OrderService();
+		let { findAllOrders, findAllArchives } = OrderService();
 		let { findAllFoods } = FoodService();
 		let { refreshToken, logout } = UserService();
 		const find = async () => {
 			//these we will display on screen, will not work unless token i active so refresh is needed
 			let res_orders = await findAllOrders();
+			let res_archives = await findAllArchives();
 			if (!res_orders.status) {
                 let refresh_res = await refreshToken();
                 effectState.current.method.setValidUser(refresh_res.status);
 				if (!refresh_res.status) return await logout();
 				res_orders = await findAllOrders();
+				res_archives = await findAllArchives();
             }
 			//for manual add of order
 			let res_foods = await findAllFoods();
 			if (!isMounted) return;
 			effectState.current.method.setOrders(res_orders.orders);
+			effectState.current.method.setArchives(res_archives.archives);
 			effectState.current.method.setFoods(res_foods.foods);
 			//cancel loading, so site can render
 			setIsLoading(false);
@@ -71,10 +74,22 @@ const Orders = () => {
 		}
 		//gives all in-active orders ranged from the last completed
 		if (type === "complete") {
-			temp = state.value.orders.filter((order) => !order.active);
-			return temp.sort((a, b) => (a.created > b.created ? -1 : 1));
+			temp = state.value.archives;
+			return temp.sort((a, b) => (a.closed > b.closed ? -1 : 1));
 		}
 		return [];
+	};
+
+	const formatFood = (foods) => {
+		let foodString = "";
+		if (foods.length === 0) return "No Food Found";
+		for (let i = 0; i < foods.length; i++) {
+			let current = state.value.foods.find((food) => food._id === foods[i]);
+			if (!current) return;
+			if (i === foods.length - 1) return (foodString += current.number);
+			foodString += `${current.number}, `;
+		}
+		return foodString;
 	};
 
 	return (
@@ -101,17 +116,21 @@ const Orders = () => {
 							<table>
 								<thead>
 									<tr>
-										<td>Date</td>
+										<td>Created</td>
+										<td>Closed</td>
 										<td>ID</td>
+										<td>Food</td>
 										<td>Price</td>
 									</tr>
 								</thead>
 								<tbody>
-									{handleData("complete").map((order) =>
-									<tr key={order.shortid}>
-										<td>{order.created}</td>
-										<td>{order.shortid}</td>
-										<td>{order.price} kr</td>
+									{handleData("complete").map((archive) =>
+									<tr key={archive.shortid}>
+										<td>{new Date(archive.created).toLocaleString()}</td>
+										<td>{new Date(archive.closed).toLocaleString()}</td>
+										<td>{archive.shortid}</td>
+										<td>{formatFood(archive.food)}</td>
+										<td>{archive.price} kr</td>
 									</tr>
 								)}
 								</tbody>

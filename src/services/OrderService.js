@@ -32,7 +32,14 @@ const OrderService = () => {
 		);
 	};
 
-	return { add, updateById, findAllOrders };
+	const findAllArchives = () => {
+		return api.get(`${PATH}/archives`).then(
+			({ data }) => data,
+			(error) => console.warn(error)
+		);
+	};
+
+	return { add, updateById, findAllOrders, findAllArchives };
 };
 
 export default OrderService;

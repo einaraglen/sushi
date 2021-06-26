@@ -122,7 +122,7 @@ const TypeManager = () => {
 							color="primary"
 							variant="contained"
 						>
-							Add
+							{!addOpen ? "Add" : "Close"}
 						</Button>
 					</div>
 					<table>
