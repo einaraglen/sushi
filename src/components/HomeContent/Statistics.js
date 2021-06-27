@@ -65,7 +65,8 @@ const Statistics = () => {
 		for (let i = 0; i < state.value.archives.length; i++) {
 			let current = state.value.archives[i];
 			for (let j = 0; j < current.food.length; j++) {
-				let foodIndex = tempData.findIndex((food) => food.id === current.food[j]);
+				let currentFood = state.value.foods.find((food) => food._id === current.food[j]);
+				let foodIndex = tempData.findIndex((food) => food.name === currentFood.name);
 				if (foodIndex > -1) {
 					let tempArray = [...tempData];
 					tempArray[foodIndex] = {
@@ -76,13 +77,13 @@ const Statistics = () => {
 				}
 				if (foodIndex === -1) {
 					tempData.push({
-						id: current.food[j],
+						name: currentFood.name,
 						value: 1,
 					});
 				}
 			}
 		}
-		setFoodFrequency(tempData);
+		setFoodFrequency(tempData.sort((a, b) => (a.value > b.value ? -1 : 1)));
 	};
 
 	return (
@@ -95,6 +96,7 @@ const Statistics = () => {
 				<div>
 					<div>
 						<Bar
+						style={{height: "500px"}}
 							data={{
 								datasets: [
 									{
@@ -102,13 +104,19 @@ const Statistics = () => {
 										backgroundColor: "hsl(128, 26%, 30%)", //y
 										fill: true,
 										barPercentage: 1,
-										categoryPercentage: .4,
+										categoryPercentage: .7,
 									},
 								],
 							}}
 							options={{
+								responsive: true,
+								maintainAspectRatio: false,
+								responsiveAnimationDuration: 0,
+								legend: {
+									display: false,
+								},
 								parsing: {
-									xAxisKey: "id",
+									xAxisKey: "name",
 									yAxisKey: "value",
 								},
 							}}
