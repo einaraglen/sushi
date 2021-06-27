@@ -4,10 +4,12 @@ import FoodService from "services/FoodService";
 import OrderService from "services/OrderService";
 import { Context } from "context/State";
 import { CircularProgress } from "@material-ui/core/";
+import { Bar } from "react-chartjs-2";
 
 const Statistics = () => {
 	const state = React.useContext(Context);
 	const [isLoading, setIsLoading] = React.useState(true);
+	const [foodFrequency, setFoodFrequency] = React.useState([]);
 
 	//workaround to using context inside useEffect without infinity loop
 	const effectState = React.useRef(state);
@@ -34,6 +36,7 @@ const Statistics = () => {
 			if (!isMounted) return;
 			effectState.current.method.setArchives(res_archives.archives);
 			effectState.current.method.setFoods(res_foods.foods);
+			buildData();
 			//cancel loading, so site can render
 			setIsLoading(false);
 		};
@@ -45,7 +48,7 @@ const Statistics = () => {
 		};
 	}, []);
 
-    const formatFood = (foods) => {
+	const formatFood = (foods) => {
 		let foodString = "";
 		if (foods.length === 0) return "No Food Found";
 		for (let i = 0; i < foods.length; i++) {
@@ -56,7 +59,32 @@ const Statistics = () => {
 		}
 		return foodString;
 	};
-    
+
+	const buildData = () => {
+		let tempData = [];
+		for (let i = 0; i < state.value.archives.length; i++) {
+			let current = state.value.archives[i];
+			for (let j = 0; j < current.food.length; j++) {
+				let foodIndex = tempData.findIndex((food) => food.id === current.food[j]);
+				if (foodIndex > -1) {
+					let tempArray = [...tempData];
+					tempArray[foodIndex] = {
+						...tempArray[foodIndex],
+						value: tempArray[foodIndex].value + 1,
+					};
+					tempData = tempArray;
+				}
+				if (foodIndex === -1) {
+					tempData.push({
+						id: current.food[j],
+						value: 1,
+					});
+				}
+			}
+		}
+		setFoodFrequency(tempData);
+	};
+
 	return (
 		<div className="stats">
 			{isLoading ? (
@@ -65,6 +93,29 @@ const Statistics = () => {
 				</div>
 			) : (
 				<div>
+					<div>
+						<Bar
+							data={{
+								datasets: [
+									{
+										data: foodFrequency,
+										backgroundColor: "hsl(128, 26%, 30%)", //y
+										fill: true,
+										barPercentage: 1,
+										categoryPercentage: .4,
+									},
+								],
+							}}
+							options={{
+								parsing: {
+									xAxisKey: "id",
+									yAxisKey: "value",
+								},
+							}}
+							title="My amazing data"
+							color="#70CAD1"
+						/>
+					</div>
 					<div className="archives">
 						<table>
 							<thead>

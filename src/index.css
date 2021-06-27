@@ -1,5 +1,4 @@
 body {
-  scrollbar-color: red yellow;
   overflow-y:scroll;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -9,17 +8,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-::-webkit-scrollbar {
-  width: 15px;
-  height: 15px;
-  }
-  ::-webkit-scrollbar-track-piece  {
-  background-color: #C2D2E4;
-  }
-  ::-webkit-scrollbar-thumb:vertical {
-  height: 30px;
-  background-color: #0A4C95;
-  }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
