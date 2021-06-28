@@ -30,7 +30,7 @@ const HomeContent = () => {
 	};
 
 	return (
-		<div>
+		<div>		
 			<div className="home-nav">
 				<Tabs style={{width: "30rem", margin: "auto"}} value={currentTab} onChange={handleChange} indicatorColor="primary">
 					<Tab label="Orders" value="orders" />

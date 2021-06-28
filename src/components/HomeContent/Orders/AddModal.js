@@ -220,7 +220,7 @@ const AddModal = ({ openModal, setOpenModal }) => {
 						onClick={close}
 						style={{ width: "7rem", margin: "auto" }}
 						color="default"
-						variant="contained"
+						variant="outlined"
 					>
 						Cancel
 					</Button>

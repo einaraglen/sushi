@@ -1,36 +1,41 @@
-
 body {
-  background-color: var(--lightdark);
-  color:hsl(0, 0%, 86%);
-  font-size: .9rem;
+    background-color: var(--lightdark);
+    color: hsl(0, 0%, 86%);
+    font-size: 0.9rem;
+}
+
+/* for alawys showing scrollbar, makes it not so gjitery */
+html {
+  overflow-y:scroll;
 }
 
 :root {
-  --dark2: hsl(0, 0%, 13%);
-  --flashy: hsl(128, 26%, 30%);
-  --lightdark: 	hsl(0, 0%, 17%);
-  --middark: hsl(0, 0%, 22%);
-  --fulldark: 	hsl(0, 0%, 19%);
-  --error: hsl(355, 92%, 62%);
-  --mid: hsl(42, 79%, 54%);
-  --end: hsl(12, 75%, 45%);
-  --start: hsl(210, 77%, 57%);
+    --dark2: hsl(0, 0%, 13%);
+    --flashy: hsl(128, 26%, 30%);
+    --darkflash: hsl(128, 26%, 20%);
+    --lightdark: hsl(0, 0%, 17%);
+    --middark: hsl(0, 0%, 22%);
+    --fulldark: hsl(0, 0%, 19%);
+    --error: hsl(355, 92%, 62%);
+    --mid: hsl(42, 79%, 54%);
+    --end: hsl(12, 75%, 45%);
+    --start: hsl(210, 77%, 57%);
 }
 
 /* Chrome, Safari */
 ::-webkit-scrollbar {
-  width: 15px;
-  height: 15px;
-  }
-  ::-webkit-scrollbar-track-piece  {
-  background-color: var(--lightdark);
-  }
-  ::-webkit-scrollbar-thumb:vertical {
-  height: 30px;
-  background-color: var(--dark2);
-  }
+    width: 15px;
+    height: 15px;
+}
+::-webkit-scrollbar-track-piece {
+    background-color: var(--fulldark);
+}
+::-webkit-scrollbar-thumb:vertical {
+    height: 30px;
+    background-color: hsl(0, 0%, 27%);
+}
 
 .app-loading {
-  width: 4rem;
-  margin: auto;
+    width: 4rem;
+    margin: auto;
 }

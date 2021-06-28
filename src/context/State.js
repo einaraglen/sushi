@@ -89,7 +89,7 @@ const State = ({ children }) => {
 		palette: {
 			primary: {
 				light: "hsl(128, 26%, 60%)",
-				main: "hsl(128, 26%, 40%)",
+				main: "hsl(128, 26%, 38%)",
 				dark: "hsl(128, 26%, 30%)",
 				contrastText: "hsl(120, 4%, 91%)",
 			},
