@@ -5,7 +5,7 @@ import OrderService from "services/OrderService";
 import { Context } from "context/State";
 import { CircularProgress } from "@material-ui/core/";
 import { Bar, Line } from "react-chartjs-2";
-import ImageService from "services/ImageService";
+//import ImageService from "services/ImageService";
 
 const Statistics = () => {
 	const state = React.useContext(Context);
@@ -83,7 +83,14 @@ const Statistics = () => {
 				}
 			}
 		}
-		return [...tempData.sort((a, b) => (a.value > b.value ? -1 : 1))];
+		let sorted = [...tempData.sort((a, b) => (a.value > b.value ? -1 : 1))];
+		let final = [];
+		//get top 15 if sorted is bigger
+		let limit = sorted.length > 15 ? 15 : sorted.length;
+		for (let i = 0; i < limit; i++) {
+			final[i] = sorted[i];
+		}
+		return final;
 	};
 
 	const buildOrdersPerDay = () => {
@@ -113,13 +120,13 @@ const Statistics = () => {
 		return [...tempData];
 	};
 
-	const handleInputChange = async (event) => {
+	/*const handleInputChange = async (event) => {
 		let { addImage, getId } = ImageService();
 		//let res = await getId();
 		//let CLIENT_ID = res.id
 		//let res2 = await addImage(CLIENT_ID, event.target.files[0]);
 		//console.log(res2)
-	}
+	}*/
 
 	return (
 		<div className="stats">
@@ -129,7 +136,7 @@ const Statistics = () => {
 				</div>
 			) : (
 				<div className="statistics">
-					<input type="file" className="form-control" name="upload_file" onChange={handleInputChange} />
+					{/*<input type="file" className="form-control" name="upload_file" onChange={handleInputChange} />*/}
 
 					<div className="food-freq">
 						<Bar
