@@ -74,11 +74,7 @@ const Orders = () => {
             //temp = temp.sort((a, b) => (a === b ? 0 : a ? -1 : 1));
             return temp.sort((a, b) => (a.created > b.created ? 1 : -1));
         }
-        //gives all in-active orders ranged from the last completed
-        if (type === "complete") {
-            temp = state.value.archives;
-            return temp.sort((a, b) => (a.closed > b.closed ? -1 : 1));
-        }
+        //if some weird shit happens ig
         return [];
     };
 

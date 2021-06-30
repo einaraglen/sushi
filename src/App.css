@@ -4,11 +4,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* for alawys showing scrollbar, makes it not so gjitery */
-html {
-  overflow-y:scroll;
-}
-
 :root {
     --dark2: hsl(0, 0%, 13%);
     --flashy: hsl(128, 26%, 30%);

@@ -153,6 +153,23 @@
     margin: auto;
 }
 
+.statistics {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .food-freq {
     width: 50%;
+    min-width: 18rem;
+    margin: auto;
+}
+
+.time-stats {
+    width: 50%;
+    min-width: 18rem;
+    margin: auto;
+}
+
+.archives {
+    width: 100%;
 }

@@ -4,12 +4,59 @@ import FoodService from "services/FoodService";
 import OrderService from "services/OrderService";
 import { Context } from "context/State";
 import { CircularProgress } from "@material-ui/core/";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 
 const Statistics = () => {
 	const state = React.useContext(Context);
 	const [isLoading, setIsLoading] = React.useState(true);
-	const [foodFrequency, setFoodFrequency] = React.useState([]);
+
+	//workaround to using context inside useEffect without infinity loop
+	const effectState = React.useRef(state);
+
+	//get all orders
+	React.useEffect(() => {
+		//init guard
+		let isMounted = true;
+		//import service component
+		let { findAllArchives } = OrderService();
+		let { findAllFoods } = FoodService();
+		let { refreshToken, logout } = UserService();
+		const find = async () => {
+			//these we will display on screen, will not work unless token i active so refresh is needed
+			let res_archives = await findAllArchives();
+			if (!res_archives.status) {
+				let refresh_res = await refreshToken();
+				effectState.current.method.setValidUser(refresh_res.status);
+				if (!refresh_res.status) return await logout();
+				res_archives = await findAllArchives();
+			}
+			//for manual add of order
+			let res_foods = await findAllFoods();
+			if (!isMounted) return;
+			effectState.current.method.setArchives(res_archives.archives);
+			effectState.current.method.setFoods(res_foods.foods);
+			//cancel loading, so site can render
+			setIsLoading(false);
+		};
+		//call function crated in useEffect
+		find();
+		//clean up function for when component gets unmounted mid call
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+
+	const formatFood = (foods) => {
+		let foodString = "";
+		if (foods.length === 0) return "No Food Found";
+		for (let i = 0; i < foods.length; i++) {
+			let current = state.value.foods.find((food) => food._id === foods[i]);
+			if (!current) return;
+			if (i === foods.length - 1) return (foodString += current.number);
+			foodString += `${current.number}, `;
+		}
+		return foodString;
+	};
 
 	const buildData = () => {
 		let tempData = [];
@@ -35,57 +82,50 @@ const Statistics = () => {
 				}
 			}
 		}
-		setFoodFrequency(tempData.sort((a, b) => (a.value > b.value ? -1 : 1)));
+		return [...tempData.sort((a, b) => (a.value > b.value ? -1 : 1))];
 	};
 
-	//workaround to using context inside useEffect without infinity loop
-	const effectState = React.useRef(state);
-	const effectBuild = React.useRef(buildData);
-
-	//get all orders
-	React.useEffect(() => {
-		//init guard
-		let isMounted = true;
-		//import service component
-		let { findAllArchives } = OrderService();
-		let { findAllFoods } = FoodService();
-		let { refreshToken, logout } = UserService();
-		const find = async () => {
-			//these we will display on screen, will not work unless token i active so refresh is needed
-			let res_archives = await findAllArchives();
-			if (!res_archives.status) {
-				let refresh_res = await refreshToken();
-				effectState.current.method.setValidUser(refresh_res.status);
-				if (!refresh_res.status) return await logout();
-				res_archives = await findAllArchives();
+	const buildOrdersPerDay = () => {
+		let tempData = [];
+		for (let i = 0; i < state.value.archives.length; i++) {
+			let current = state.value.archives[i];
+			let archiveIndex = tempData.findIndex(
+				(archive) =>
+					archive.date === new Date(current.created).toLocaleString().split(",")[0]
+			);
+			if (archiveIndex > -1) {
+				let tempArray = [...tempData];
+				tempArray[archiveIndex] = {
+					...tempArray[archiveIndex],
+					orders: tempArray[archiveIndex].orders + 1,
+				};
+				tempData = tempArray;
 			}
-			//for manual add of order
-			let res_foods = await findAllFoods();
-			if (!isMounted) return;
-			effectState.current.method.setArchives(res_archives.archives);
-			effectState.current.method.setFoods(res_foods.foods);
-			effectBuild.current();
-			//cancel loading, so site can render
-			setIsLoading(false);
-		};
-		//call function crated in useEffect
-		find();
-		//clean up function for when component gets unmounted mid call
-		return () => {
-			isMounted = false;
-		};
-	}, []);
 
-	const formatFood = (foods) => {
-		let foodString = "";
-		if (foods.length === 0) return "No Food Found";
-		for (let i = 0; i < foods.length; i++) {
-			let current = state.value.foods.find((food) => food._id === foods[i]);
-			if (!current) return;
-			if (i === foods.length - 1) return (foodString += current.number);
-			foodString += `${current.number}, `;
+			if (archiveIndex === -1) {
+				tempData.push({
+					date: new Date(current.created).toLocaleString().split(",")[0],
+					orders: 1,
+				});
+			}
 		}
-		return foodString;
+		return [...tempData];
+	};
+
+	const findMaxValueOf = (array, key) => {
+		//init max variable
+		let max = 0;
+		//iterate through array and if current is bigger, set max to current
+		for (let i = 0; i < array.length; i++) {
+			if (array[i][key] > max) max = array[i][key];
+		}
+		return max;
+	};
+
+	const getUpperLimit = (max) => {
+		//get 10% of max, then return max + 10%
+		if ((max * 0.1) < 1) return max + 1;
+		return Math.round(max * 0.1 + max);
 	};
 
 	return (
@@ -95,17 +135,16 @@ const Statistics = () => {
 					<CircularProgress size="4rem" style={{ padding: 0, marginTop: "15rem" }} />
 				</div>
 			) : (
-				<div>
+				<div className="statistics">
 					<div className="food-freq">
 						<Bar
 							style={{ height: "400px" }}
 							data={{
 								datasets: [
 									{
-										data: foodFrequency,
-										backgroundColor: "hsl(128, 26%, 30%)", //y
+										data: buildData(),
+										backgroundColor: "hsl(128, 26%, 40%)", //y
 										color: "#000",
-										fill: true,
 										barPercentage: 1,
 										categoryPercentage: 0.7,
 									},
@@ -114,12 +153,13 @@ const Statistics = () => {
 							options={{
 								scales: {
 									x: {
+										//max: getUpperLimit(findMaxValueOf(buildData(), "value")),
 										title: {
 											display: true,
-											text: "Purchased",
+											text: "Volume",
 										},
 										ticks: {
-											color: "hsl(0, 0%, 86%)"
+											color: "hsl(0, 0%, 86%)",
 										},
 										grid: {
 											color: "hsl(0, 0%, 12%)",
@@ -132,7 +172,7 @@ const Statistics = () => {
 											text: "Food",
 										},
 										ticks: {
-											color: "hsl(0, 0%, 86%)"
+											color: "hsl(0, 0%, 86%)",
 										},
 										grid: {
 											color: "hsl(0, 0%, 12%)",
@@ -153,8 +193,68 @@ const Statistics = () => {
 									yAxisKey: "fullname",
 								},
 							}}
-							title="My amazing data"
-							color="#70CAD1"
+						/>
+					</div>
+					<div className="time-stats">
+						<Line
+							style={{ height: "400px" }}
+							data={{
+								datasets: [
+									{
+										data: buildOrdersPerDay(),
+										borderColor: "hsl(128, 26%, 40%)", //y
+										borderWidth: 2,
+										radius: 0,
+										tension: 0.1,
+									},
+								],
+							}}
+							options={{
+								interaction: {
+									intersect: false,
+								},
+								scales: {
+									x: {
+										title: {
+											display: true,
+											text: "Time",
+										},
+										ticks: {
+											color: "hsl(0, 0%, 86%)",
+										},
+										grid: {
+											color: "hsl(0, 0%, 12%)",
+											drawBorder: false,
+										},
+									},
+									y: {
+										beginAtZero: true,
+										max: getUpperLimit(findMaxValueOf(buildOrdersPerDay(), "orders")),
+										title: {
+											display: true,
+											text: "Orders",
+										},
+										ticks: {
+											color: "hsl(0, 0%, 86%)",
+										},
+										grid: {
+											color: "hsl(0, 0%, 12%)",
+											drawBorder: false,
+										},
+									},
+								},
+								responsive: true,
+								maintainAspectRatio: false,
+								plugins: {
+									legend: {
+										display: false,
+									},
+								},
+								parsing: {
+									xAxisKey: "date",
+									yAxisKey: "orders",
+								},
+							}}
 						/>
 					</div>
 					<div className="archives">

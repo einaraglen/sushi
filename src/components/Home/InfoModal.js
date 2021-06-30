@@ -10,10 +10,10 @@ const InfoModal = () => {
 
 	//document.body.style.overflow = 'hidden';
 
-	React.useEffect(() => {
+	/*React.useEffect(() => {
 		document.body.style.overflow = state.value.modalControlls.open ? 'hidden' : 'unset';
 		document.body.style.paddingRight = state.value.modalControlls.open ? '17px' : '0px';
-	}, [state.value.modalControlls])
+	}, [state.value.modalControlls])*/
 
 
 	const close = async () => {

@@ -41,10 +41,10 @@ const AddModal = ({ openModal, setOpenModal }) => {
 	const [currentSearch, setCurrentSearch] = React.useState("");
 	const { handleResponse } = ResponseHandler();
 
-	React.useEffect(() => {
+	/*React.useEffect(() => {
 		document.body.style.overflow = openModal ? 'hidden' : 'unset';
 		document.body.style.paddingRight = openModal ? '17px' : '0px';
-	}, [openModal])
+	}, [openModal])*/
 
 	const pickFood = (action, id) => {
 		if (action === "remove") return removePicked(id);
