@@ -5,6 +5,7 @@ import OrderService from "services/OrderService";
 import { Context } from "context/State";
 import { CircularProgress } from "@material-ui/core/";
 import { Bar, Line } from "react-chartjs-2";
+import ImageService from "services/ImageService";
 
 const Statistics = () => {
 	const state = React.useContext(Context);
@@ -112,21 +113,13 @@ const Statistics = () => {
 		return [...tempData];
 	};
 
-	const findMaxValueOf = (array, key) => {
-		//init max variable
-		let max = 0;
-		//iterate through array and if current is bigger, set max to current
-		for (let i = 0; i < array.length; i++) {
-			if (array[i][key] > max) max = array[i][key];
-		}
-		return max;
-	};
-
-	const getUpperLimit = (max) => {
-		//get 10% of max, then return max + 10%
-		if ((max * 0.1) < 1) return max + 1;
-		return Math.round(max * 0.1 + max);
-	};
+	const handleInputChange = async (event) => {
+		let { addImage, getId } = ImageService();
+		let res = await getId();
+		let CLIENT_ID = res.id
+		let res2 = await addImage(CLIENT_ID, event.target.files[0]);
+		console.log(res2)
+	}
 
 	return (
 		<div className="stats">
@@ -136,6 +129,8 @@ const Statistics = () => {
 				</div>
 			) : (
 				<div className="statistics">
+					<input type="file" className="form-control" name="upload_file" onChange={handleInputChange} />
+
 					<div className="food-freq">
 						<Bar
 							style={{ height: "400px" }}
@@ -153,7 +148,6 @@ const Statistics = () => {
 							options={{
 								scales: {
 									x: {
-										//max: getUpperLimit(findMaxValueOf(buildData(), "value")),
 										title: {
 											display: true,
 											text: "Volume",
@@ -229,7 +223,8 @@ const Statistics = () => {
 									},
 									y: {
 										beginAtZero: true,
-										max: getUpperLimit(findMaxValueOf(buildOrdersPerDay(), "orders")),
+										type: 'linear',
+        								grace: '5%',
 										title: {
 											display: true,
 											text: "Orders",
