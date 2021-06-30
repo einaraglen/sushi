@@ -13,11 +13,18 @@ const OrderCard = ({ order }) => {
 
     const wait = 15
 
+    //workaround to using context inside useEffect without infinity loop
+    const effectVariables = React.useRef({
+        wait: wait,
+        startTime: startTime,
+        currentTime: currentTime,
+    });
+
     React.useEffect(() => {
         const interval = setInterval(() => setCurrentTime(new Date()), 1000)
         //remember to clear interval when component is no longer mounted
-        startTime.setMinutes(startTime.getMinutes() + wait)
-        let timeleft = startTime.getTime() - currentTime.getTime();
+        effectVariables.current.startTime.setMinutes(effectVariables.current.startTime.getMinutes() + effectVariables.current.wait)
+        let timeleft = effectVariables.current.startTime.getTime() - effectVariables.current.currentTime.getTime();
         let seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
         if (seconds <= 0) clearInterval(interval);
         return () => {
@@ -95,12 +102,7 @@ const OrderCard = ({ order }) => {
            </div>
         )
     };
-
-    const normalizeTime = (timeleft, max) => {
-        //900000
-        return 10 - (timeleft / max) * 10
-    }
-
+    
     const getUrgency = (seconds, minutes) => {
         if (minutes <= 0 && seconds <= 0) return "done";
 
