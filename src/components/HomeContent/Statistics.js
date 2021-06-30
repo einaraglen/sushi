@@ -115,10 +115,10 @@ const Statistics = () => {
 
 	const handleInputChange = async (event) => {
 		let { addImage, getId } = ImageService();
-		let res = await getId();
-		let CLIENT_ID = res.id
-		let res2 = await addImage(CLIENT_ID, event.target.files[0]);
-		console.log(res2)
+		//let res = await getId();
+		//let CLIENT_ID = res.id
+		//let res2 = await addImage(CLIENT_ID, event.target.files[0]);
+		//console.log(res2)
 	}
 
 	return (
