@@ -121,11 +121,11 @@ const Statistics = () => {
 	};
 
 	/*const handleInputChange = async (event) => {
-		let { addImage, getId } = ImageService();
-		//let res = await getId();
-		//let CLIENT_ID = res.id
-		//let res2 = await addImage(CLIENT_ID, event.target.files[0]);
-		//console.log(res2)
+		let { upload } = ImageService();
+		let formData = new FormData();
+		formData.append("image", event.target.files[0]);
+		let res = await upload(formData)
+		console.log(res)
 	}*/
 
 	return (
