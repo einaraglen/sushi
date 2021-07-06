@@ -5,7 +5,7 @@ import OrderService from "services/OrderService";
 import { Context } from "context/State";
 import { CircularProgress } from "@material-ui/core/";
 import { Bar, Line } from "react-chartjs-2";
-//import ImageService from "services/ImageService";
+import ImageService from "services/ImageService";
 
 const Statistics = () => {
 	const state = React.useContext(Context);
@@ -119,6 +119,14 @@ const Statistics = () => {
 		}
 		return [...tempData];
 	};
+
+	const test = async () => {
+		let { findAllImages } = ImageService();
+		let res = await findAllImages();
+		console.log(res)
+	}
+
+	test();
 
 	/*const handleInputChange = async (event) => {
 		let { upload } = ImageService();
