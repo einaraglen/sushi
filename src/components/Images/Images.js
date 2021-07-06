@@ -7,6 +7,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { useLocation, useHistory } from "react-router-dom";
 import ImageService from "services/ImageService";
 import ImageRow from "./ImageRow";
+import "./Images.css";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -57,6 +58,7 @@ const Images = () => {
     }, [currentSort, currentSearch, secret]);
 
     const handleData = () => {
+        if (images.length === 0) return [];
         //init temp data
         let handled = [...images];
         //filter if search has been choosen
