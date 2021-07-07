@@ -145,6 +145,7 @@ const Images = () => {
                             <tr>
                                 <td>Uploaded</td>
                                 <td>Filename</td>
+                                <td>Preview</td>
                                 <td>Size(HxW)</td>
                                 <td>Format</td>
                                 <td>Access Mode</td>

@@ -120,14 +120,6 @@ const Statistics = () => {
 		return [...tempData];
 	};
 
-	const test = async () => {
-		let { findAllImages } = ImageService();
-		let res = await findAllImages();
-		console.log(res)
-	}
-
-	test();
-
 	/*const handleInputChange = async (event) => {
 		let { upload } = ImageService();
 		let formData = new FormData();
