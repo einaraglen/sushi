@@ -1,12 +1,12 @@
 .food-table {
-    overflow-x: auto; 
+    overflow-x: auto;
 }
 
 .food-table-nav {
     display: grid;
     grid-template-areas: ". search sort . button .";
     grid-template-columns: auto 20rem 7rem 5rem 5rem auto;
-    grid-column-gap: .5rem;
+    grid-column-gap: 0.5rem;
     height: 3rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -15,4 +15,16 @@
 .food-loading {
     width: 10rem;
     margin: auto;
+}
+
+.image-id {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 90px;
+    height: 1.2em;
+    white-space: nowrap;
+}
+
+.image-menu-item {
+    display: flex;
 }

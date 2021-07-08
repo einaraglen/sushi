@@ -150,7 +150,11 @@ const FoodRow = ({ food, add }) => {
             </td>
             <td width={`${100 / x}%`}>
                 {!inEditMode && !add ? (
-                    <a href={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_400,g_face/${food.image}`} target="_blank" rel="noreferrer">
+                    <a
+                        href={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_400,g_face/${food.image}`}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         <img
                             alt={"Sushi piece"}
                             src={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_400,g_face/${food.image}`}
@@ -158,8 +162,32 @@ const FoodRow = ({ food, add }) => {
                         />
                     </a>
                 ) : (
-                    <>
-                    </>
+                    <FormControl
+                        style={{ width: "100%" }}
+                        size="small"
+                        variant="filled"
+                        elevation={1}
+                    >
+                        <Select onChange={(event) => handleFormEvent(event)} name="image" value={formData.image}>
+                            {state.value.images.map((image) => (
+                                <MenuItem
+                                    key={image.public_id}
+                                    value={image.public_id}
+                                >
+                                    <div className="image-menu-item">
+                                        <p className="image-id">{image.public_id}</p>
+                                        <img
+                                            alt={"thumbnail"}
+                                            src={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_100,g_face/${image.public_id}`}
+                                            style={{
+                                                height: "2rem",
+                                            }}
+                                        />
+                                    </div>
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 )}
             </td>
             <td width={`${100 / x}%`}>

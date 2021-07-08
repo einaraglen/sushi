@@ -25,7 +25,6 @@ const ImageRow = ({ image }) => {
         try {
             const { deleteImage } = ImageService();
             let res = await deleteImage(image.public_id);
-            console.log(res);
             handleResponse(res, "images", state.method.setImages);
         } catch (error) {
             console.warn(error);
