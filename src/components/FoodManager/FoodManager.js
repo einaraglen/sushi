@@ -10,6 +10,7 @@ import FoodRow from "./FoodRow";
 import "./FoodManager.css";
 import { MenuItem, FormControl, Select } from "@material-ui/core/";
 import InputLabel from "@material-ui/core/InputLabel";
+import ImageService from "services/ImageService";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -38,14 +39,17 @@ const FoodManager = () => {
         let { findAllFoods } = FoodService();
         let { findAllTypes } = TypeService();
         let { findAllContents } = ContentService();
+        let { findAllImages } = ImageService(); 
         const find = async () => {
             let res_foods = await findAllFoods();
             let res_types = await findAllTypes();
             let res_contents = await findAllContents();
+            let res_images = await findAllImages();
             if (!isMounted) return;
             effectState.current.method.setFoods(res_foods.foods);
             effectState.current.method.setTypes(res_types.types);
             effectState.current.method.setContents(res_contents.contents);
+            effectState.current.method.setImages(res_images.images);
             //cancel loading, so site can render
             setIsLoading(false);
         };
