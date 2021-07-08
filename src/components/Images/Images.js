@@ -8,6 +8,8 @@ import { useLocation, useHistory } from "react-router-dom";
 import ImageService from "services/ImageService";
 import ImageRow from "./ImageRow";
 import "./Images.css";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import ResponseHandler from "utils/ResponseHandler";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -15,14 +17,14 @@ const Images = () => {
     const query = useQuery();
     const state = React.useContext(Context);
     const history = useHistory();
+    const { handleResponse } = ResponseHandler();
     const secret = query.get("secret");
     const [isLoading, setIsLoading] = React.useState(true);
+    const [isUploading, setIsUploading] = React.useState(false);
     const [currentSort, setCurrentSort] = React.useState(query.get("sort"));
     const [currentSearch, setCurrentSearch] = React.useState(
         query.get("search")
     );
-    const [addOpen, setAddOpen] = React.useState(false);
-    const [images, setImages] = React.useState([]);
 
     //workaround to using context inside useEffect without infinity loop
     const effectState = React.useRef(state);
@@ -38,7 +40,7 @@ const Images = () => {
         const find = async () => {
             let res = await findAllImages();
             if (!isMounted) return;
-            setImages(res.images);
+            effectState.current.method.setImages(res.images);
             //cancel loading, so site can render
             setIsLoading(false);
         };
@@ -58,9 +60,9 @@ const Images = () => {
     }, [currentSort, currentSearch, secret]);
 
     const handleData = () => {
-        if (images.length === 0) return [];
+        if (state.value.images.length === 0) return [];
         //init temp data
-        let handled = [...images];
+        let handled = [...state.value.images];
         //filter if search has been choosen
         if (query.get("search") !== "null")
             handled = handled.filter(
@@ -82,6 +84,24 @@ const Images = () => {
         );
     };
 
+    const handleInputChange = async (event) => {
+        setIsUploading(true);
+        try {
+            //get the method from service
+            let { upload } = ImageService();
+            //setup our formdata for file
+            let formData = new FormData();
+            formData.append("image", event.target.files[0]);
+            //call method
+            let res = await upload(formData);
+            //let response handler do the rest
+            handleResponse(res, "images", state.method.setImages);
+        } catch (error) {
+            console.warn(error);
+        }
+        setIsUploading(false);
+    };
+
     return (
         <div>
             {isLoading ? (
@@ -95,6 +115,7 @@ const Images = () => {
                 <div className="type">
                     <div className="type-nav">
                         <TextField
+                            disabled={isUploading}
                             onChange={(event) =>
                                 setCurrentSearch(
                                     event.target.value.length > 0
@@ -120,25 +141,56 @@ const Images = () => {
                                 onChange={(event) => handleFormChange(event)}
                                 value={currentSort}
                                 label="Search"
+                                disabled={isUploading}
                             >
-                                <MenuItem value={"created_at"}>Uploaded</MenuItem>
+                                <MenuItem value={"created_at"}>
+                                    Uploaded
+                                </MenuItem>
                                 <MenuItem value={"height"}>Size</MenuItem>
                                 <MenuItem value={"format"}>Format</MenuItem>
-                                <MenuItem value={"access_mode"}>Access</MenuItem>
+                                <MenuItem value={"access_mode"}>
+                                    Access
+                                </MenuItem>
                             </Select>
                         </FormControl>
-                        <Button
-                            onClick={() => setAddOpen(!addOpen)}
-                            style={{
-                                gridArea: "button",
-                                width: "7rem",
-                                margin: "auto",
-                            }}
-                            color="primary"
-                            variant="contained"
-                        >
-                            {!addOpen ? "Add" : "Close"}
-                        </Button>
+                        <input
+                            id="file-button"
+                            style={{ display: "none" }}
+                            accept="image/*"
+                            type="file"
+                            name="upload_file"
+                            onChange={handleInputChange}
+                        />
+                        {isUploading ? (
+                            <div
+                                style={{
+                                    display: "flex",
+                                    gridArea: "button",
+                                    width: "7rem",
+                                    margin: "auto",
+                                }}
+                            >
+                                <CircularProgress size="1.6rem" />
+                            </div>
+                        ) : (
+                            <label
+                                style={{
+                                    gridArea: "button",
+                                    width: "7rem",
+                                    margin: "auto",
+                                }}
+                                htmlFor="file-button"
+                            >
+                                <Button
+                                    component="span"
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={<CloudUploadIcon />}
+                                >
+                                    Upload
+                                </Button>
+                            </label>
+                        )}
                     </div>
                     <table>
                         <thead>
@@ -148,7 +200,7 @@ const Images = () => {
                                 <td>Preview</td>
                                 <td>Size(HxW)</td>
                                 <td>Format</td>
-                                <td>Access Mode</td>
+                                <td></td>
                             </tr>
                         </thead>
                         <tbody>

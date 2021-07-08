@@ -16,6 +16,7 @@ const State = ({ children }) => {
 	const [foods, setFoods] = React.useState([]);
 	const [types, setTypes] = React.useState([]);
 	const [contents, setContents] = React.useState([]);
+	const [images, setImages] = React.useState([]);
 	const [orders, setOrders] = React.useState([]);
 	const [archives, setArchives] = React.useState([]);
 	const [confirmDelete, setConfirmDelete] = React.useState(false);
@@ -119,6 +120,7 @@ const State = ({ children }) => {
 			foods: foods,
 			types: types,
 			contents: contents,
+			images: images,
 			orders: orders,
 			archives: archives,
 			validUser: validUser,
@@ -131,6 +133,7 @@ const State = ({ children }) => {
 			setFoods,
 			setTypes,
 			setContents,
+			setImages,
 			setOrders,
 			setArchives,
 			setValidUser,

@@ -5,7 +5,6 @@ import OrderService from "services/OrderService";
 import { Context } from "context/State";
 import { CircularProgress } from "@material-ui/core/";
 import { Bar, Line } from "react-chartjs-2";
-//import ImageService from "services/ImageService";
 
 const Statistics = () => {
 	const state = React.useContext(Context);
@@ -120,14 +119,6 @@ const Statistics = () => {
 		return [...tempData];
 	};
 
-	/*const handleInputChange = async (event) => {
-		let { upload } = ImageService();
-		let formData = new FormData();
-		formData.append("image", event.target.files[0]);
-		let res = await upload(formData)
-		console.log(res)
-	}*/
-
 	return (
 		<div className="stats">
 			{isLoading ? (
@@ -136,8 +127,6 @@ const Statistics = () => {
 				</div>
 			) : (
 				<div className="statistics">
-					{/*<input type="file" className="form-control" name="upload_file" onChange={handleInputChange} />*/}
-
 					<div className="food-freq">
 						<Bar
 							style={{ height: "400px" }}
@@ -231,7 +220,7 @@ const Statistics = () => {
 									y: {
 										beginAtZero: true,
 										type: 'linear',
-        								grace: '5%',
+        								grace: '15%',
 										title: {
 											display: true,
 											text: "Orders",

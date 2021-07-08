@@ -10,8 +10,6 @@ import FoodRow from "./FoodRow";
 import "./FoodManager.css";
 import { MenuItem, FormControl, Select } from "@material-ui/core/";
 import InputLabel from "@material-ui/core/InputLabel";
-//have to figure out how to get this into a table
-//import Collapse from "@material-ui/core/Collapse";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
