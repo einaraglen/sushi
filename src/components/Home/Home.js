@@ -30,12 +30,6 @@ const Home = () => {
     const handleLogout = async () => {
         try {
             await logout();
-            //wipe tokens || old method, does not work with secure cookies
-            /*document.cookie =
-            "ACCESS_TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-			document.cookie =
-            "REFRESH_TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";*/
-            //set valid variable to false
             state.method.setValidUser(false);
         } catch (error) {
             console.warn(error);

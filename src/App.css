@@ -7,6 +7,7 @@ body {
 :root {
     --dark2: hsl(0, 0%, 13%);
     --flashy: hsl(128, 26%, 30%);
+    --lightflashy: hsl(128, 26%, 40%);
     --darkflash: hsl(128, 26%, 20%);
     --lightdark: hsl(0, 0%, 17%);
     --middark: hsl(0, 0%, 22%);
@@ -15,6 +16,33 @@ body {
     --mid: hsl(42, 79%, 54%);
     --end: hsl(12, 75%, 45%);
     --start: hsl(210, 77%, 57%);
+}
+
+.app-loading {
+    left: 50%;
+    margin: 0;
+    position: absolute;
+    top: 43%;
+    transform: translate(-50%, -43%);
+}
+
+.app-logo {
+    width: 13rem;
+    display: flex;
+    filter: invert(8%);
+}
+
+.app-logo img {
+    width: 5rem;
+}
+
+.app-logo .text {
+    margin: auto;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #000;
+    margin-left: -1rem;
 }
 
 /* Chrome, Safari */
@@ -30,7 +58,25 @@ body {
     background-color: hsl(0, 0%, 27%);
 }
 
-.app-loading {
-    width: 4rem;
-    margin: auto;
+/*https://codepad.co/snippet/linkedin-new-loading-bar*/
+.loading {
+    background-color: var(--middark);
+    height: 2px;
+    margin: 1em;
+    overflow: hidden;
+    position: relative;
+    width: 12em;
+}
+
+.loading-bar {
+    animation: side2side 2s ease-in-out infinite;
+    background-color: var(--lightflashy);
+    height: 100%;
+    position: absolute;
+    width: 50%;
+}
+
+@keyframes side2side {
+    0%, 100% { transform: translateX(-50%); }
+    50%      { transform: translateX(150%); }
 }

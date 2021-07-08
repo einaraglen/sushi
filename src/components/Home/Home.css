@@ -42,7 +42,7 @@
     height: 100vh;
     padding-top: 3rem;   
     background-color: var(--lightdark);
-    border-right: .1rem solid var(--flashy);
+    border-right: .2rem solid var(--middark);
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 }
 
