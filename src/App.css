@@ -60,7 +60,7 @@ body {
 
 /*https://codepad.co/snippet/linkedin-new-loading-bar*/
 .loading {
-    background-color: var(--middark);
+    background-color: hsl(0, 0%, 27%);
     height: 2px;
     margin: 1em;
     overflow: hidden;

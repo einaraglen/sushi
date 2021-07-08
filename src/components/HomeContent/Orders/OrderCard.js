@@ -98,7 +98,7 @@ const OrderCard = ({ order }) => {
         return (
             <div className={`card-header ${getUrgency(seconds, minutes)}`}>
                 <p className="info">{order.shortid}</p>
-                <p className="info">{seconds <= 0 ? "Time is Out" : `${stringMinutes}:${stringSeconds}`}</p>
+                <p className="info">{minutes <= 0 ? "Time is Out" : `${stringMinutes}:${stringSeconds}`}</p>
            </div>
         )
     };
