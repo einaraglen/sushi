@@ -17,8 +17,8 @@
 
 .add-content {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    flex-direction: column;
 }
 
 .order-head {
@@ -30,6 +30,7 @@
 }
 
 .picked {
+    width: 100%;
     height: 15rem;
     overflow-y: scroll;
 }

@@ -165,7 +165,7 @@ const AddModal = ({ openModal, setOpenModal }) => {
                 },
             }}
         >
-            <div className="add-content" style={{ display: "grid" }}>
+            <div className="add-content">
                 <TextField
                     style={{
                         width: "6rem",
