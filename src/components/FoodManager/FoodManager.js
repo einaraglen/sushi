@@ -64,7 +64,8 @@ const FoodManager = () => {
     //listen to any change in variables and change path
     React.useEffect(() => {
         effectHistory.current.push(
-            `/home/manage-food?search=${currentSearch}&sort=${currentSort}&secret=${secret}`
+            //`/home/manage-food?search=${currentSearch}&sort=${currentSort}&secret=${secret}`
+            `/home/manage-food?search=${currentSearch}&sort=${currentSort}`
         );
     }, [currentSort, currentSearch, secret]);
 

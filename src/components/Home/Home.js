@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, Switch, useLocation } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import { Context } from "context/State";
 import FoodManager from "components/FoodManager/FoodManager";
 import ContentManager from "components/ContentManager/ContentManager";
@@ -20,10 +20,10 @@ import Slide from "@material-ui/core/Slide";
 import HomeContent from "components/HomeContent/HomeContent";
 import Images from "components/Images/Images";
 
-const useQuery = () => new URLSearchParams(useLocation().search);
+//const useQuery = () => new URLSearchParams(useLocation().search);
 
 const Home = () => {
-    const query = useQuery();
+   // const query = useQuery();
     const state = React.useContext(Context);
     const { logout } = UserService();
 
@@ -65,41 +65,33 @@ const Home = () => {
             </div>
             <div className="home-side-nav">
                 <List component="nav">
-                    <Link to={`/home?tab=orders&secret=${query.get("secret")}`}>
+                    <Link to={`/home?tab=orders`}>
                         <ListItem button>
                             <ListItemText primary="Home" />
                         </ListItem>
                     </Link>
                     <Link
-                        to={`/home/manage-food?search=${null}&sort=${"number"}&secret=${query.get(
-                            "secret"
-                        )}`}
+                        to={`/home/manage-food?search=${null}&sort=${"number"}`}
                     >
                         <ListItem button>
                             <ListItemText primary="Manage Food" />
                         </ListItem>
                     </Link>
                     <Link
-                        to={`/home/manage-types?search=${null}&sort=${"_id"}&secret=${query.get(
-                            "secret"
-                        )}`}
+                        to={`/home/manage-types?search=${null}&sort=${"_id"}`}
                     >
                         <ListItem button>
                             <ListItemText primary="Manage Types" />
                         </ListItem>
                     </Link>
                     <Link
-                        to={`/home/manage-content?search=${null}&sort=${"_id"}&secret=${query.get(
-                            "secret"
-                        )}`}
+                        to={`/home/manage-content?search=${null}&sort=${"_id"}`}
                     >
                         <ListItem button>
                             <ListItemText primary="Manage Content" />
                         </ListItem>
                         <Link
-                            to={`/home/all-images?search=${null}&sort=${"created_at"}&secret=${query.get(
-                                "secret"
-                            )}`}
+                            to={`/home/all-images?search=${null}&sort=${"created_at"}`}
                         >
                             <ListItem button>
                                 <ListItemText primary="All Images" />

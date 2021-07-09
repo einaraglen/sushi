@@ -22,7 +22,7 @@ const HomeContent = () => {
 	const effectHistory = React.useRef(history);
 
 	React.useEffect(() => {
-		effectHistory.current.push(`/home?tab=${currentTab}&secret=${secret}`);
+		effectHistory.current.push(`/home?tab=${currentTab}`);
 	}, [currentTab, secret]);
 
 	const handleChange = (event, newValue) => {

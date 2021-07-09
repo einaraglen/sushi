@@ -56,7 +56,7 @@ const Images = () => {
     //listen to any change in variables and change path
     React.useEffect(() => {
         effectHistory.current.push(
-            `/home/all-images?search=${currentSearch}&sort=${currentSort}&secret=${secret}`
+            `/home/all-images?search=${currentSearch}&sort=${currentSort}`
         );
     }, [currentSort, currentSearch, secret]);
 

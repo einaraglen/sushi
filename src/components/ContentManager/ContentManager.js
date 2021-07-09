@@ -50,7 +50,7 @@ const ContentManager = () => {
 	//listen to any change in variables and change path
 	React.useEffect(() => {
 		effectHistory.current.push(
-			`/home/manage-content?search=${currentSearch}&sort=${currentSort}&secret=${secret}`
+			`/home/manage-content?search=${currentSearch}&sort=${currentSort}`
 		);
 	}, [currentSort, currentSearch, secret]);
 
