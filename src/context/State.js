@@ -20,6 +20,7 @@ const State = ({ children }) => {
 	const [orders, setOrders] = React.useState([]);
 	const [archives, setArchives] = React.useState([]);
 	const [confirmDelete, setConfirmDelete] = React.useState(false);
+	const [addOpen, setAddOpen] = React.useState(false);
 
 	const [snackControlls, setSnackControlls] = React.useState({
 		open: false,
@@ -90,7 +91,7 @@ const State = ({ children }) => {
 		palette: {
 			primary: {
 				light: "hsl(128, 26%, 60%)",
-				main: "hsl(128, 26%, 38%)",
+				main: "hsl(128, 26%, 32%)",
 				dark: "hsl(128, 26%, 30%)",
 				contrastText: "hsl(120, 4%, 91%)",
 			},
@@ -114,7 +115,7 @@ const State = ({ children }) => {
 
 	//this will be accessable from all the components that import Context variable
 	state = {
-		version: "0.1.4",
+		version: "0.1.5",
 		theme: theme,
 		value: {
 			foods: foods,
@@ -128,6 +129,7 @@ const State = ({ children }) => {
 			snackControlls: snackControlls,
 			modalControlls: modalControlls,
 			confirmDelete: confirmDelete,
+			addOpen: addOpen,
 		},
 		method: {
 			setFoods,
@@ -142,6 +144,7 @@ const State = ({ children }) => {
 			setModalControlls,
 			setConfirmDelete,
 			closeModal,
+			setAddOpen,
 		},
 	};
 

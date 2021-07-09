@@ -54,11 +54,12 @@ const RowControlls = ({
 				setFormData({
 					number: "",
 					name: "",
-					content: [],
+					content: null,
 					price: "",
 					image: "",
 					type: "",
 				});
+			state.method.setAddOpen(false);
 			setIsLoading(false);
 			handleResponse(
 				res,
@@ -131,7 +132,7 @@ const RowControlls = ({
 			<td style={{width: "5%"}}>
 				{add ? null : (
 					<IconButton
-						disabled={!inEditMode || isLoading}
+						disabled={isLoading}
 						onClick={handleDelete}
 						color="secondary"
 						variant="contained"

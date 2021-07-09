@@ -22,6 +22,7 @@ const ImageRow = ({ image }) => {
 
     const tryDelete = async () => {
         setIsLoading(true);
+        state.method.closeModal();
         try {
             const { deleteImage } = ImageService();
             let res = await deleteImage(image.public_id);
@@ -29,7 +30,6 @@ const ImageRow = ({ image }) => {
         } catch (error) {
             console.warn(error);
         }
-        state.method.closeModal();
         setIsLoading(false);
     };
 

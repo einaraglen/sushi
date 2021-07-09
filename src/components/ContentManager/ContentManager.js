@@ -19,7 +19,6 @@ const ContentManager = () => {
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [currentSort, setCurrentSort] = React.useState(query.get("sort"));
 	const [currentSearch, setCurrentSearch] = React.useState(query.get("search"));
-	const [addOpen, setAddOpen] = React.useState(false);
 
 	//workaround to using context inside useEffect without infinity loop
 	const effectState = React.useRef(state);
@@ -28,6 +27,7 @@ const ContentManager = () => {
 	React.useEffect(() => {
 		//resets global edit for when manager is init
 		effectState.current.method.setIsEditing(false);
+		effectState.current.method.setAddOpen(false);
 		//init guard
 		let isMounted = true;
 		//import service component
@@ -116,12 +116,12 @@ const ContentManager = () => {
 							</Select>
 						</FormControl>
 						<Button
-							onClick={() => setAddOpen(!addOpen)}
+							onClick={() => state.method.setAddOpen(!state.value.addOpen)}
 							style={{ gridArea: "button", width: "7rem", margin: "auto" }}
 							color="primary"
 							variant="contained"
 						>
-							{!addOpen ? "Add" : "Close"}
+							{!state.value.addOpen ? "Add" : "Close"}
 						</Button>
 					</div>
 					<table>
@@ -135,7 +135,7 @@ const ContentManager = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{!addOpen ? null : <ContentRow content={{}} add />}
+							{!state.value.addOpen ? null : <ContentRow content={{}} add />}
 							{handleData().map((content) => (
 								<ContentRow key={content._id} content={content} />
 							))}

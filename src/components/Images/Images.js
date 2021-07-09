@@ -10,6 +10,7 @@ import ImageRow from "./ImageRow";
 import "./Images.css";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import ResponseHandler from "utils/ResponseHandler";
+//import { Roller } from 'react-spinners-css';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -96,10 +97,10 @@ const Images = () => {
             let res = await upload(formData);
             //let response handler do the rest
             handleResponse(res, "images", state.method.setImages);
+            setIsUploading(false);
         } catch (error) {
             console.warn(error);
         }
-        setIsUploading(false);
     };
 
     return (
@@ -170,7 +171,8 @@ const Images = () => {
                                     margin: "auto",
                                 }}
                             >
-                                <CircularProgress size="1.6rem" />
+                                {/*<Roller color="hsl(128, 26%, 30%)" height={10} size={30} />*/}
+                                {<CircularProgress size="1.6rem" />}
                             </div>
                         ) : (
                             <label

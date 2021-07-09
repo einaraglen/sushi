@@ -25,6 +25,7 @@ const FoodRow = ({ food, add }) => {
 
     //check to see if formData !== food object, to schedule available update
     React.useEffect(() => {
+        if (formData.content === null) setPickedContent({})
         setIsEdited(
             formData.number === food.number &&
                 formData.name === food.name &&
@@ -182,9 +183,9 @@ const FoodRow = ({ food, add }) => {
                                         <div className="text">{image.public_id}</div>
                                         <img
                                             alt={"thumbnail"}
-                                            src={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_100,g_face/${image.public_id}`}
+                                            src={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_30,g_face/${image.public_id}`}
                                             style={{
-                                                height: "1.2rem",
+                                                height: "1.1rem",
                                             }}
                                         />
                                     </div>
