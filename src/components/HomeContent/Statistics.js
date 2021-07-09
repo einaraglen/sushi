@@ -260,7 +260,7 @@ const Statistics = () => {
 								</tr>
 							</thead>
 							<tbody>
-								{state.value.archives.map((archive) => (
+								{state.value.archives.sort((a, b) => (a.created > b.created ? -1 : 1)).map((archive) => (
 									<tr key={archive.shortid}>
 										<td>{new Date(archive.created).toLocaleString()}</td>
 										<td>{new Date(archive.closed).toLocaleString()}</td>

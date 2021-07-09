@@ -11,11 +11,9 @@ const OrderCard = ({ order }) => {
     const startTime = new Date(order.created);
     const [currentTime, setCurrentTime] = React.useState(new Date());
 
-    const wait = 15
-
     //workaround to using context inside useEffect without infinity loop
     const effectVariables = React.useRef({
-        wait: wait,
+        wait: order.waitTime,
         startTime: startTime,
         currentTime: currentTime,
     });
@@ -85,7 +83,7 @@ const OrderCard = ({ order }) => {
     };
 
     const buildHeader = () => {
-        startTime.setMinutes(startTime.getMinutes() + wait)
+        startTime.setMinutes(startTime.getMinutes() + order.waitTime)
         let timeleft = startTime.getTime() - currentTime.getTime();
         //console.log(100 - (timeleft / 10000))
         let minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
@@ -106,14 +104,14 @@ const OrderCard = ({ order }) => {
     const getUrgency = (seconds, minutes) => {
         if (minutes <= 0 && seconds <= 0) return "done";
 
-        let grade = wait / minutes;
+        let grade = order.waitTime / minutes;
 
         //when obove 65% of the way there
-        if (grade < wait / Math.round(wait * 0.65)) return "start";
+        if (grade < order.waitTime / Math.round(order.waitTime * 0.65)) return "start";
         //when obove 40% of the way there
-        if (grade < wait / Math.round(wait * 0.40)) return "mid";
+        if (grade < order.waitTime / Math.round(order.waitTime * 0.40)) return "mid";
         //when rest of the way there
-        if (grade <= wait) return "end"
+        if (grade <= order.waitTime) return "end"
     }
 
     return (
