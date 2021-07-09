@@ -168,19 +168,23 @@ const FoodRow = ({ food, add }) => {
                         variant="filled"
                         elevation={1}
                     >
-                        <Select onChange={(event) => handleFormEvent(event)} name="image" value={formData.image}>
+                        <Select
+                            onChange={(event) => handleFormEvent(event)}
+                            name="image"
+                            value={formData.image}
+                        >
                             {state.value.images.map((image) => (
                                 <MenuItem
                                     key={image.public_id}
                                     value={image.public_id}
                                 >
                                     <div className="image-menu-item">
-                                        <p className="image-id">{image.public_id}</p>
+                                        <div className="text">{image.public_id}</div>
                                         <img
                                             alt={"thumbnail"}
                                             src={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_100,g_face/${image.public_id}`}
                                             style={{
-                                                height: "2rem",
+                                                height: "1.2rem",
                                             }}
                                         />
                                     </div>
