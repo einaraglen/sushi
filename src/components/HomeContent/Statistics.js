@@ -97,7 +97,7 @@ const Statistics = () => {
 		for (let i = 0; i < state.value.archives.length; i++) {
 			let current = state.value.archives[i];
 			let archiveIndex = tempData.findIndex(
-				(archive) => archive.date === new Date(current.created).toLocaleString().split(" ")[0]
+				(archive) => archive.date === new Date(current.created).toLocaleString().split(" ")[0].replace(",", "")
 			);
 			if (archiveIndex > -1) {
 				let tempArray = [...tempData];
