@@ -48,7 +48,7 @@ const ImageRow = ({ image }) => {
                 <img
                     alt="thumbnail"
                     style={{ height: "3rem" }}
-                    src={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_200,g_face/${image.public_id}.${image.format}`}
+                    src={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_200,g_face/sushi/${image.public_id}.${image.format}`}
                 />
             </td>
             <td width={`${100 / x}%`}>{`${image.height} x ${image.width}`}</td>
