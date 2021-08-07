@@ -152,13 +152,13 @@ const FoodRow = ({ food, add }) => {
             <td width={`${100 / x}%`}>
                 {!inEditMode && !add ? (
                     <a
-                        href={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_400,g_face/${food.image}`}
+                        href={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_400,g_face/sushi/${food.image}`}
                         target="_blank"
                         rel="noreferrer"
                     >
                         <img
                             alt={"Sushi piece"}
-                            src={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_400,g_face/${food.image}`}
+                            src={`https://res.cloudinary.com/sushi-panel-images/image/upload/c_thumb,w_400,g_face/sushi/${food.image}`}
                             style={{ borderRadius: "50%", height: "3rem" }}
                         />
                     </a>
