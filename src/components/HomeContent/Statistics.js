@@ -104,7 +104,7 @@ const Statistics = () => {
             let current = state.value.archives[i];
             let archiveIndex = tempData.findIndex((archive) => {
 				let date = new Date(current.created).toLocaleString();
-                return archive.date === date.split((date.indexOf(",")) ? "," : " ")[0];
+                return archive.date === date.split((date.indexOf(",") > -1) ? "," : " ")[0];
             });
             if (archiveIndex > -1) {
                 let tempArray = [...tempData];
@@ -118,7 +118,7 @@ const Statistics = () => {
             if (archiveIndex === -1) {
 				let date = new Date(current.created).toLocaleString();
                 tempData.push({
-                    date: date.split((date.indexOf(",")) ? "," : " ")[0],
+                    date: date.split((date.indexOf(",") > -1) ? "," : " ")[0],
                     orders: 1,
                 });
             }
